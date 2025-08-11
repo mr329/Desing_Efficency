@@ -1,0 +1,1514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practical Design Efficiency Tool</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1B4F72',
+                        secondary: '#D68910',
+                        success: '#27AE60',
+                        warning: '#F39C12',
+                        danger: '#E74C3C'
+                    }
+                }
+            },
+            darkMode: 'class'
+        }
+    </script>
+    <style>
+        .modal-backdrop {
+            backdrop-filter: blur(4px);
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #1B4F72 0%, #154360 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .impact-indicator {
+            transition: all 0.2s ease;
+        }
+        
+        .impact-indicator:hover {
+            transform: scale(1.05);
+        }
+
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+
+        .step-indicator {
+            transition: all 0.3s ease;
+        }
+
+        .step-indicator.active {
+            background-color: #1B4F72;
+            color: white;
+        }
+
+        .step-indicator.completed {
+            background-color: #10B981;
+            color: white;
+        }
+
+        .range-slider {
+            background: linear-gradient(to right, #1B4F72 0%, #1B4F72 50%, #e5e7eb 50%, #e5e7eb 100%);
+        }
+
+        .status-badge {
+            transition: all 0.2s ease;
+        }
+
+        .status-good {
+            background-color: #D5EDDA;
+            color: #155724;
+            border: 1px solid #C3E6CB;
+        }
+        
+        .status-warning {
+            background-color: #FFF3CD;
+            color: #856404;
+            border: 1px solid #FFEAA7;
+        }
+        
+        .status-danger {
+            background-color: #F8D7DA;
+            color: #721C24;
+            border: 1px solid #F5C6CB;
+        }
+        
+        .status-not-set {
+            background-color: #F8F9FA;
+            color: #6C757D;
+            border: 1px solid #DEE2E6;
+        }
+
+        .dark .status-good {
+            background-color: #065f46;
+            color: #10b981;
+            border: 1px solid #047857;
+        }
+
+        .dark .status-warning {
+            background-color: #7f1d1d;
+            color: #f87171;
+            border: 1px solid #991b1b;
+        }
+
+        .dark .status-danger {
+            background-color: #7f1d1d;
+            color: #f87171;
+            border: 1px solid #991b1b;
+        }
+
+        .dark .status-not-set {
+            background-color: #374151;
+            color: #9ca3af;
+            border: 1px solid #4b5563;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, #27AE60 0%, #27AE60 var(--progress, 0%), #E9ECEF var(--progress, 0%), #E9ECEF 100%);
+            height: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .simple-input {
+            border: 2px solid #E9ECEF;
+            transition: border-color 0.2s ease;
+        }
+
+        .simple-input:focus {
+            border-color: #1B4F72;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(27, 79, 114, 0.1);
+        }
+
+        .parameter-card {
+            border-left: 4px solid #E9ECEF;
+            transition: border-color 0.2s ease;
+        }
+        
+        .parameter-card.good {
+            border-left-color: #27AE60;
+        }
+        
+        .parameter-card.warning {
+            border-left-color: #F39C12;
+        }
+        
+        .parameter-card.danger {
+            border-left-color: #E74C3C;
+        }
+        
+        .impact-simple {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .impact-low { background: #D5EDDA; color: #155724; }
+        .impact-medium { background: #FFF3CD; color: #856404; }
+        .impact-high { background: #F8D7DA; color: #721C24; }
+
+        .section-header {
+            border-bottom: 2px solid #1B4F72;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 min-h-screen transition-colors duration-300">
+    <!-- Progress Bar -->
+    <div class="w-full h-2 bg-gray-200">
+        <div id="progressBar" class="progress-bar rounded-full" style="--progress: 33%"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto p-4 sm:p-6">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-colors duration-300">
+            <!-- Header -->
+            <div class="gradient-bg text-white p-4 sm:p-6">
+                <div class="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-4">
+                    <div class="flex-1">
+                        <h1 class="text-2xl sm:text-3xl font-bold">Practical Design Efficiency Tool</h1>
+                        <p class="text-sm sm:text-lg mt-2 text-blue-100">
+                            Simple rules to design faster, save cost, and cut carbon — from concept to construction
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Step Navigation -->
+                <div class="flex justify-center mt-6">
+                    <div class="flex space-x-4">
+                        <div class="step-indicator active flex items-center px-4 py-2 rounded-lg border-2 border-white/30 cursor-pointer" onclick="showPage('input')">
+                            <span class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-sm font-bold mr-2">1</span>
+                            <span class="hidden sm:inline">Project Input</span>
+                        </div>
+                        <div class="step-indicator flex items-center px-4 py-2 rounded-lg border-2 border-white/30 cursor-pointer" onclick="showPage('analysis')">
+                            <span class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-sm font-bold mr-2">2</span>
+                            <span class="hidden sm:inline">Analysis</span>
+                        </div>
+                        <div class="step-indicator flex items-center px-4 py-2 rounded-lg border-2 border-white/30 cursor-pointer" onclick="showPage('summary')">
+                            <span class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-sm font-bold mr-2">3</span>
+                            <span class="hidden sm:inline">Summary</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 1: Project Input -->
+            <div id="inputPage" class="page active">
+                <div class="p-4 sm:p-6">
+                    <div class="max-w-4xl mx-auto">
+                        <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-6">Project Parameters Input</h2>
+                        
+                        <!-- Project Info -->
+                        <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 mb-6">
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4 section-header">Project Information</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Project Name *</label>
+                                    <input type="text" id="projectName" class="simple-input w-full px-4 py-3 rounded-lg" placeholder="Enter project name">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Building Type *</label>
+                                    <select id="buildingType" class="simple-input w-full px-4 py-3 rounded-lg">
+                                        <option value="">Select building type</option>
+                                        <option value="office">Office Building</option>
+                                        <option value="residential">Residential</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Progress Indicator -->
+                        <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 mb-6">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Configuration Progress:</span>
+                                <span class="text-sm font-bold text-primary" id="progressText">0 of 6 parameters set</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-3 mt-2">
+                                <div id="configProgress" class="bg-success h-3 rounded-full transition-all duration-300" style="width: 0%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Parameter Inputs -->
+                        <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4 section-header">Design Parameters</h3>
+                            <p class="text-gray-600 dark:text-gray-400 mb-6">Click on each parameter to set your project values. Focus on the most important ones first.</p>
+                            <div id="parameterInputs" class="space-y-4 grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                <!-- Parameter cards will be populated by JavaScript -->
+                            </div>
+                        </div>
+
+                        <!-- Navigation Buttons -->
+                        <div class="flex justify-end mt-8">
+                            <button onclick="proceedToAnalysis()" class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors duration-300 flex items-center">
+                                Proceed to Analysis
+                                <i data-lucide="arrow-right" class="h-5 w-5 ml-2 inline"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 2: Analysis -->
+            <div id="analysisPage" class="page">
+                <div class="p-4 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600 transition-colors duration-300">
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <div class="flex space-x-2 sm:space-x-3">
+                            <button
+                                id="technicalViewBtn"
+                                class="view-toggle px-3 sm:px-4 py-2 rounded-lg font-medium transition-colors text-sm sm:text-base bg-primary text-white active"
+                            >
+                                Technical View
+                            </button>
+                            <button
+                                id="quickRulesBtn"
+                                class="view-toggle px-3 sm:px-4 py-2 rounded-lg font-medium transition-colors text-sm sm:text-base bg-white dark:bg-gray-600 text-gray-700 dark:text-gray-300"
+                            >
+                                Quick Rules
+                            </button>
+                        </div>
+                        <div class="flex-1 relative">
+                            <div class="absolute left-3 top-3 h-5 w-5 text-gray-400">
+                                <i data-lucide="search"></i>
+                            </div>
+                            <input
+                                type="text"
+                                id="searchInput"
+                                placeholder="Search by rule, parameter, or category..."
+                                class="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-base bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary focus:border-transparent transition-colors duration-300 simple-input"
+                            />
+                        </div>
+                        <select
+                            id="categoryFilter"
+                            class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-base bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary focus:border-transparent transition-colors duration-300 simple-input"
+                        >
+                            <option value="all">All Categories</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Quick Rules View -->
+                <div id="quickRulesView" class="p-4 sm:p-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    <!-- Content will be populated by JavaScript -->
+                </div>
+
+                <!-- Technical View -->
+                <div id="technicalView" class="p-4 sm:p-6 hidden overflow-x-auto">
+                    <table class="w-full min-w-[700px]">
+                        <thead>
+                            <tr class="border-b-2 border-gray-200 dark:border-gray-600">
+                                <th class="text-left p-3 text-gray-900 dark:text-gray-100">Parameter</th>
+                                <th class="text-left p-3 text-gray-900 dark:text-gray-100">Your Value</th>
+                                <th class="text-left p-3 text-gray-900 dark:text-gray-100">Status</th>
+                                <th class="text-left p-3 text-gray-900 dark:text-gray-100">Optimal</th>
+                                <th class="text-left p-3 text-gray-900 dark:text-gray-100">Action</th>
+                                <th class="text-center p-3 text-gray-900 dark:text-gray-100">Impact Scores</th>
+                            </tr>
+                        </thead>
+                        <tbody id="technicalTableBody">
+                            <!-- Content will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div class="flex justify-between p-4 sm:p-6 bg-gray-50 dark:bg-gray-700">
+                    <button onclick="showPage('input')" class="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors duration-300 flex items-center">
+                        <i data-lucide="arrow-left" class="h-5 w-5 mr-2 inline"></i>
+                        Back to Input
+                    </button>
+                    <button onclick="proceedToSummary()" class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors duration-300 flex items-center">
+                        View Summary
+                        <i data-lucide="arrow-right" class="h-5 w-5 ml-2 inline"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Page 3: Summary -->
+            <div id="summaryPage" class="page">
+                <div class="p-4 sm:p-6">
+                    <div class="max-w-6xl mx-auto">
+                        <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-6">Project Summary & Checklist</h2>
+                        
+                        <!-- Project Overview -->
+                        <div id="projectOverview" class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 mb-6">
+                            <!-- Content will be populated by JavaScript -->
+                        </div>
+
+                        <!-- Parameter Status Grid -->
+                        <div id="parameterStatusGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                            <!-- Content will be populated by JavaScript -->
+                        </div>
+
+                        <!-- Overall Assessment -->
+                        <div id="overallAssessment" class="bg-blue-50 dark:bg-blue-900/30 rounded-lg p-6 mb-6">
+                            <!-- Content will be populated by JavaScript -->
+                        </div>
+
+                        <!-- Export Options -->
+                        <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Export Report</h3>
+                            <div class="flex flex-wrap gap-4">
+                                <button onclick="exportToPDF()" class="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-300 flex items-center">
+                                    <i data-lucide="file-text" class="h-5 w-5 mr-2 inline"></i>
+                                    Export to PDF
+                                </button>
+                                <button onclick="exportToCSV()" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors duration-300 flex items-center">
+                                    <i data-lucide="download" class="h-5 w-5 mr-2 inline"></i>
+                                    Export to CSV
+                                </button>
+                                <button onclick="generatePresentation()" class="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-300 flex items-center">
+                                    <i data-lucide="presentation" class="h-5 w-5 mr-2 inline"></i>
+                                    Generate Presentation
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Navigation Buttons -->
+                        <div class="flex justify-between mt-8">
+                            <button onclick="showPage('analysis')" class="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors duration-300 flex items-center">
+                                <i data-lucide="arrow-left" class="h-5 w-5 mr-2 inline"></i>
+                                Back to Analysis
+                            </button>
+                            <button onclick="resetTool()" class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors duration-300 flex items-center">
+                                <i data-lucide="refresh-cw" class="h-5 w-5 mr-2 inline"></i>
+                                New Project
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detail Modal -->
+    <div id="detailModal" class="fixed inset-0 bg-black/50 modal-backdrop flex items-center justify-center z-50 p-4 hidden">
+        <div class="bg-white dark:bg-gray-800 rounded-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto transition-colors duration-300 modal-content">
+            <div class="p-4 sm:p-6 border-b border-gray-200 dark:border-gray-600 flex justify-between items-start">
+                <div class="flex-1 pr-4">
+                    <h2 id="modalTitle" class="text-xl sm:text-2xl font-bold text-gray-800 dark:text-gray-100"></h2>
+                    <p id="modalSubtitle" class="text-gray-600 dark:text-gray-400 mt-1"></p>
+                </div>
+                <button id="closeModal" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors flex-shrink-0">
+                    <i data-lucide="x-circle" class="h-6 w-6"></i>
+                </button>
+            </div>
+
+            <div class="p-4 sm:p-6 space-y-6" id="modalContent">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dark mode detection
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (event.matches) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        });
+
+        // Application state
+        let selectedParameter = null;
+        let filterCategory = 'all';
+        let searchTerm = '';
+        let viewMode = 'decision';
+        let currentPage = 'input';
+        
+        // Project data
+        let projectData = {
+            name: '',
+            type: '',
+            parameters: {}
+        };
+
+        // Enhanced parameters data with input configurations
+        const parameters = [
+            {
+                id: 'Form-efficiency',
+                category: 'Building Form',
+                parameter: 'Form Efficiency',
+                simple_name: 'Form Efficiency',
+                definition: 'The ratio of exterior wall perimeter to floor area. Lower values indicate more compact, efficient forms.',
+                quickRule: 'Keep building shape simple and compact',
+                optimal: '<0.25',
+                acceptable: '<0.30',
+                risk: '>0.30',
+                benefits: ['💰 Considerable material savings', '🌿 Energy reduction', '⏱️ Faster construction'],
+                technicalNote: 'Compact forms use 20% less material and reduce heat loss by minimizing surface area to volume ratio.',
+                action: 'Simplify building outline',
+                remediation: ['Simplify outline geometry', 'Remove unnecessary corners', 'Group service cores', 'Use rectangular forms'],
+                impactScore: { cost: 2, carbon: 3, time: 2 },
+                inputType: 'number',
+                unit: 'ratio',
+                ranges: { good: { min: 0, max: 0.25 }, warning: { min: 0.25, max: 0.30 }, danger: { min: 0.30, max: 1 } },
+                defaultValue: 0.3
+            },
+            {
+                id: 'building-proportion',
+                category: 'Building Form',
+                parameter: 'Height/Width Ratio',
+                simple_name: 'Height/Width Ratio',
+                definition: 'The ratio of building height to its average width. Measures the slenderness of the building.',
+                quickRule: 'Avoid very tall, thin buildings',
+                optimal: '<7:1',
+                acceptable: '<8:1',
+                risk: '>8:1',
+                benefits: ['💰 Reduced wind costs', '⏱️ Simpler structural build', '🌿 Material efficiency'],
+                technicalNote: 'Slender buildings require expensive wind resistance systems and specialized structural solutions.',
+                action: 'Review massing proportions',
+                remediation: ['Widen floor plate', 'Add setbacks at height', 'Use outrigger systems', 'Consider building separation'],
+                impactScore: { cost: 2, carbon: 2, time: 3 },
+                inputType: 'number',
+                unit: 'ratio',
+                ranges: { good: { min: 0, max: 7 }, warning: { min: 7, max: 8 }, danger: { min: 8, max: 20 } },
+                defaultValue: 8.5
+            },
+            {
+                id: 'structural-grid',
+                category: 'Structure',
+                parameter: 'Grid Spacing',
+                simple_name: 'Grid Spacing',
+                definition: 'The distance between structural columns, determining the span of beams and floor systems.',
+                quickRule: 'Keep structural bay size around 7.5-8m',
+                optimal: '7.5-8.0m',
+                acceptable: '6-9m',
+                risk: '>10.5m',
+                benefits: ['💰 Optimal beam sizing', '⏱️ Standard construction', '🌿 Balanced materials'],
+                technicalNote: 'Optimal span balances structural efficiency with flexibility and cost effectiveness.',
+                action: 'Standardize grid at 7.5-8m',
+                remediation: ['Add intermediate columns', 'Use post-tensioning', 'Accept deeper beams', 'Consider steel alternatives'],
+                impactScore: { cost: 2, carbon: 3, time: 2 },
+                inputType: 'number',
+                unit: 'm',
+                ranges: { good: { min: 7.5, max: 8.0 }, warning: { min: 6, max: 9 }, danger: { min: 9, max: 15 } },
+                defaultValue: 8.5
+            },
+            {
+                id: 'floor-ceiling-height',
+                category: 'Structure',
+                parameter: 'Floor-to-Ceiling Height',
+                simple_name: 'Floor-to-Ceiling Height',
+                definition: 'The vertical distance from finished floor to finished ceiling, affecting volume and structural requirements.',
+                quickRule: 'Standard heights reduce costs significantly',
+                optimal: '2.7-3.0m',
+                acceptable: '3.0-3.3m',
+                risk: '>3.5m',
+                benefits: ['💰 Major cost savings', '⏱️ Standard formwork', '🌿 Less concrete volume'],
+                technicalNote: 'Every 300mm of extra height adds ~5% to structural costs due to increased loads and material.',
+                action: 'Optimize ceiling height',
+                remediation: ['Reduce plenum space', 'Integrate services', 'Use efficient MEP design', 'Consider exposed structure'],
+                impactScore: { cost: 3, carbon: 2, time: 2 },
+                inputType: 'number',
+                unit: 'm',
+                ranges: { good: { min: 2.7, max: 3.0 }, warning: { min: 3.0, max: 3.3 }, danger: { min: 3.5, max: 6 } },
+                defaultValue: 3.2
+            },
+            {
+                id: 'facade-complexity',
+                category: 'Envelope',
+                parameter: 'Facade Complexity Index',
+                simple_name: 'Facade Complexity Index',
+                definition: 'A measure of facade design complexity based on material types, details, and geometry variations.',
+                quickRule: 'Simple facades perform better and cost less',
+                optimal: '<1.3',
+                acceptable: '<1.6',
+                risk: '>2.0',
+                benefits: ['💰 Substantial cost reduction', '⏱️ Faster installation', '🌿 Better thermal performance'],
+                technicalNote: 'Complex facades have 3x more thermal bridges and cost 50% more per m² to construct.',
+                action: 'Simplify facade design',
+                remediation: ['Reduce material types', 'Standardize details', 'Minimize projections', 'Use modular systems'],
+                impactScore: { cost: 3, carbon: 2, time: 3 },
+                inputType: 'number',
+                unit: 'index',
+                ranges: { good: { min: 0, max: 1.3 }, warning: { min: 1.3, max: 1.6 }, danger: { min: 2.0, max: 5 } },
+                defaultValue: 1.8
+            },
+            {
+                id: 'window-wall-ratio',
+                category: 'Envelope',
+                parameter: 'Window-to-Wall Ratio',
+                simple_name: 'Window-to-Wall Ratio',
+                definition: 'The percentage of wall area occupied by windows and glazed openings.',
+                quickRule: 'Balance daylight with thermal performance',
+                optimal: '30-40%',
+                acceptable: '40-50%',
+                risk: '>60%',
+                benefits: ['💰 Lower HVAC costs', '🌿 Improve energy performance', '⏱️ Simpler construction'],
+                technicalNote: 'High glazing ratios increase cooling loads by 15-25% and require larger HVAC systems.',
+                action: 'Optimize glazing ratio',
+                remediation: ['Add shading devices', 'Use high-performance glazing', 'Redistribute openings', 'Consider light shelves'],
+                impactScore: { cost: 2, carbon: 3, time: 1 },
+                inputType: 'number',
+                unit: '%',
+                ranges: { good: { min: 30, max: 40 }, warning: { min: 40, max: 50 }, danger: { min: 60, max: 90 } },
+                defaultValue: 55
+            }
+        ];
+
+        // Get unique categories
+        const categories = [...new Set(parameters.map(p => p.category))];
+
+        // Initialize icons
+        function initializeIcons() {
+            lucide.createIcons();
+        }
+
+        // Page navigation functions
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show target page
+            document.getElementById(pageId + 'Page').classList.add('active');
+            
+            // Update step indicators
+            updateStepIndicators(pageId);
+            
+            // Update progress bar
+            updateProgressBar(pageId);
+            
+            // Update current page
+            currentPage = pageId;
+            
+            // Initialize page-specific content
+            if (pageId === 'input') {
+                renderParameterInputs();
+                updateConfigurationProgress();
+            } else if (pageId === 'analysis') {
+                initializeCategoryFilter();
+                // Start with technical view first as requested
+                viewMode = 'technical';
+                renderTechnicalView();
+            } else if (pageId === 'summary') {
+                renderSummaryPage();
+            }
+            
+            initializeIcons();
+        }
+
+        function updateStepIndicators(currentStep) {
+            const stepOrder = ['input', 'analysis', 'summary'];
+            const currentIndex = stepOrder.indexOf(currentStep);
+            
+            document.querySelectorAll('.step-indicator').forEach((indicator, index) => {
+                indicator.classList.remove('active', 'completed');
+                
+                if (index < currentIndex) {
+                    indicator.classList.add('completed');
+                } else if (index === currentIndex) {
+                    indicator.classList.add('active');
+                }
+            });
+        }
+
+        function updateProgressBar(currentStep) {
+            const steps = ['input', 'analysis', 'summary'];
+            const currentIndex = steps.indexOf(currentStep);
+            const progress = ((currentIndex + 1) / steps.length) * 100;
+            
+            const progressBar = document.getElementById('progressBar');
+            progressBar.style.setProperty('--progress', `${progress}%`);
+        }
+
+        // Input page functions
+        function renderParameterInputs() {
+            const container = document.getElementById('parameterInputs');
+            
+            container.innerHTML = parameters.map(param => {
+                const currentValue = projectData.parameters[param.id]?.value || param.defaultValue;
+                const currentStatus = projectData.parameters[param.id]?.status || 'not-set';
+                const isExpanded = projectData.parameters[param.id]?.expanded || false;
+                const isConsidered = currentStatus !== 'not-set';
+                
+                return `
+                    <div class="parameter-card ${currentStatus} bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg transition-all duration-300 ${isConsidered ? 'ring-2 ring-primary/20' : ''}" onclick="showParameterDetail('${param.id}')">
+                        <!-- Parameter Header (Always Visible) -->
+                        <div class="p-4 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3 flex-1">
+                                    <div class="flex items-center gap-2">
+                                        <i data-lucide="${isExpanded ? 'chevron-down' : 'chevron-right'}" class="h-5 w-5 text-gray-400 transition-transform duration-200"></i>
+                                        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">${param.parameter}</h3>
+                                        <div class="relative">
+                                            <button 
+                                                class="info-button w-5 h-5 rounded-full bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-300 hover:bg-primary hover:text-white flex items-center justify-center text-xs transition-colors"
+                                                onclick="event.stopPropagation(); toggleParameterInfo('${param.id}')"
+                                            >
+                                                <i data-lucide="info" class="h-3 w-3"></i>
+                                            </button>
+                                            <div id="info-${param.id}" class="info-popup hidden absolute z-10 left-0 top-6 w-80 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg shadow-lg p-4">
+                                                <div class="mb-3">
+                                                    <div class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Definition:</div>
+                                                    <p class="text-xs text-gray-600 dark:text-gray-400 mb-3">${param.definition}</p>
+                                                    
+                                                    <div class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Performance Ranges:</div>
+                                                    <div class="space-y-1">
+                                                        <div class="flex items-center justify-between p-2 bg-green-50 dark:bg-green-900/30 rounded text-xs">
+                                                            <span class="text-green-700 dark:text-green-300 font-medium">Good</span>
+                                                            <span class="text-green-800 dark:text-green-200">${param.optimal}</span>
+                                                        </div>
+                                                        <div class="flex items-center justify-between p-2 bg-yellow-50 dark:bg-yellow-900/30 rounded text-xs">
+                                                            <span class="text-yellow-700 dark:text-yellow-300 font-medium">Review</span>
+                                                            <span class="text-yellow-800 dark:text-yellow-200">${param.acceptable}</span>
+                                                        </div>
+                                                        <div class="flex items-center justify-between p-2 bg-red-50 dark:bg-red-900/30 rounded text-xs">
+                                                            <span class="text-red-700 dark:text-red-300 font-medium">Risk</span>
+                                                            <span class="text-red-800 dark:text-red-200">${param.risk}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div>
+                                                    <div class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Impact Scores:</div>
+                                                    <div class="flex space-x-1">
+                                                        ${createImpactIndicator(param.impactScore.cost, 'cost')}
+                                                        ${createImpactIndicator(param.impactScore.time, 'time')}
+                                                        ${createImpactIndicator(param.impactScore.carbon, 'carbon')}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">${param.category} • ${param.quickRule}</p>
+                                        ${isConsidered ? `<p class="text-sm font-medium text-primary mt-1">Value: ${currentValue}${param.unit}</p>` : ''}
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center gap-3">
+                                    <div class="status-badge px-3 py-1 rounded-full text-xs font-medium ${getStatusClass(currentStatus)}">
+                                        ${getStatusLabel(currentStatus)}
+                                    </div>
+                                    ${isConsidered ? '<i data-lucide="check-circle" class="h-5 w-5 text-success"></i>' : '<i data-lucide="circle" class="h-5 w-5 text-gray-300"></i>'}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            initializeIcons();
+        }
+
+        function updateConfigurationProgress() {
+            const totalParams = parameters.length;
+            const setParams = Object.keys(projectData.parameters).filter(id => 
+                projectData.parameters[id].value !== undefined && projectData.parameters[id].status !== 'not-set'
+            ).length;
+            
+            const percentage = Math.round((setParams / totalParams) * 100);
+            
+            document.getElementById('progressText').textContent = `${setParams} of ${totalParams} parameters set`;
+            document.getElementById('configProgress').style.width = `${percentage}%`;
+        }
+
+        function toggleParameterExpansion(paramId) {
+            if (!projectData.parameters[paramId]) {
+                projectData.parameters[paramId] = {};
+            }
+            
+            const isCurrentlyExpanded = projectData.parameters[paramId].expanded || false;
+            const newExpandedState = !isCurrentlyExpanded;
+            
+            // If expanding for the first time, consider the parameter
+            if (newExpandedState && projectData.parameters[paramId].status === 'not-set') {
+                const param = parameters.find(p => p.id === paramId);
+                const value = projectData.parameters[paramId].value || param.defaultValue;
+                projectData.parameters[paramId].status = evaluateParameterStatus(param, value);
+                projectData.parameters[paramId].value = value;
+            }
+            
+            projectData.parameters[paramId].expanded = newExpandedState;
+            renderParameterInputs();
+            updateConfigurationProgress();
+        }
+
+        function removeParameterFromConsideration(paramId) {
+            if (!projectData.parameters[paramId]) {
+                projectData.parameters[paramId] = {};
+            }
+            
+            projectData.parameters[paramId].status = 'not-set';
+            projectData.parameters[paramId].expanded = false;
+            projectData.parameters[paramId].reason = '';
+            
+            renderParameterInputs();
+            updateConfigurationProgress();
+        }
+
+        function toggleParameterInfo(paramId) {
+            // Hide all other info popups
+            document.querySelectorAll('.info-popup').forEach(popup => {
+                if (popup.id !== `info-${paramId}`) {
+                    popup.classList.add('hidden');
+                }
+            });
+            
+            // Toggle current popup
+            const popup = document.getElementById(`info-${paramId}`);
+            popup.classList.toggle('hidden');
+        }
+
+        function updateParameterValue(paramId, value) {
+            const param = parameters.find(p => p.id === paramId);
+            const numValue = parseFloat(value);
+            
+            if (!projectData.parameters[paramId]) {
+                projectData.parameters[paramId] = {};
+            }
+            
+            projectData.parameters[paramId].value = numValue;
+            projectData.parameters[paramId].status = evaluateParameterStatus(param, numValue);
+            
+            // Re-render to update status badge and reason field
+            renderParameterInputs();
+            updateConfigurationProgress();
+        }
+
+        function useOptimalValue(paramId) {
+            const param = parameters.find(p => p.id === paramId);
+            const optimalValue = (param.ranges.good.min + param.ranges.good.max) / 2;
+            
+            document.getElementById(`input-${paramId}`).value = optimalValue;
+            updateParameterValue(paramId, optimalValue);
+        }
+
+        function evaluateParameterStatus(param, value) {
+            if (value >= param.ranges.good.min && value <= param.ranges.good.max) {
+                return 'good';
+            } else if (value >= param.ranges.warning.min && value <= param.ranges.warning.max) {
+                return 'warning';
+            } else {
+                return 'danger';
+            }
+        }
+
+        function getStatusClass(status) {
+            switch(status) {
+                case 'good': return 'status-good';
+                case 'warning': return 'status-warning';
+                case 'danger': return 'status-danger';
+                case 'not-set': return 'status-not-set';
+                default: return 'status-not-set';
+            }
+        }
+
+        function getStatusLabel(status) {
+            switch(status) {
+                case 'good': return '✓ Good';
+                case 'warning': return '⚠ Review';
+                case 'danger': return '✗ Risk';
+                case 'not-set': return '- Not Set';
+                default: return '- Not Set';
+            }
+        }
+
+        // Analysis page functions
+        function proceedToAnalysis() {
+            projectData.name = document.getElementById('projectName').value;
+            projectData.type = document.getElementById('buildingType').value;
+            showPage('analysis');
+        }
+
+        function proceedToSummary() {
+            showPage('summary');
+        }
+
+        // Filter parameters
+        function getFilteredParameters() {
+            return parameters.filter(p => {
+                const matchesCategory = filterCategory === 'all' || p.category === filterCategory;
+                const matchesSearch = 
+                    p.parameter.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    p.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    p.quickRule.toLowerCase().includes(searchTerm.toLowerCase());
+                return matchesCategory && matchesSearch;
+            });
+        }
+
+        // Get score color classes
+        function getScoreColor(score) {
+            if (score >= 3) return 'text-red-600 bg-red-50 dark:text-red-400 dark:bg-red-900/30';
+            if (score >= 2) return 'text-yellow-600 bg-yellow-50 dark:text-yellow-400 dark:bg-yellow-900/30';
+            return 'text-green-600 bg-green-50 dark:text-green-400 dark:bg-green-900/30';
+        }
+
+        // Create impact indicator
+        function createImpactIndicator(score, type) {
+            const icons = {
+                cost: 'dollar-sign',
+                carbon: 'leaf',
+                time: 'clock'
+            };
+            
+            return `
+                <div class="impact-indicator flex items-center px-2 py-1 rounded-full ${getScoreColor(score)}">
+                    <i data-lucide="${icons[type]}" class="h-4 w-4"></i>
+                    <span class="ml-1 text-xs font-semibold">${score}/3</span>
+                </div>
+            `;
+        }
+
+        // Render quick rules view
+        function renderQuickRulesView() {
+            const container = document.getElementById('quickRulesView');
+            const filteredParams = getFilteredParameters();
+            
+            if (filteredParams.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 col-span-full">
+                        <i data-lucide="search" class="h-12 w-12 text-gray-400 mx-auto mb-4"></i>
+                        <p class="text-gray-600 dark:text-gray-400">No parameters match your search criteria.</p>
+                    </div>
+                `;
+                initializeIcons();
+                return;
+            }
+            
+            container.innerHTML = filteredParams.map(param => {
+                const paramData = projectData.parameters[param.id];
+                const status = paramData?.status || 'not-set';
+                const statusIcon = status === 'good' ? '✅' : status === 'warning' ? '⚠️' : status === 'danger' ? '❌' : '➖';
+                
+                return `
+                    <div class="card-hover bg-gray-50 dark:bg-gray-700 rounded-lg p-4 sm:p-5 cursor-pointer transition-colors duration-300"
+                         onclick="showParameterDetail('${param.id}')">
+                        <div class="flex justify-between items-start">
+                            <div class="flex-1 pr-4">
+                                <div class="flex items-center mb-2">
+                                    <span class="text-lg mr-2">${statusIcon}</span>
+                                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">${param.quickRule}</h3>
+                                </div>
+                                <p class="text-sm text-gray-500 dark:text-gray-400 mb-3">${param.parameter} • ${param.category}</p>
+                                ${paramData?.value ? `
+                                    <p class="text-sm font-medium text-primary mb-2">Your value: ${paramData.value}${param.unit}</p>
+                                ` : ''}
+                                <div class="flex flex-wrap gap-2">
+                                    ${param.benefits.map(benefit => `
+                                        <span class="inline-block bg-white dark:bg-gray-600 border border-gray-200 dark:border-gray-500 rounded-full px-3 py-1 text-xs text-gray-700 dark:text-gray-200">
+                                            ${benefit}
+                                        </span>
+                                    `).join('')}
+                                </div>
+                            </div>
+                            <i data-lucide="chevron-right" class="h-5 w-5 text-gray-400 flex-shrink-0"></i>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            initializeIcons();
+        }
+
+        // Render technical view
+        function renderTechnicalView() {
+            const tbody = document.getElementById('technicalTableBody');
+            const filteredParams = getFilteredParameters();
+            
+            tbody.innerHTML = filteredParams.map(param => {
+                const paramData = projectData.parameters[param.id];
+                const value = paramData?.value || param.defaultValue;
+                const status = paramData?.status || 'not-set';
+                
+                return `
+                    <tr class="border-b border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-300">
+                        <td class="p-3">
+                            <p class="font-medium text-gray-900 dark:text-gray-100">${param.parameter}</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">${param.category}</p>
+                        </td>
+                        <td class="p-3">
+                            <span class="font-semibold">${value}${param.unit}</span>
+                        </td>
+                        <td class="p-3">
+                            <span class="status-badge px-2 py-1 rounded-full text-xs font-medium ${getStatusClass(status)}">
+                                ${getStatusLabel(status)}
+                            </span>
+                        </td>
+                        <td class="p-3 text-success font-semibold">${param.optimal}</td>
+                        <td class="p-3 text-primary font-medium">${param.action}</td>
+                        <td class="p-3">
+                            <div class="flex justify-center space-x-1">
+                                ${createImpactIndicator(param.impactScore.cost, 'cost')}
+                                ${createImpactIndicator(param.impactScore.time, 'time')}
+                                ${createImpactIndicator(param.impactScore.carbon, 'carbon')}
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+            
+            initializeIcons();
+        }
+
+        // Summary page functions
+        function renderSummaryPage() {
+            renderProjectOverview();
+            renderParameterStatusGrid();
+            renderOverallAssessment();
+        }
+
+        function renderProjectOverview() {
+            const container = document.getElementById('projectOverview');
+            const totalParams = parameters.length;
+            const consideredParams = Object.values(projectData.parameters).filter(p => p.status !== 'not-set').length;
+            const goodParams = Object.values(projectData.parameters).filter(p => p.status === 'good').length;
+            const riskParams = Object.values(projectData.parameters).filter(p => p.status === 'danger').length;
+            
+            container.innerHTML = `
+                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4 section-header">Project Overview</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="text-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
+                        <div class="text-2xl font-bold text-gray-800 dark:text-gray-100">${projectData.name || 'Unnamed Project'}</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400">${projectData.type || 'Building Type'}</div>
+                    </div>
+                    <div class="text-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
+                        <div class="text-2xl font-bold text-primary">${consideredParams}/${totalParams}</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400">Parameters Considered</div>
+                    </div>
+                    <div class="text-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
+                        <div class="text-2xl font-bold text-success">${goodParams}</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400">Good Parameters</div>
+                    </div>
+                    <div class="text-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
+                        <div class="text-2xl font-bold text-danger">${riskParams}</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400">Risk Parameters</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderParameterStatusGrid() {
+            const container = document.getElementById('parameterStatusGrid');
+            
+            container.innerHTML = parameters.map(param => {
+                const paramData = projectData.parameters[param.id];
+                const value = paramData?.value || param.defaultValue;
+                const status = paramData?.status || 'not-set';
+                const reason = paramData?.reason || '';
+                
+                return `
+                    <div class="border border-gray-200 dark:border-gray-600 rounded-lg p-4 bg-white dark:bg-gray-800">
+                        <div class="flex items-center justify-between mb-2">
+                            <div class="flex items-center">
+                                <span class="text-lg mr-3">${status === 'good' ? '✅' : status === 'warning' ? '⚠️' : status === 'danger' ? '❌' : '➖'}</span>
+                                <div>
+                                    <h4 class="font-medium text-gray-800 dark:text-gray-100">${param.parameter}</h4>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">${param.category}</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <div class="font-semibold text-gray-800 dark:text-gray-100">${value}${param.unit}</div>
+                                <span class="status-badge px-2 py-1 rounded-full text-xs font-medium ${getStatusClass(status)}">
+                                    ${getStatusLabel(status)}
+                                </span>
+                            </div>
+                        </div>
+                        
+                        ${status === 'danger' || status === 'warning' ? `
+                            <div class="mt-3 p-3 bg-yellow-50 dark:bg-yellow-900/30 rounded">
+                                <div class="text-sm font-medium text-yellow-800 dark:text-yellow-200 mb-1">Reason for deviation:</div>
+                                <div class="text-sm text-yellow-700 dark:text-yellow-300">${reason || 'No reason provided'}</div>
+                            </div>
+                        ` : ''}
+                        
+                        ${status === 'not-set' ? `
+                            <div class="mt-3 p-3 bg-gray-50 dark:bg-gray-700 rounded">
+                                <div class="text-sm text-gray-600 dark:text-gray-400">This parameter was not considered in the analysis.</div>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderOverallAssessment() {
+            const container = document.getElementById('overallAssessment');
+            const totalParams = parameters.length;
+            const consideredParams = Object.values(projectData.parameters).filter(p => p.status !== 'not-set').length;
+            const goodParams = Object.values(projectData.parameters).filter(p => p.status === 'good').length;
+            const riskParams = Object.values(projectData.parameters).filter(p => p.status === 'danger').length;
+            
+            const completionRate = Math.round((consideredParams / totalParams) * 100);
+            const optimizationRate = consideredParams > 0 ? Math.round((goodParams / consideredParams) * 100) : 0;
+            
+            // Check if all parameters are considered
+            const allParametersConsidered = consideredParams === totalParams;
+            
+            if (!allParametersConsidered) {
+                // Show only recommendations when not all parameters are provided
+                const missingParams = totalParams - consideredParams;
+                const missingParamsList = parameters
+                    .filter(param => !projectData.parameters[param.id] || projectData.parameters[param.id].status === 'not-set')
+                    .map(param => param.parameter);
+                
+                container.innerHTML = `
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4 section-header">Analysis Status</h3>
+                    <div class="bg-yellow-50 dark:bg-yellow-900/30 border border-yellow-200 dark:border-yellow-700 rounded-lg p-6">
+                        <div class="flex items-start gap-3">
+                            <i data-lucide="alert-triangle" class="h-6 w-6 text-yellow-600 dark:text-yellow-400 mt-0.5 flex-shrink-0"></i>
+                            <div>
+                                <h4 class="font-semibold text-yellow-800 dark:text-yellow-200 mb-2">Incomplete Analysis</h4>
+                                <p class="text-yellow-700 dark:text-yellow-300 mb-4">
+                                    You have analyzed ${consideredParams} out of ${totalParams} parameters (${completionRate}%). 
+                                    Please consider the remaining ${missingParams} parameter${missingParams > 1 ? 's' : ''} for a complete assessment.
+                                </p>
+                                
+                                <div class="mb-4">
+                                    <h5 class="font-medium text-yellow-800 dark:text-yellow-200 mb-2">Missing Parameters:</h5>
+                                    <ul class="list-disc list-inside text-sm text-yellow-700 dark:text-yellow-300 space-y-1">
+                                        ${missingParamsList.map(param => `<li>${param}</li>`).join('')}
+                                    </ul>
+                                </div>
+                                
+                                <div class="bg-yellow-100 dark:bg-yellow-800/30 rounded p-3">
+                                    <h5 class="font-medium text-yellow-800 dark:text-yellow-200 mb-2">Recommendations:</h5>
+                                    <ul class="text-sm text-yellow-700 dark:text-yellow-300 space-y-1">
+                                        <li>• Complete all parameter inputs for comprehensive analysis</li>
+                                        <li>• Focus on high-impact parameters (cost and carbon scores of 3)</li>
+                                        <li>• Consider project-specific constraints when setting values</li>
+                                        <li>• Review parameter definitions using the info (ℹ️) icons if needed</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                // Show full assessment when all parameters are provided
+                let overallGrade, gradeColor, recommendation;
+                
+                if (optimizationRate >= 80 && riskParams === 0) {
+                    overallGrade = 'Acceptable - Subject to Detailed Carbon Analysis';
+                    gradeColor = 'text-success';
+                    recommendation = 'Your design demonstrates acceptable efficiency principles. Consider detailed structural and MEP analysis to confirm performance.';
+                } else if (optimizationRate >= 60 && riskParams <= 1) {
+                    overallGrade = 'Review Required';
+                    gradeColor = 'text-primary';
+                    recommendation = 'Some efficiency foundations in place. Detailed analysis required for optimization and risk mitigation.';
+                } else if (optimizationRate >= 40 || riskParams <= 2) {
+                    overallGrade = 'Redesign Recommended';
+                    gradeColor = 'text-warning';
+                    recommendation = 'Significant improvements needed. Focus on addressing risk parameters and redesigning key elements.';
+                } else {
+                    overallGrade = 'Major Revision Required';
+                    gradeColor = 'text-danger';
+                    recommendation = 'Comprehensive redesign required. Multiple efficiency opportunities need to be addressed.';
+                }
+                
+                container.innerHTML = `
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4 section-header">Overall Assessment</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                        <div class="text-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
+                            <div class="text-2xl font-bold ${gradeColor} mb-2">${overallGrade}</div>
+                            <div class="text-sm text-gray-600 dark:text-gray-400">Overall Grade</div>
+                        </div>
+                        <div class="text-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
+                            <div class="text-2xl font-bold text-primary mb-2">${completionRate}%</div>
+                            <div class="text-sm text-gray-600 dark:text-gray-400">Parameters Analyzed</div>
+                        </div>
+                        <div class="text-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
+                            <div class="text-2xl font-bold text-success mb-2">${optimizationRate}%</div>
+                            <div class="text-sm text-gray-600 dark:text-gray-400">Optimization Rate</div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-blue-50 dark:bg-blue-900/30 rounded-lg p-4 mb-4">
+                        <h4 class="font-semibold text-blue-800 dark:text-blue-200 mb-2">Assessment Summary</h4>
+                        <p class="text-blue-700 dark:text-blue-300">${recommendation}</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-gray-600 dark:text-gray-400">
+                        <div class="bg-gray-50 dark:bg-gray-700 rounded p-3">
+                            <strong>Overall Grade:</strong> Professional assessment based on parameter optimization and risk factors
+                        </div>
+                        <div class="bg-gray-50 dark:bg-gray-700 rounded p-3">
+                            <strong>Parameters Analyzed:</strong> Percentage of total parameters considered in this analysis
+                        </div>
+                        <div class="bg-gray-50 dark:bg-gray-700 rounded p-3">
+                            <strong>Optimization Rate:</strong> Percentage of analyzed parameters achieving optimal performance
+                        </div>
+                    </div>
+                `;
+            }
+            
+            initializeIcons();
+        }
+
+        // Export functions
+        function exportToPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // Title
+            doc.setFontSize(20);
+            doc.text('Design Efficiency Analysis Report', 20, 30);
+            
+            // Project info
+            doc.setFontSize(12);
+            doc.text(`Project: ${projectData.name || 'Unnamed Project'}`, 20, 50);
+            doc.text(`Building Type: ${projectData.type || 'Not specified'}`, 20, 60);
+            doc.text(`Analysis Date: ${new Date().toLocaleDateString()}`, 20, 70);
+            
+            // Parameters summary
+            let yPosition = 90;
+            doc.setFontSize(14);
+            doc.text('Parameter Analysis Summary', 20, yPosition);
+            yPosition += 20;
+            
+            doc.setFontSize(10);
+            parameters.forEach(param => {
+                const paramData = projectData.parameters[param.id];
+                const value = paramData?.value || param.defaultValue;
+                const status = paramData?.status || 'not-set';
+                const reason = paramData?.reason || '';
+                
+                doc.text(`${param.parameter}: ${value}${param.unit} - ${getStatusLabel(status)}`, 20, yPosition);
+                yPosition += 10;
+                
+                if (reason && yPosition < 280) {
+                    doc.text(`  Reason: ${reason}`, 25, yPosition);
+                    yPosition += 10;
+                }
+                
+                if (yPosition > 280) {
+                    doc.addPage();
+                    yPosition = 30;
+                }
+            });
+            
+            doc.save(`design-efficiency-report-${Date.now()}.pdf`);
+        }
+
+        function exportToCSV() {
+            const data = parameters.map(param => {
+                const paramData = projectData.parameters[param.id];
+                return {
+                    Parameter: param.parameter,
+                    Category: param.category,
+                    'Current Value': paramData?.value || param.defaultValue,
+                    Unit: param.unit,
+                    Status: paramData?.status || 'not-set',
+                    'Optimal Range': param.optimal,
+                    'Action Required': param.action,
+                    'Reason for Deviation': paramData?.reason || '',
+                    'Cost Impact': param.impactScore.cost,
+                    'Time Impact': param.impactScore.time,
+                    'Carbon Impact': param.impactScore.carbon
+                };
+            });
+            
+            const headers = Object.keys(data[0]);
+            const csv = [
+                headers.join(','),
+                ...data.map(row => headers.map(header => `"${row[header]}"`).join(','))
+            ].join('\n');
+            
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `design-efficiency-analysis-${Date.now()}.csv`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function generatePresentation() {
+            // Create a simple HTML presentation that can be saved
+            const presentationContent = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Design Efficiency Presentation</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; margin: 40px; }
+                        .slide { page-break-after: always; margin-bottom: 40px; }
+                        h1 { color: #1B4F72; border-bottom: 3px solid #1B4F72; padding-bottom: 10px; }
+                        h2 { color: #333; margin-top: 30px; }
+                        .status-good { color: green; font-weight: bold; }
+                        .status-warning { color: orange; font-weight: bold; }
+                        .status-danger { color: red; font-weight: bold; }
+                        .status-not-set { color: gray; }
+                        .parameter { margin: 20px 0; padding: 15px; border-left: 4px solid #1B4F72; background: #f9f9f9; }
+                    </style>
+                </head>
+                <body>
+                    <div class="slide">
+                        <h1>Design Efficiency Analysis</h1>
+                        <h2>Project Overview</h2>
+                        <p><strong>Project:</strong> ${projectData.name || 'Unnamed Project'}</p>
+                        <p><strong>Building Type:</strong> ${projectData.type || 'Not specified'}</p>
+                        <p><strong>Analysis Date:</strong> ${new Date().toLocaleDateString()}</p>
+                    </div>
+                    
+                    <div class="slide">
+                        <h1>Parameter Analysis</h1>
+                        ${parameters.map(param => {
+                            const paramData = projectData.parameters[param.id];
+                            const value = paramData?.value || param.defaultValue;
+                            const status = paramData?.status || 'not-set';
+                            const reason = paramData?.reason || '';
+                            
+                            return `
+                                <div class="parameter">
+                                    <h3>${param.parameter}</h3>
+                                    <p><strong>Current Value:</strong> ${value}${param.unit}</p>
+                                    <p><strong>Status:</strong> <span class="status-${status}">${getStatusLabel(status)}</span></p>
+                                    <p><strong>Optimal Range:</strong> ${param.optimal}</p>
+                                    ${reason ? `<p><strong>Reason for Deviation:</strong> ${reason}</p>` : ''}
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </body>
+                </html>
+            `;
+            
+            const blob = new Blob([presentationContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `design-efficiency-presentation-${Date.now()}.html`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function resetTool() {
+            projectData = { name: '', type: '', parameters: {} };
+            showPage('input');
+            document.getElementById('projectName').value = '';
+            document.getElementById('buildingType').value = '';
+        }
+
+        // Show parameter detail modal
+        function showParameterDetail(paramId) {
+            const param = parameters.find(p => p.id === paramId);
+            if (!param) return;
+            
+            selectedParameter = param;
+            const paramData = projectData.parameters[param.id];
+            
+            document.getElementById('modalTitle').textContent = param.quickRule;
+            document.getElementById('modalSubtitle').textContent = `${param.parameter} • ${param.category}`;
+            
+            document.getElementById('modalContent').innerHTML = `
+                ${paramData ? `
+                    <div class="bg-blue-50 dark:bg-blue-900/30 p-4 rounded-lg">
+                        <p class="text-sm font-semibold text-blue-800 dark:text-blue-200 mb-1">Your Project Status</p>
+                        <div class="flex items-center justify-between">
+                            <span>Current Value: <strong>${paramData.value || param.defaultValue}${param.unit}</strong></span>
+                            <span class="status-badge px-2 py-1 rounded-full text-xs font-medium ${getStatusClass(paramData.status || 'not-set')}">
+                                ${getStatusLabel(paramData.status || 'not-set')}
+                            </span>
+                        </div>
+                        ${paramData.reason ? `<p class="text-sm text-blue-700 dark:text-blue-300 mt-2"><strong>Reason:</strong> ${paramData.reason}</p>` : ''}
+                    </div>
+                ` : ''}
+
+                <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                    <p class="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-1">Why this matters</p>
+                    <p class="text-gray-700 dark:text-gray-300">${param.technicalNote}</p>
+                </div>
+
+                <div>
+                    <h3 class="font-semibold text-gray-800 dark:text-gray-100 mb-3">Benefit Summary</h3>
+                    <ul class="list-disc ml-5 text-gray-700 dark:text-gray-300">
+                        ${param.benefits.map(benefit => `<li>${benefit}</li>`).join('')}
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-semibold text-gray-800 dark:text-gray-100 mb-3">Performance Levels</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div class="bg-green-50 dark:bg-green-900/30 p-3 rounded-lg border border-green-200 dark:border-green-700">
+                            <p class="text-sm font-semibold text-green-700 dark:text-green-300">Good</p>
+                            <p class="text-lg font-bold text-green-800 dark:text-green-200">${param.optimal}</p>
+                        </div>
+                        <div class="bg-yellow-50 dark:bg-yellow-900/30 p-3 rounded-lg border border-yellow-200 dark:border-yellow-700">
+                            <p class="text-sm font-semibold text-yellow-700 dark:text-yellow-300">Review</p>
+                            <p class="text-lg font-bold text-yellow-800 dark:text-yellow-200">${param.acceptable}</p>
+                        </div>
+                        <div class="bg-red-50 dark:bg-red-900/30 p-3 rounded-lg border border-red-200 dark:border-red-700">
+                            <p class="text-sm font-semibold text-red-700 dark:text-red-300">Risk</p>
+                            <p class="text-lg font-bold text-red-800 dark:text-red-200">${param.risk}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-semibold text-gray-800 dark:text-gray-100 mb-3">Remediation Options</h3>
+                    ${param.remediation.map(remedy => `
+                        <div class="flex items-start mb-2">
+                            <i data-lucide="check-circle" class="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0"></i>
+                            <p class="text-gray-700 dark:text-gray-300">${remedy}</p>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <div>
+                    <h3 class="font-semibold text-gray-800 dark:text-gray-100 mb-3">Impact Assessment</h3>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="text-center">
+                            <div class="flex justify-center mb-2">
+                                ${createImpactIndicator(param.impactScore.cost, 'cost')}
+                            </div>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Cost Impact</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="flex justify-center mb-2">
+                                ${createImpactIndicator(param.impactScore.time, 'time')}
+                            </div>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Schedule Impact</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="flex justify-center mb-2">
+                                ${createImpactIndicator(param.impactScore.carbon, 'carbon')}
+                            </div>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Carbon Impact</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('detailModal').classList.remove('hidden');
+            initializeIcons();
+        }
+
+        // Initialize category filter
+        function initializeCategoryFilter() {
+            const select = document.getElementById('categoryFilter');
+            select.innerHTML = '<option value="all">All Categories</option>' +
+                categories.map(cat => `<option value="${cat}">${cat}</option>`).join('');
+        }
+
+        // Switch view mode
+        function switchViewMode(mode) {
+            viewMode = mode;
+            
+            // Update button states
+            document.querySelectorAll('.view-toggle').forEach(btn => {
+                btn.classList.remove('bg-primary', 'text-white');
+                btn.classList.add('bg-white', 'dark:bg-gray-600', 'text-gray-700', 'dark:text-gray-300');
+            });
+            
+            if (mode === 'decision') {
+                document.getElementById('quickRulesBtn').classList.remove('bg-white', 'dark:bg-gray-600', 'text-gray-700', 'dark:text-gray-300');
+                document.getElementById('quickRulesBtn').classList.add('bg-primary', 'text-white');
+                document.getElementById('quickRulesView').classList.remove('hidden');
+                document.getElementById('technicalView').classList.add('hidden');
+                renderQuickRulesView();
+            } else {
+                document.getElementById('technicalViewBtn').classList.remove('bg-white', 'dark:bg-gray-600', 'text-gray-700', 'dark:text-gray-300');
+                document.getElementById('technicalViewBtn').classList.add('bg-primary', 'text-white');
+                document.getElementById('quickRulesView').classList.add('hidden');
+                document.getElementById('technicalView').classList.remove('hidden');
+                renderTechnicalView();
+            }
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            showPage('input');
+            initializeIcons();
+            
+            // Search input
+            document.getElementById('searchInput').addEventListener('input', function(e) {
+                searchTerm = e.target.value;
+                if (viewMode === 'decision') {
+                    renderQuickRulesView();
+                } else {
+                    renderTechnicalView();
+                }
+            });
+            
+            // Category filter
+            document.getElementById('categoryFilter').addEventListener('change', function(e) {
+                filterCategory = e.target.value;
+                if (viewMode === 'decision') {
+                    renderQuickRulesView();
+                } else {
+                    renderTechnicalView();
+                }
+            });
+            
+            // View toggle buttons
+            document.getElementById('quickRulesBtn').addEventListener('click', () => switchViewMode('decision'));
+            document.getElementById('technicalViewBtn').addEventListener('click', () => switchViewMode('technical'));
+            
+            // Modal close
+            document.getElementById('closeModal').addEventListener('click', function() {
+                document.getElementById('detailModal').classList.add('hidden');
+                selectedParameter = null;
+            });
+            
+            // Modal backdrop click
+            document.getElementById('detailModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.add('hidden');
+                    selectedParameter = null;
+                }
+            });
+        });
+
+        // Global functions for onclick handlers
+        window.showPage = showPage;
+        window.showParameterDetail = showParameterDetail;
+        window.proceedToAnalysis = proceedToAnalysis;
+        window.proceedToSummary = proceedToSummary;
+        window.updateParameterValue = updateParameterValue;
+        window.toggleParameterExpansion = toggleParameterExpansion;
+        window.updateParameterReason = updateParameterReason;
+        window.useOptimalValue = useOptimalValue;
+        window.exportToPDF = exportToPDF;
+        window.exportToCSV = exportToCSV;
+        window.generatePresentation = generatePresentation;
+        window.resetTool = resetTool;
+        window.toggleParameterInfo = toggleParameterInfo;
+
+        // Close info popups when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.info-button') && !e.target.closest('.info-popup')) {
+                document.querySelectorAll('.info-popup').forEach(popup => {
+                    popup.classList.add('hidden');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
