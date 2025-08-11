@@ -20,66 +20,39 @@
                         danger: '#E74C3C'
                     }
                 }
-            },
-            darkMode: 'class'
+            }
         }
     </script>
     <style>
-        .modal-backdrop {
-            backdrop-filter: blur(4px);
-        }
-        
-        .gradient-bg {
-            background: linear-gradient(135deg, #1B4F72 0%, #154360 100%);
-        }
-        
-        .card-hover {
-            transition: all 0.3s ease;
-        }
-        
-        .card-hover:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-        
-        .impact-indicator {
+        .card-simple {
             transition: all 0.2s ease;
+            border: 2px solid transparent;
         }
         
-        .impact-indicator:hover {
-            transform: scale(1.05);
-        }
-
-        .page {
-            display: none;
+        .card-simple:hover {
+            border-color: #1B4F72;
+            box-shadow: 0 4px 12px rgba(27, 79, 114, 0.15);
         }
         
-        .page.active {
-            display: block;
-        }
-
-        .step-indicator {
-            transition: all 0.3s ease;
-        }
-
-        .step-indicator.active {
+        .btn-primary {
             background-color: #1B4F72;
-            color: white;
-        }
-
-        .step-indicator.completed {
-            background-color: #10B981;
-            color: white;
-        }
-
-        .range-slider {
-            background: linear-gradient(to right, #1B4F72 0%, #1B4F72 50%, #e5e7eb 50%, #e5e7eb 100%);
-        }
-
-        .status-badge {
             transition: all 0.2s ease;
         }
-
+        
+        .btn-primary:hover {
+            background-color: #154360;
+            transform: translateY(-1px);
+        }
+        
+        .btn-secondary {
+            background-color: #D68910;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #B7950B;
+        }
+        
         .status-good {
             background-color: #D5EDDA;
             color: #155724;
@@ -103,54 +76,45 @@
             color: #6C757D;
             border: 1px solid #DEE2E6;
         }
-
-        .dark .status-good {
-            background-color: #065f46;
-            color: #10b981;
-            border: 1px solid #047857;
-        }
-
-        .dark .status-warning {
-            background-color: #7f1d1d;
-            color: #f87171;
-            border: 1px solid #991b1b;
-        }
-
-        .dark .status-danger {
-            background-color: #7f1d1d;
-            color: #f87171;
-            border: 1px solid #991b1b;
-        }
-
-        .dark .status-not-set {
-            background-color: #374151;
-            color: #9ca3af;
-            border: 1px solid #4b5563;
-        }
-
+        
         .progress-bar {
             background: linear-gradient(90deg, #27AE60 0%, #27AE60 var(--progress, 0%), #E9ECEF var(--progress, 0%), #E9ECEF 100%);
             height: 8px;
             transition: all 0.3s ease;
         }
-
+        
         .simple-input {
             border: 2px solid #E9ECEF;
             transition: border-color 0.2s ease;
         }
-
+        
         .simple-input:focus {
             border-color: #1B4F72;
             outline: none;
             box-shadow: 0 0 0 3px rgba(27, 79, 114, 0.1);
         }
-
-        .parameter-card {
-            border-left: 4px solid #E9ECEF;
-            transition: border-color 0.2s ease;
+        
+        .step-nav {
+            background: #F8F9FA;
+            border-bottom: 3px solid #E9ECEF;
         }
         
-        .parameter-card.good {
+        .step-active {
+            background: #1B4F72 !important;
+            color: white !important;
+        }
+        
+        .step-completed {
+            background: #27AE60 !important;
+            color: white !important;
+        }
+        
+        .parameter-card {
+            border-left: 4px solid #E9ECEF;
+            transition: all 0.2s ease;
+        }
+        
+        .parameter-card.configured {
             border-left-color: #27AE60;
         }
         
@@ -163,61 +127,77 @@
         }
         
         .impact-simple {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 14px;
+            font-size: 12px;
         }
         
         .impact-low { background: #D5EDDA; color: #155724; }
         .impact-medium { background: #FFF3CD; color: #856404; }
         .impact-high { background: #F8D7DA; color: #721C24; }
-
+        
         .section-header {
             border-bottom: 2px solid #1B4F72;
             padding-bottom: 8px;
             margin-bottom: 20px;
         }
+        
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
     </style>
 </head>
 <body class="bg-gray-50 dark:bg-gray-900 min-h-screen transition-colors duration-300">
-    <!-- Progress Bar -->
-    <div class="w-full h-2 bg-gray-200">
-        <div id="progressBar" class="progress-bar rounded-full" style="--progress: 33%"></div>
-    </div>
-
     <div class="max-w-7xl mx-auto p-4 sm:p-6">
         <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-colors duration-300">
             <!-- Header -->
-            <div class="gradient-bg text-white p-4 sm:p-6">
-                <div class="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-4">
-                    <div class="flex-1">
-                        <h1 class="text-2xl sm:text-3xl font-bold">Practical Design Efficiency Tool</h1>
-                        <p class="text-sm sm:text-lg mt-2 text-blue-100">
-                            Simple rules to design faster, save cost, and cut carbon — from concept to construction
-                        </p>
+            <div class="bg-primary text-white shadow-sm">
+                <div class="max-w-6xl mx-auto px-4 py-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h1 class="text-2xl font-bold text-white">Practical Design Efficiency Tool</h1>
+                            <p class="text-blue-100 mt-1">Simple checks to reduce cost, speed up construction, and cut waste</p>
+                        </div>
+                        <div class="flex items-center space-x-4 text-sm text-white">
+                            <div class="flex items-center space-x-2">
+                                <div class="w-3 h-3 bg-success rounded-full"></div>
+                                <span>Good</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <div class="w-3 h-3 bg-warning rounded-full"></div>
+                                <span>Review</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <div class="w-3 h-3 bg-danger rounded-full"></div>
+                                <span>Risk</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                
-                <!-- Step Navigation -->
-                <div class="flex justify-center mt-6">
-                    <div class="flex space-x-4">
-                        <div class="step-indicator active flex items-center px-4 py-2 rounded-lg border-2 border-white/30 cursor-pointer" onclick="showPage('input')">
-                            <span class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-sm font-bold mr-2">1</span>
-                            <span class="hidden sm:inline">Project Input</span>
-                        </div>
-                        <div class="step-indicator flex items-center px-4 py-2 rounded-lg border-2 border-white/30 cursor-pointer" onclick="showPage('analysis')">
-                            <span class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-sm font-bold mr-2">2</span>
-                            <span class="hidden sm:inline">Analysis</span>
-                        </div>
-                        <div class="step-indicator flex items-center px-4 py-2 rounded-lg border-2 border-white/30 cursor-pointer" onclick="showPage('summary')">
-                            <span class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-sm font-bold mr-2">3</span>
-                            <span class="hidden sm:inline">Summary</span>
-                        </div>
+            </div>
+
+            <!-- Step Navigation -->
+            <div class="step-nav">
+                <div class="max-w-6xl mx-auto px-4 py-3">
+                    <div class="flex space-x-1">
+                        <button class="step-nav-btn step-active px-6 py-2 rounded-lg font-medium" onclick="showPage('input')" data-step="input">
+                            1. Project Setup
+                        </button>
+                        <button class="step-nav-btn px-6 py-2 rounded-lg font-medium text-gray-600" onclick="showPage('analysis')" data-step="analysis">
+                            2. Check Results
+                        </button>
+                        <button class="step-nav-btn px-6 py-2 rounded-lg font-medium text-gray-600" onclick="showPage('summary')" data-step="summary">
+                            3. Summary Report
+                        </button>
                     </div>
                 </div>
             </div>
@@ -230,15 +210,15 @@
                         
                         <!-- Project Info -->
                         <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 mb-6">
-                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4 section-header">Project Information</h3>
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Project Information</h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Project Name *</label>
-                                    <input type="text" id="projectName" class="simple-input w-full px-4 py-3 rounded-lg" placeholder="Enter project name">
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Project Name</label>
+                                    <input type="text" id="projectName" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-base bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Enter project name">
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Building Type *</label>
-                                    <select id="buildingType" class="simple-input w-full px-4 py-3 rounded-lg">
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Building Type</label>
+                                    <select id="buildingType" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-base bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary focus:border-transparent">
                                         <option value="">Select building type</option>
                                         <option value="office">Office Building</option>
                                         <option value="residential">Residential</option>
@@ -247,29 +227,14 @@
                             </div>
                         </div>
 
-                        <!-- Progress Indicator -->
-                        <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 mb-6">
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Configuration Progress:</span>
-                                <span class="text-sm font-bold text-primary" id="progressText">0 of 6 parameters set</span>
-                            </div>
-                            <div class="w-full bg-gray-200 rounded-full h-3 mt-2">
-                                <div id="configProgress" class="bg-success h-3 rounded-full transition-all duration-300" style="width: 0%"></div>
-                            </div>
-                        </div>
-
                         <!-- Parameter Inputs -->
-                        <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
-                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4 section-header">Design Parameters</h3>
-                            <p class="text-gray-600 dark:text-gray-400 mb-6">Click on each parameter to set your project values. Focus on the most important ones first.</p>
-                            <div id="parameterInputs" class="space-y-4 grid grid-cols-1 lg:grid-cols-2 gap-6">
-                                <!-- Parameter cards will be populated by JavaScript -->
-                            </div>
+                        <div id="parameterInputs" class="space-y-4">
+                            <!-- Parameter cards will be populated by JavaScript -->
                         </div>
 
                         <!-- Navigation Buttons -->
                         <div class="flex justify-end mt-8">
-                            <button onclick="proceedToAnalysis()" class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors duration-300 flex items-center">
+                            <button onclick="proceedToAnalysis()" class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors duration-300">
                                 Proceed to Analysis
                                 <i data-lucide="arrow-right" class="h-5 w-5 ml-2 inline"></i>
                             </button>
@@ -285,7 +250,7 @@
                         <div class="flex space-x-2 sm:space-x-3">
                             <button
                                 id="technicalViewBtn"
-                                class="view-toggle px-3 sm:px-4 py-2 rounded-lg font-medium transition-colors text-sm sm:text-base bg-primary text-white active"
+                                class="view-toggle px-3 sm:px-4 py-2 rounded-lg font-medium transition-colors text-sm sm:text-base bg-primary text-white"
                             >
                                 Technical View
                             </button>
@@ -304,12 +269,12 @@
                                 type="text"
                                 id="searchInput"
                                 placeholder="Search by rule, parameter, or category..."
-                                class="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-base bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary focus:border-transparent transition-colors duration-300 simple-input"
+                                class="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-base bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary focus:border-transparent transition-colors duration-300"
                             />
                         </div>
                         <select
                             id="categoryFilter"
-                            class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-base bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary focus:border-transparent transition-colors duration-300 simple-input"
+                            class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-base bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary focus:border-transparent transition-colors duration-300"
                         >
                             <option value="all">All Categories</option>
                         </select>
@@ -317,36 +282,38 @@
                 </div>
 
                 <!-- Quick Rules View -->
-                <div id="quickRulesView" class="p-4 sm:p-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div id="quickRulesView" class="p-4 sm:p-6 grid gap-4">
                     <!-- Content will be populated by JavaScript -->
                 </div>
 
                 <!-- Technical View -->
-                <div id="technicalView" class="p-4 sm:p-6 hidden overflow-x-auto">
-                    <table class="w-full min-w-[700px]">
-                        <thead>
-                            <tr class="border-b-2 border-gray-200 dark:border-gray-600">
-                                <th class="text-left p-3 text-gray-900 dark:text-gray-100">Parameter</th>
-                                <th class="text-left p-3 text-gray-900 dark:text-gray-100">Your Value</th>
-                                <th class="text-left p-3 text-gray-900 dark:text-gray-100">Status</th>
-                                <th class="text-left p-3 text-gray-900 dark:text-gray-100">Optimal</th>
-                                <th class="text-left p-3 text-gray-900 dark:text-gray-100">Action</th>
-                                <th class="text-center p-3 text-gray-900 dark:text-gray-100">Impact Scores</th>
-                            </tr>
-                        </thead>
-                        <tbody id="technicalTableBody">
-                            <!-- Content will be populated by JavaScript -->
-                        </tbody>
-                    </table>
+                <div id="technicalView" class="p-4 sm:p-6 hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full min-w-[700px]">
+                            <thead>
+                                <tr class="border-b-2 border-gray-200 dark:border-gray-600">
+                                    <th class="text-left p-3 text-gray-900 dark:text-gray-100">Parameter</th>
+                                    <th class="text-left p-3 text-gray-900 dark:text-gray-100">Your Value</th>
+                                    <th class="text-left p-3 text-gray-900 dark:text-gray-100">Status</th>
+                                    <th class="text-left p-3 text-gray-900 dark:text-gray-100">Optimal</th>
+                                    <th class="text-left p-3 text-gray-900 dark:text-gray-100">Action</th>
+                                    <th class="text-center p-3 text-gray-900 dark:text-gray-100">Impact Scores</th>
+                                </tr>
+                            </thead>
+                            <tbody id="technicalTableBody">
+                                <!-- Content will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
                 <!-- Navigation Buttons -->
                 <div class="flex justify-between p-4 sm:p-6 bg-gray-50 dark:bg-gray-700">
-                    <button onclick="showPage('input')" class="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors duration-300 flex items-center">
+                    <button onclick="showPage('input')" class="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors duration-300">
                         <i data-lucide="arrow-left" class="h-5 w-5 mr-2 inline"></i>
                         Back to Input
                     </button>
-                    <button onclick="proceedToSummary()" class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors duration-300 flex items-center">
+                    <button onclick="proceedToSummary()" class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors duration-300">
                         View Summary
                         <i data-lucide="arrow-right" class="h-5 w-5 ml-2 inline"></i>
                     </button>
@@ -365,7 +332,7 @@
                         </div>
 
                         <!-- Parameter Status Grid -->
-                        <div id="parameterStatusGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                        <div id="parameterStatusGrid" class="grid gap-4 mb-6">
                             <!-- Content will be populated by JavaScript -->
                         </div>
 
@@ -378,15 +345,15 @@
                         <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
                             <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Export Report</h3>
                             <div class="flex flex-wrap gap-4">
-                                <button onclick="exportToPDF()" class="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-300 flex items-center">
+                                <button onclick="exportToPDF()" class="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-300">
                                     <i data-lucide="file-text" class="h-5 w-5 mr-2 inline"></i>
                                     Export to PDF
                                 </button>
-                                <button onclick="exportToCSV()" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors duration-300 flex items-center">
+                                <button onclick="exportToCSV()" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors duration-300">
                                     <i data-lucide="download" class="h-5 w-5 mr-2 inline"></i>
                                     Export to CSV
                                 </button>
-                                <button onclick="generatePresentation()" class="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-300 flex items-center">
+                                <button onclick="generatePresentation()" class="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-300">
                                     <i data-lucide="presentation" class="h-5 w-5 mr-2 inline"></i>
                                     Generate Presentation
                                 </button>
@@ -395,11 +362,11 @@
 
                         <!-- Navigation Buttons -->
                         <div class="flex justify-between mt-8">
-                            <button onclick="showPage('analysis')" class="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors duration-300 flex items-center">
+                            <button onclick="showPage('analysis')" class="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors duration-300">
                                 <i data-lucide="arrow-left" class="h-5 w-5 mr-2 inline"></i>
                                 Back to Analysis
                             </button>
-                            <button onclick="resetTool()" class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors duration-300 flex items-center">
+                            <button onclick="resetTool()" class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors duration-300">
                                 <i data-lucide="refresh-cw" class="h-5 w-5 mr-2 inline"></i>
                                 New Project
                             </button>
@@ -412,7 +379,7 @@
 
     <!-- Detail Modal -->
     <div id="detailModal" class="fixed inset-0 bg-black/50 modal-backdrop flex items-center justify-center z-50 p-4 hidden">
-        <div class="bg-white dark:bg-gray-800 rounded-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto transition-colors duration-300 modal-content">
+        <div class="bg-white dark:bg-gray-800 rounded-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto transition-colors duration-300">
             <div class="p-4 sm:p-6 border-b border-gray-200 dark:border-gray-600 flex justify-between items-start">
                 <div class="flex-1 pr-4">
                     <h2 id="modalTitle" class="text-xl sm:text-2xl font-bold text-gray-800 dark:text-gray-100"></h2>
@@ -459,50 +426,47 @@
         // Enhanced parameters data with input configurations
         const parameters = [
             {
-                id: 'Form-efficiency',
+                id: 'form-efficiency',
                 category: 'Building Form',
                 parameter: 'Form Efficiency',
-                simple_name: 'Form Efficiency',
                 definition: 'The ratio of exterior wall perimeter to floor area. Lower values indicate more compact, efficient forms.',
                 quickRule: 'Keep building shape simple and compact',
                 optimal: '<0.25',
                 acceptable: '<0.30',
                 risk: '>0.30',
-                benefits: ['💰 Considerable material savings', '🌿 Energy reduction', '⏱️ Faster construction'],
-                technicalNote: 'Compact forms use 20% less material and reduce heat loss by minimizing surface area to volume ratio.',
+                benefits: ['💰 Considerable material savings', '🌿 Considerable energy reduction', '⏱️ Enhance construction time'],
+                technicalNote: 'Compact forms use 20% less material and reduce heat loss by minimising surface area to volume ratio.',
                 action: 'Simplify building outline',
                 remediation: ['Simplify outline geometry', 'Remove unnecessary corners', 'Group service cores', 'Use rectangular forms'],
                 impactScore: { cost: 2, carbon: 3, time: 2 },
                 inputType: 'number',
                 unit: 'ratio',
-                ranges: { good: { min: 0, max: 0.25 }, warning: { min: 0.25, max: 0.30 }, danger: { min: 0.30, max: 1 } },
+                ranges: { optimal: { min: 0, max: 0.25 }, acceptable: { min: 0.25, max: 0.30 }, risk: { min: 0.30, max: 1 } },
                 defaultValue: 0.3
             },
             {
                 id: 'building-proportion',
                 category: 'Building Form',
                 parameter: 'Height/Width Ratio',
-                simple_name: 'Height/Width Ratio',
                 definition: 'The ratio of building height to its average width. Measures the slenderness of the building.',
                 quickRule: 'Avoid very tall, thin buildings',
                 optimal: '<7:1',
                 acceptable: '<8:1',
                 risk: '>8:1',
                 benefits: ['💰 Reduced wind costs', '⏱️ Simpler structural build', '🌿 Material efficiency'],
-                technicalNote: 'Slender buildings require expensive wind resistance systems and specialized structural solutions.',
+                technicalNote: 'Slender buildings require expensive wind resistance systems and specialised structural solutions.',
                 action: 'Review massing proportions',
                 remediation: ['Widen floor plate', 'Add setbacks at height', 'Use outrigger systems', 'Consider building separation'],
                 impactScore: { cost: 2, carbon: 2, time: 3 },
                 inputType: 'number',
                 unit: 'ratio',
-                ranges: { good: { min: 0, max: 7 }, warning: { min: 7, max: 8 }, danger: { min: 8, max: 20 } },
+                ranges: { optimal: { min: 0, max: 7 }, acceptable: { min: 7, max: 8 }, risk: { min: 8, max: 20 } },
                 defaultValue: 8.5
             },
             {
                 id: 'structural-grid',
                 category: 'Structure',
                 parameter: 'Grid Spacing',
-                simple_name: 'Grid Spacing',
                 definition: 'The distance between structural columns, determining the span of beams and floor systems.',
                 quickRule: 'Keep structural bay size around 7.5-8m',
                 optimal: '7.5-8.0m',
@@ -510,39 +474,37 @@
                 risk: '>10.5m',
                 benefits: ['💰 Optimal beam sizing', '⏱️ Standard construction', '🌿 Balanced materials'],
                 technicalNote: 'Optimal span balances structural efficiency with flexibility and cost effectiveness.',
-                action: 'Standardize grid at 7.5-8m',
+                action: 'Standardise grid at 7.5-8m',
                 remediation: ['Add intermediate columns', 'Use post-tensioning', 'Accept deeper beams', 'Consider steel alternatives'],
                 impactScore: { cost: 2, carbon: 3, time: 2 },
                 inputType: 'number',
                 unit: 'm',
-                ranges: { good: { min: 7.5, max: 8.0 }, warning: { min: 6, max: 9 }, danger: { min: 9, max: 15 } },
+                ranges: { optimal: { min: 7.5, max: 8.0 }, acceptable: { min: 6, max: 9 }, risk: { min: 9, max: 15 } },
                 defaultValue: 8.5
             },
             {
                 id: 'floor-ceiling-height',
                 category: 'Structure',
                 parameter: 'Floor-to-Ceiling Height',
-                simple_name: 'Floor-to-Ceiling Height',
                 definition: 'The vertical distance from finished floor to finished ceiling, affecting volume and structural requirements.',
-                quickRule: 'Standard heights reduce costs significantly',
+                quickRule: 'Standard heights reduce costs considerably',
                 optimal: '2.7-3.0m',
                 acceptable: '3.0-3.3m',
                 risk: '>3.5m',
                 benefits: ['💰 Major cost savings', '⏱️ Standard formwork', '🌿 Less concrete volume'],
                 technicalNote: 'Every 300mm of extra height adds ~5% to structural costs due to increased loads and material.',
-                action: 'Optimize ceiling height',
+                action: 'Optimise ceiling height',
                 remediation: ['Reduce plenum space', 'Integrate services', 'Use efficient MEP design', 'Consider exposed structure'],
                 impactScore: { cost: 3, carbon: 2, time: 2 },
                 inputType: 'number',
                 unit: 'm',
-                ranges: { good: { min: 2.7, max: 3.0 }, warning: { min: 3.0, max: 3.3 }, danger: { min: 3.5, max: 6 } },
+                ranges: { optimal: { min: 2.7, max: 3.0 }, acceptable: { min: 3.0, max: 3.3 }, risk: { min: 3.5, max: 6 } },
                 defaultValue: 3.2
             },
             {
                 id: 'facade-complexity',
                 category: 'Envelope',
                 parameter: 'Facade Complexity Index',
-                simple_name: 'Facade Complexity Index',
                 definition: 'A measure of facade design complexity based on material types, details, and geometry variations.',
                 quickRule: 'Simple facades perform better and cost less',
                 optimal: '<1.3',
@@ -551,31 +513,30 @@
                 benefits: ['💰 Substantial cost reduction', '⏱️ Faster installation', '🌿 Better thermal performance'],
                 technicalNote: 'Complex facades have 3x more thermal bridges and cost 50% more per m² to construct.',
                 action: 'Simplify facade design',
-                remediation: ['Reduce material types', 'Standardize details', 'Minimize projections', 'Use modular systems'],
+                remediation: ['Reduce material types', 'Standardise details', 'Minimise projections', 'Use modular systems'],
                 impactScore: { cost: 3, carbon: 2, time: 3 },
                 inputType: 'number',
                 unit: 'index',
-                ranges: { good: { min: 0, max: 1.3 }, warning: { min: 1.3, max: 1.6 }, danger: { min: 2.0, max: 5 } },
+                ranges: { optimal: { min: 0, max: 1.3 }, acceptable: { min: 1.3, max: 1.6 }, risk: { min: 2.0, max: 5 } },
                 defaultValue: 1.8
             },
             {
                 id: 'window-wall-ratio',
                 category: 'Envelope',
                 parameter: 'Window-to-Wall Ratio',
-                simple_name: 'Window-to-Wall Ratio',
                 definition: 'The percentage of wall area occupied by windows and glazed openings.',
                 quickRule: 'Balance daylight with thermal performance',
                 optimal: '30-40%',
                 acceptable: '40-50%',
                 risk: '>60%',
-                benefits: ['💰 Lower HVAC costs', '🌿 Improve energy performance', '⏱️ Simpler construction'],
+                benefits: ['💰 Lower HVAC costs', '🌿 Improved energy performance', '⏱️ Simpler construction'],
                 technicalNote: 'High glazing ratios increase cooling loads by 15-25% and require larger HVAC systems.',
-                action: 'Optimize glazing ratio',
+                action: 'Optimise glazing ratio',
                 remediation: ['Add shading devices', 'Use high-performance glazing', 'Redistribute openings', 'Consider light shelves'],
                 impactScore: { cost: 2, carbon: 3, time: 1 },
                 inputType: 'number',
                 unit: '%',
-                ranges: { good: { min: 30, max: 40 }, warning: { min: 40, max: 50 }, danger: { min: 60, max: 90 } },
+                ranges: { optimal: { min: 30, max: 40 }, acceptable: { min: 40, max: 50 }, risk: { min: 60, max: 90 } },
                 defaultValue: 55
             }
         ];
@@ -601,16 +562,12 @@
             // Update step indicators
             updateStepIndicators(pageId);
             
-            // Update progress bar
-            updateProgressBar(pageId);
-            
             // Update current page
             currentPage = pageId;
             
             // Initialize page-specific content
             if (pageId === 'input') {
                 renderParameterInputs();
-                updateConfigurationProgress();
             } else if (pageId === 'analysis') {
                 initializeCategoryFilter();
                 // Start with technical view first as requested
@@ -638,34 +595,25 @@
             });
         }
 
-        function updateProgressBar(currentStep) {
-            const steps = ['input', 'analysis', 'summary'];
-            const currentIndex = steps.indexOf(currentStep);
-            const progress = ((currentIndex + 1) / steps.length) * 100;
-            
-            const progressBar = document.getElementById('progressBar');
-            progressBar.style.setProperty('--progress', `${progress}%`);
-        }
-
         // Input page functions
         function renderParameterInputs() {
             const container = document.getElementById('parameterInputs');
             
             container.innerHTML = parameters.map(param => {
                 const currentValue = projectData.parameters[param.id]?.value || param.defaultValue;
-                const currentStatus = projectData.parameters[param.id]?.status || 'not-set';
+                const currentStatus = projectData.parameters[param.id]?.status || 'not-considered';
                 const isExpanded = projectData.parameters[param.id]?.expanded || false;
-                const isConsidered = currentStatus !== 'not-set';
+                const isConsidered = currentStatus !== 'not-considered';
                 
                 return `
-                    <div class="parameter-card ${currentStatus} bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg transition-all duration-300 ${isConsidered ? 'ring-2 ring-primary/20' : ''}" onclick="showParameterDetail('${param.id}')">
+                    <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg transition-all duration-300 ${isConsidered ? 'ring-2 ring-primary/20' : ''}">
                         <!-- Parameter Header (Always Visible) -->
-                        <div class="p-4 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200">
+                        <div class="p-4 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200" onclick="toggleParameterExpansion('${param.id}')">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center gap-3 flex-1">
                                     <div class="flex items-center gap-2">
                                         <i data-lucide="${isExpanded ? 'chevron-down' : 'chevron-right'}" class="h-5 w-5 text-gray-400 transition-transform duration-200"></i>
-                                        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">${param.parameter}</h3>
+                                        <h3 class="text-base font-semibold text-gray-800 dark:text-gray-100">${param.parameter}</h3>
                                         <div class="relative">
                                             <button 
                                                 class="info-button w-5 h-5 rounded-full bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-300 hover:bg-primary hover:text-white flex items-center justify-center text-xs transition-colors"
@@ -681,11 +629,11 @@
                                                     <div class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Performance Ranges:</div>
                                                     <div class="space-y-1">
                                                         <div class="flex items-center justify-between p-2 bg-green-50 dark:bg-green-900/30 rounded text-xs">
-                                                            <span class="text-green-700 dark:text-green-300 font-medium">Good</span>
+                                                            <span class="text-green-700 dark:text-green-300 font-medium">Optimal</span>
                                                             <span class="text-green-800 dark:text-green-200">${param.optimal}</span>
                                                         </div>
                                                         <div class="flex items-center justify-between p-2 bg-yellow-50 dark:bg-yellow-900/30 rounded text-xs">
-                                                            <span class="text-yellow-700 dark:text-yellow-300 font-medium">Review</span>
+                                                            <span class="text-yellow-700 dark:text-yellow-300 font-medium">Acceptable</span>
                                                             <span class="text-yellow-800 dark:text-yellow-200">${param.acceptable}</span>
                                                         </div>
                                                         <div class="flex items-center justify-between p-2 bg-red-50 dark:bg-red-900/30 rounded text-xs">
@@ -716,7 +664,76 @@
                                     <div class="status-badge px-3 py-1 rounded-full text-xs font-medium ${getStatusClass(currentStatus)}">
                                         ${getStatusLabel(currentStatus)}
                                     </div>
-                                    ${isConsidered ? '<i data-lucide="check-circle" class="h-5 w-5 text-success"></i>' : '<i data-lucide="circle" class="h-5 w-5 text-gray-300"></i>'}
+                                    ${isConsidered ? '<i data-lucide="check-circle" class="h-5 w-5 text-green-500"></i>' : '<i data-lucide="circle" class="h-5 w-5 text-gray-300"></i>'}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Expanded Input Section -->
+                        <div id="expanded-${param.id}" class="parameter-inputs ${isExpanded ? 'block' : 'hidden'} border-t border-gray-200 dark:border-gray-600 p-4 bg-gray-50 dark:bg-gray-700">
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                        Current Value (${param.unit})
+                                    </label>
+                                    <div class="flex space-x-2">
+                                        <input 
+                                            type="number" 
+                                            id="input-${param.id}" 
+                                            value="${currentValue}"
+                                            step="0.1"
+                                            class="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-base bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary focus:border-transparent"
+                                            onchange="updateParameterValue('${param.id}', this.value)"
+                                        >
+                                        <button 
+                                            onclick="useOptimalValue('${param.id}')"
+                                            class="px-4 py-2 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-lg hover:bg-green-200 dark:hover:bg-green-900/50 transition-colors text-sm font-medium whitespace-nowrap"
+                                        >
+                                            Use Optimal
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Key impacts:</div>
+                                    <div class="flex flex-wrap gap-2">
+                                        ${param.benefits.map(benefit => `
+                                            <span class="inline-block bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-700 rounded-full px-3 py-1 text-xs">
+                                                ${benefit}
+                                            </span>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                                
+                                ${currentStatus === 'risk' || currentStatus === 'acceptable' ? `
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                            Reason for deviation from optimal:
+                                        </label>
+                                        <textarea 
+                                            id="reason-${param.id}"
+                                            rows="2"
+                                            placeholder="Explain why this parameter deviates from optimal..."
+                                            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-base bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary focus:border-transparent"
+                                            onchange="updateParameterReason('${param.id}', this.value)"
+                                        >${projectData.parameters[param.id]?.reason || ''}</textarea>
+                                    </div>
+                                ` : ''}
+                                
+                                <div class="flex justify-between items-center pt-2 border-t border-gray-200 dark:border-gray-600">
+                                    <button 
+                                        onclick="removeParameterFromConsideration('${param.id}')"
+                                        class="text-sm text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 transition-colors"
+                                    >
+                                        <i data-lucide="x" class="h-4 w-4 inline mr-1"></i>
+                                        Remove from consideration
+                                    </button>
+                                    <button 
+                                        onclick="toggleParameterExpansion('${param.id}')"
+                                        class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors text-sm font-medium"
+                                    >
+                                        Done
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -725,18 +742,6 @@
             }).join('');
             
             initializeIcons();
-        }
-
-        function updateConfigurationProgress() {
-            const totalParams = parameters.length;
-            const setParams = Object.keys(projectData.parameters).filter(id => 
-                projectData.parameters[id].value !== undefined && projectData.parameters[id].status !== 'not-set'
-            ).length;
-            
-            const percentage = Math.round((setParams / totalParams) * 100);
-            
-            document.getElementById('progressText').textContent = `${setParams} of ${totalParams} parameters set`;
-            document.getElementById('configProgress').style.width = `${percentage}%`;
         }
 
         function toggleParameterExpansion(paramId) {
@@ -748,7 +753,7 @@
             const newExpandedState = !isCurrentlyExpanded;
             
             // If expanding for the first time, consider the parameter
-            if (newExpandedState && projectData.parameters[paramId].status === 'not-set') {
+            if (newExpandedState && projectData.parameters[paramId].status === 'not-considered') {
                 const param = parameters.find(p => p.id === paramId);
                 const value = projectData.parameters[paramId].value || param.defaultValue;
                 projectData.parameters[paramId].status = evaluateParameterStatus(param, value);
@@ -757,7 +762,6 @@
             
             projectData.parameters[paramId].expanded = newExpandedState;
             renderParameterInputs();
-            updateConfigurationProgress();
         }
 
         function removeParameterFromConsideration(paramId) {
@@ -765,12 +769,11 @@
                 projectData.parameters[paramId] = {};
             }
             
-            projectData.parameters[paramId].status = 'not-set';
+            projectData.parameters[paramId].status = 'not-considered';
             projectData.parameters[paramId].expanded = false;
             projectData.parameters[paramId].reason = '';
             
             renderParameterInputs();
-            updateConfigurationProgress();
         }
 
         function toggleParameterInfo(paramId) {
@@ -799,44 +802,66 @@
             
             // Re-render to update status badge and reason field
             renderParameterInputs();
-            updateConfigurationProgress();
+        }
+
+        function toggleParameterConsideration(paramId, considered) {
+            if (!projectData.parameters[paramId]) {
+                projectData.parameters[paramId] = {};
+            }
+            
+            if (considered) {
+                const param = parameters.find(p => p.id === paramId);
+                const value = projectData.parameters[paramId].value || param.defaultValue;
+                projectData.parameters[paramId].status = evaluateParameterStatus(param, value);
+            } else {
+                projectData.parameters[paramId].status = 'not-considered';
+            }
+            
+            renderParameterInputs();
+        }
+
+        function updateParameterReason(paramId, reason) {
+            if (!projectData.parameters[paramId]) {
+                projectData.parameters[paramId] = {};
+            }
+            projectData.parameters[paramId].reason = reason;
         }
 
         function useOptimalValue(paramId) {
             const param = parameters.find(p => p.id === paramId);
-            const optimalValue = (param.ranges.good.min + param.ranges.good.max) / 2;
+            const optimalValue = (param.ranges.optimal.min + param.ranges.optimal.max) / 2;
             
             document.getElementById(`input-${paramId}`).value = optimalValue;
             updateParameterValue(paramId, optimalValue);
         }
 
         function evaluateParameterStatus(param, value) {
-            if (value >= param.ranges.good.min && value <= param.ranges.good.max) {
-                return 'good';
-            } else if (value >= param.ranges.warning.min && value <= param.ranges.warning.max) {
-                return 'warning';
+            if (value >= param.ranges.optimal.min && value <= param.ranges.optimal.max) {
+                return 'optimal';
+            } else if (value >= param.ranges.acceptable.min && value <= param.ranges.acceptable.max) {
+                return 'acceptable';
             } else {
-                return 'danger';
+                return 'risk';
             }
         }
 
         function getStatusClass(status) {
             switch(status) {
-                case 'good': return 'status-good';
-                case 'warning': return 'status-warning';
-                case 'danger': return 'status-danger';
-                case 'not-set': return 'status-not-set';
-                default: return 'status-not-set';
+                case 'optimal': return 'status-met';
+                case 'acceptable': return 'status-met';
+                case 'risk': return 'status-risk';
+                case 'not-considered': return 'status-not-considered';
+                default: return 'status-not-considered';
             }
         }
 
         function getStatusLabel(status) {
             switch(status) {
-                case 'good': return '✓ Good';
-                case 'warning': return '⚠ Review';
-                case 'danger': return '✗ Risk';
-                case 'not-set': return '- Not Set';
-                default: return '- Not Set';
+                case 'optimal': return '✓ Optimal';
+                case 'acceptable': return '~ Acceptable';
+                case 'risk': return '⚠ Risk';
+                case 'not-considered': return '− Not Considered';
+                default: return '− Not Considered';
             }
         }
 
@@ -878,10 +903,12 @@
                 time: 'clock'
             };
             
+            const qualitativeRating = score >= 3 ? 'High' : score >= 2 ? 'Medium' : 'Low';
+            
             return `
                 <div class="impact-indicator flex items-center px-2 py-1 rounded-full ${getScoreColor(score)}">
                     <i data-lucide="${icons[type]}" class="h-4 w-4"></i>
-                    <span class="ml-1 text-xs font-semibold">${score}/3</span>
+                    <span class="ml-1 text-xs font-semibold">${qualitativeRating}</span>
                 </div>
             `;
         }
@@ -893,7 +920,7 @@
             
             if (filteredParams.length === 0) {
                 container.innerHTML = `
-                    <div class="text-center py-12 col-span-full">
+                    <div class="text-center py-12">
                         <i data-lucide="search" class="h-12 w-12 text-gray-400 mx-auto mb-4"></i>
                         <p class="text-gray-600 dark:text-gray-400">No parameters match your search criteria.</p>
                     </div>
@@ -904,8 +931,8 @@
             
             container.innerHTML = filteredParams.map(param => {
                 const paramData = projectData.parameters[param.id];
-                const status = paramData?.status || 'not-set';
-                const statusIcon = status === 'good' ? '✅' : status === 'warning' ? '⚠️' : status === 'danger' ? '❌' : '➖';
+                const status = paramData?.status || 'not-considered';
+                const statusIcon = status === 'optimal' ? '✅' : status === 'acceptable' ? '⚠️' : status === 'risk' ? '❌' : '➖';
                 
                 return `
                     <div class="card-hover bg-gray-50 dark:bg-gray-700 rounded-lg p-4 sm:p-5 cursor-pointer transition-colors duration-300"
@@ -920,12 +947,15 @@
                                 ${paramData?.value ? `
                                     <p class="text-sm font-medium text-primary mb-2">Your value: ${paramData.value}${param.unit}</p>
                                 ` : ''}
-                                <div class="flex flex-wrap gap-2">
-                                    ${param.benefits.map(benefit => `
-                                        <span class="inline-block bg-white dark:bg-gray-600 border border-gray-200 dark:border-gray-500 rounded-full px-3 py-1 text-xs text-gray-700 dark:text-gray-200">
-                                            ${benefit}
-                                        </span>
-                                    `).join('')}
+                                <div>
+                                    <div class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">Key impacts:</div>
+                                    <div class="flex flex-wrap gap-2">
+                                        ${param.benefits.map(benefit => `
+                                            <span class="inline-block bg-white dark:bg-gray-600 border border-gray-200 dark:border-gray-500 rounded-full px-3 py-1 text-xs text-gray-700 dark:text-gray-200">
+                                                ${benefit}
+                                            </span>
+                                        `).join('')}
+                                    </div>
                                 </div>
                             </div>
                             <i data-lucide="chevron-right" class="h-5 w-5 text-gray-400 flex-shrink-0"></i>
@@ -945,7 +975,7 @@
             tbody.innerHTML = filteredParams.map(param => {
                 const paramData = projectData.parameters[param.id];
                 const value = paramData?.value || param.defaultValue;
-                const status = paramData?.status || 'not-set';
+                const status = paramData?.status || 'not-considered';
                 
                 return `
                     <tr class="border-b border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-300">
@@ -961,7 +991,7 @@
                                 ${getStatusLabel(status)}
                             </span>
                         </td>
-                        <td class="p-3 text-success font-semibold">${param.optimal}</td>
+                        <td class="p-3 text-green-600 dark:text-green-400 font-semibold">${param.optimal}</td>
                         <td class="p-3 text-primary font-medium">${param.action}</td>
                         <td class="p-3">
                             <div class="flex justify-center space-x-1">
@@ -987,27 +1017,27 @@
         function renderProjectOverview() {
             const container = document.getElementById('projectOverview');
             const totalParams = parameters.length;
-            const consideredParams = Object.values(projectData.parameters).filter(p => p.status !== 'not-set').length;
-            const goodParams = Object.values(projectData.parameters).filter(p => p.status === 'good').length;
-            const riskParams = Object.values(projectData.parameters).filter(p => p.status === 'danger').length;
+            const consideredParams = Object.values(projectData.parameters).filter(p => p.status !== 'not-considered').length;
+            const optimalParams = Object.values(projectData.parameters).filter(p => p.status === 'optimal').length;
+            const riskParams = Object.values(projectData.parameters).filter(p => p.status === 'risk').length;
             
             container.innerHTML = `
-                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4 section-header">Project Overview</h3>
+                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Project Overview</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div class="text-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
+                    <div class="text-center">
                         <div class="text-2xl font-bold text-gray-800 dark:text-gray-100">${projectData.name || 'Unnamed Project'}</div>
                         <div class="text-sm text-gray-600 dark:text-gray-400">${projectData.type || 'Building Type'}</div>
                     </div>
-                    <div class="text-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
+                    <div class="text-center">
                         <div class="text-2xl font-bold text-primary">${consideredParams}/${totalParams}</div>
                         <div class="text-sm text-gray-600 dark:text-gray-400">Parameters Considered</div>
                     </div>
-                    <div class="text-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
-                        <div class="text-2xl font-bold text-success">${goodParams}</div>
-                        <div class="text-sm text-gray-600 dark:text-gray-400">Good Parameters</div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-green-600">${optimalParams}</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400">Optimal Parameters</div>
                     </div>
-                    <div class="text-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
-                        <div class="text-2xl font-bold text-danger">${riskParams}</div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-red-600">${riskParams}</div>
                         <div class="text-sm text-gray-600 dark:text-gray-400">Risk Parameters</div>
                     </div>
                 </div>
@@ -1017,56 +1047,63 @@
         function renderParameterStatusGrid() {
             const container = document.getElementById('parameterStatusGrid');
             
-            container.innerHTML = parameters.map(param => {
-                const paramData = projectData.parameters[param.id];
-                const value = paramData?.value || param.defaultValue;
-                const status = paramData?.status || 'not-set';
-                const reason = paramData?.reason || '';
-                
-                return `
-                    <div class="border border-gray-200 dark:border-gray-600 rounded-lg p-4 bg-white dark:bg-gray-800">
-                        <div class="flex items-center justify-between mb-2">
-                            <div class="flex items-center">
-                                <span class="text-lg mr-3">${status === 'good' ? '✅' : status === 'warning' ? '⚠️' : status === 'danger' ? '❌' : '➖'}</span>
-                                <div>
-                                    <h4 class="font-medium text-gray-800 dark:text-gray-100">${param.parameter}</h4>
-                                    <p class="text-sm text-gray-600 dark:text-gray-400">${param.category}</p>
+            container.innerHTML = `
+                <div class="bg-white dark:bg-gray-800 rounded-lg p-6">
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Parameter Checklist</h3>
+                    <div class="space-y-4">
+                        ${parameters.map(param => {
+                            const paramData = projectData.parameters[param.id];
+                            const value = paramData?.value || param.defaultValue;
+                            const status = paramData?.status || 'not-considered';
+                            const reason = paramData?.reason || '';
+                            
+                            return `
+                                <div class="border border-gray-200 dark:border-gray-600 rounded-lg p-4">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <div class="flex items-center">
+                                            <span class="text-lg mr-3">${status === 'optimal' ? '✅' : status === 'acceptable' ? '⚠️' : status === 'risk' ? '❌' : '➖'}</span>
+                                            <div>
+                                                <h4 class="font-medium text-gray-800 dark:text-gray-100">${param.parameter}</h4>
+                                                <p class="text-sm text-gray-600 dark:text-gray-400">${param.category}</p>
+                                            </div>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="font-semibold text-gray-800 dark:text-gray-100">${value}${param.unit}</div>
+                                            <span class="status-badge px-2 py-1 rounded-full text-xs font-medium ${getStatusClass(status)}">
+                                                ${getStatusLabel(status)}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                    ${status === 'risk' || status === 'acceptable' ? `
+                                        <div class="mt-3 p-3 bg-yellow-50 dark:bg-yellow-900/30 rounded">
+                                            <div class="text-sm font-medium text-yellow-800 dark:text-yellow-200 mb-1">Reason for deviation:</div>
+                                            <div class="text-sm text-yellow-700 dark:text-yellow-300">${reason || 'No reason provided'}</div>
+                                        </div>
+                                    ` : ''}
+                                    
+                                    ${status === 'not-considered' ? `
+                                        <div class="mt-3 p-3 bg-gray-50 dark:bg-gray-700 rounded">
+                                            <div class="text-sm text-gray-600 dark:text-gray-400">This parameter was not considered in the analysis.</div>
+                                        </div>
+                                    ` : ''}
                                 </div>
-                            </div>
-                            <div class="text-right">
-                                <div class="font-semibold text-gray-800 dark:text-gray-100">${value}${param.unit}</div>
-                                <span class="status-badge px-2 py-1 rounded-full text-xs font-medium ${getStatusClass(status)}">
-                                    ${getStatusLabel(status)}
-                                </span>
-                            </div>
-                        </div>
-                        
-                        ${status === 'danger' || status === 'warning' ? `
-                            <div class="mt-3 p-3 bg-yellow-50 dark:bg-yellow-900/30 rounded">
-                                <div class="text-sm font-medium text-yellow-800 dark:text-yellow-200 mb-1">Reason for deviation:</div>
-                                <div class="text-sm text-yellow-700 dark:text-yellow-300">${reason || 'No reason provided'}</div>
-                            </div>
-                        ` : ''}
-                        
-                        ${status === 'not-set' ? `
-                            <div class="mt-3 p-3 bg-gray-50 dark:bg-gray-700 rounded">
-                                <div class="text-sm text-gray-600 dark:text-gray-400">This parameter was not considered in the analysis.</div>
-                            </div>
-                        ` : ''}
+                            `;
+                        }).join('')}
                     </div>
-                `;
-            }).join('');
+                </div>
+            `;
         }
 
         function renderOverallAssessment() {
             const container = document.getElementById('overallAssessment');
             const totalParams = parameters.length;
-            const consideredParams = Object.values(projectData.parameters).filter(p => p.status !== 'not-set').length;
-            const goodParams = Object.values(projectData.parameters).filter(p => p.status === 'good').length;
-            const riskParams = Object.values(projectData.parameters).filter(p => p.status === 'danger').length;
+            const consideredParams = Object.values(projectData.parameters).filter(p => p.status !== 'not-considered').length;
+            const optimalParams = Object.values(projectData.parameters).filter(p => p.status === 'optimal').length;
+            const riskParams = Object.values(projectData.parameters).filter(p => p.status === 'risk').length;
             
             const completionRate = Math.round((consideredParams / totalParams) * 100);
-            const optimizationRate = consideredParams > 0 ? Math.round((goodParams / consideredParams) * 100) : 0;
+            const optimizationRate = consideredParams > 0 ? Math.round((optimalParams / consideredParams) * 100) : 0;
             
             // Check if all parameters are considered
             const allParametersConsidered = consideredParams === totalParams;
@@ -1075,11 +1112,11 @@
                 // Show only recommendations when not all parameters are provided
                 const missingParams = totalParams - consideredParams;
                 const missingParamsList = parameters
-                    .filter(param => !projectData.parameters[param.id] || projectData.parameters[param.id].status === 'not-set')
+                    .filter(param => !projectData.parameters[param.id] || projectData.parameters[param.id].status === 'not-considered')
                     .map(param => param.parameter);
                 
                 container.innerHTML = `
-                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4 section-header">Analysis Status</h3>
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Analysis Status</h3>
                     <div class="bg-yellow-50 dark:bg-yellow-900/30 border border-yellow-200 dark:border-yellow-700 rounded-lg p-6">
                         <div class="flex items-start gap-3">
                             <i data-lucide="alert-triangle" class="h-6 w-6 text-yellow-600 dark:text-yellow-400 mt-0.5 flex-shrink-0"></i>
@@ -1115,36 +1152,36 @@
                 let overallGrade, gradeColor, recommendation;
                 
                 if (optimizationRate >= 80 && riskParams === 0) {
-                    overallGrade = 'Acceptable - Subject to Detailed Carbon Analysis';
-                    gradeColor = 'text-success';
-                    recommendation = 'Your design demonstrates acceptable efficiency principles. Consider detailed structural and MEP analysis to confirm performance.';
+                    overallGrade = 'Acceptable - Subject to Detailed Analysis';
+                    gradeColor = 'text-green-600';
+                    recommendation = 'Your design demonstrates good efficiency principles. Consider detailed structural and MEP analysis to confirm performance.';
                 } else if (optimizationRate >= 60 && riskParams <= 1) {
                     overallGrade = 'Review Required';
-                    gradeColor = 'text-primary';
+                    gradeColor = 'text-blue-600';
                     recommendation = 'Some efficiency foundations in place. Detailed analysis required for optimization and risk mitigation.';
                 } else if (optimizationRate >= 40 || riskParams <= 2) {
                     overallGrade = 'Redesign Recommended';
-                    gradeColor = 'text-warning';
+                    gradeColor = 'text-yellow-600';
                     recommendation = 'Significant improvements needed. Focus on addressing risk parameters and redesigning key elements.';
                 } else {
                     overallGrade = 'Major Revision Required';
-                    gradeColor = 'text-danger';
+                    gradeColor = 'text-red-600';
                     recommendation = 'Comprehensive redesign required. Multiple efficiency opportunities need to be addressed.';
                 }
                 
                 container.innerHTML = `
-                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4 section-header">Overall Assessment</h3>
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Overall Assessment</h3>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                        <div class="text-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
+                        <div class="text-center">
                             <div class="text-2xl font-bold ${gradeColor} mb-2">${overallGrade}</div>
                             <div class="text-sm text-gray-600 dark:text-gray-400">Overall Grade</div>
                         </div>
-                        <div class="text-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
+                        <div class="text-center">
                             <div class="text-2xl font-bold text-primary mb-2">${completionRate}%</div>
                             <div class="text-sm text-gray-600 dark:text-gray-400">Parameters Analyzed</div>
                         </div>
-                        <div class="text-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
-                            <div class="text-2xl font-bold text-success mb-2">${optimizationRate}%</div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-green-600 mb-2">${optimizationRate}%</div>
                             <div class="text-sm text-gray-600 dark:text-gray-400">Optimization Rate</div>
                         </div>
                     </div>
@@ -1196,7 +1233,7 @@
             parameters.forEach(param => {
                 const paramData = projectData.parameters[param.id];
                 const value = paramData?.value || param.defaultValue;
-                const status = paramData?.status || 'not-set';
+                const status = paramData?.status || 'not-considered';
                 const reason = paramData?.reason || '';
                 
                 doc.text(`${param.parameter}: ${value}${param.unit} - ${getStatusLabel(status)}`, 20, yPosition);
@@ -1224,7 +1261,7 @@
                     Category: param.category,
                     'Current Value': paramData?.value || param.defaultValue,
                     Unit: param.unit,
-                    Status: paramData?.status || 'not-set',
+                    Status: paramData?.status || 'not-considered',
                     'Optimal Range': param.optimal,
                     'Action Required': param.action,
                     'Reason for Deviation': paramData?.reason || '',
@@ -1259,13 +1296,13 @@
                     <style>
                         body { font-family: Arial, sans-serif; margin: 40px; }
                         .slide { page-break-after: always; margin-bottom: 40px; }
-                        h1 { color: #1B4F72; border-bottom: 3px solid #1B4F72; padding-bottom: 10px; }
+                        h1 { color: #5D5CDE; border-bottom: 3px solid #5D5CDE; padding-bottom: 10px; }
                         h2 { color: #333; margin-top: 30px; }
-                        .status-good { color: green; font-weight: bold; }
-                        .status-warning { color: orange; font-weight: bold; }
-                        .status-danger { color: red; font-weight: bold; }
-                        .status-not-set { color: gray; }
-                        .parameter { margin: 20px 0; padding: 15px; border-left: 4px solid #1B4F72; background: #f9f9f9; }
+                        .status-optimal { color: green; font-weight: bold; }
+                        .status-risk { color: red; font-weight: bold; }
+                        .status-acceptable { color: orange; font-weight: bold; }
+                        .status-not-considered { color: gray; }
+                        .parameter { margin: 20px 0; padding: 15px; border-left: 4px solid #5D5CDE; background: #f9f9f9; }
                     </style>
                 </head>
                 <body>
@@ -1282,7 +1319,7 @@
                         ${parameters.map(param => {
                             const paramData = projectData.parameters[param.id];
                             const value = paramData?.value || param.defaultValue;
-                            const status = paramData?.status || 'not-set';
+                            const status = paramData?.status || 'not-considered';
                             const reason = paramData?.reason || '';
                             
                             return `
@@ -1333,8 +1370,8 @@
                         <p class="text-sm font-semibold text-blue-800 dark:text-blue-200 mb-1">Your Project Status</p>
                         <div class="flex items-center justify-between">
                             <span>Current Value: <strong>${paramData.value || param.defaultValue}${param.unit}</strong></span>
-                            <span class="status-badge px-2 py-1 rounded-full text-xs font-medium ${getStatusClass(paramData.status || 'not-set')}">
-                                ${getStatusLabel(paramData.status || 'not-set')}
+                            <span class="status-badge px-2 py-1 rounded-full text-xs font-medium ${getStatusClass(paramData.status || 'not-considered')}">
+                                ${getStatusLabel(paramData.status || 'not-considered')}
                             </span>
                         </div>
                         ${paramData.reason ? `<p class="text-sm text-blue-700 dark:text-blue-300 mt-2"><strong>Reason:</strong> ${paramData.reason}</p>` : ''}
@@ -1361,7 +1398,7 @@
                             <p class="text-lg font-bold text-green-800 dark:text-green-200">${param.optimal}</p>
                         </div>
                         <div class="bg-yellow-50 dark:bg-yellow-900/30 p-3 rounded-lg border border-yellow-200 dark:border-yellow-700">
-                            <p class="text-sm font-semibold text-yellow-700 dark:text-yellow-300">Review</p>
+                            <p class="text-sm font-semibold text-yellow-700 dark:text-yellow-300">OK</p>
                             <p class="text-lg font-bold text-yellow-800 dark:text-yellow-200">${param.acceptable}</p>
                         </div>
                         <div class="bg-red-50 dark:bg-red-900/30 p-3 rounded-lg border border-red-200 dark:border-red-700">
@@ -1492,7 +1529,7 @@
         window.proceedToAnalysis = proceedToAnalysis;
         window.proceedToSummary = proceedToSummary;
         window.updateParameterValue = updateParameterValue;
-        window.toggleParameterExpansion = toggleParameterExpansion;
+        window.toggleParameterConsideration = toggleParameterConsideration;
         window.updateParameterReason = updateParameterReason;
         window.useOptimalValue = useOptimalValue;
         window.exportToPDF = exportToPDF;
