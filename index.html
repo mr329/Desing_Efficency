@@ -198,6 +198,9 @@
                         <button class="step-nav-btn px-6 py-2 rounded-lg font-medium text-gray-600" onclick="showPage('summary')" data-step="summary">
                             3. Summary Report
                         </button>
+                        <button class="step-nav-btn px-6 py-2 rounded-lg font-medium text-gray-600" onclick="showPage('resources')" data-step="resources">
+                            4. Next Steps
+                        </button>
                     </div>
                 </div>
             </div>
@@ -217,7 +220,45 @@
                                     <input type="text" id="projectName" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-base bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Enter project name">
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Building Type</label>
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Building Type</label>
+                                        <div class="relative">
+                                            <button 
+                                                class="info-button w-5 h-5 rounded-full bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-300 hover:bg-primary hover:text-white flex items-center justify-center text-xs transition-colors"
+                                                onclick="toggleBuildingTypeInfo()"
+                                                onmouseover="showBuildingTypeInfo()"
+                                                onmouseleave="hideBuildingTypeInfo()"
+                                            >
+                                                <i data-lucide="info" class="h-3 w-3"></i>
+                                            </button>
+                                            <div id="buildingTypeInfo" class="info-popup hidden absolute z-20 left-0 top-6 w-96 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg shadow-lg p-4">
+                                                <h4 class="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-3">How Building Types Are Differentiated:</h4>
+                                                <div class="space-y-3 text-xs text-gray-700 dark:text-gray-300">
+                                                    <div>
+                                                        <span class="font-medium text-blue-600 dark:text-blue-400">Office Buildings:</span>
+                                                        <ul class="list-disc list-inside ml-4 mt-1 space-y-1">
+                                                            <li>Higher floor-to-floor heights (3.9m optimal) for complex MEP systems</li>
+                                                            <li>Require suspended ceilings and extensive service distribution</li>
+                                                            <li>Need larger cores for vertical transportation and services</li>
+                                                            <li>Higher net-to-gross ratio expectations (80-85%)</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div>
+                                                        <span class="font-medium text-green-600 dark:text-green-400">Residential Buildings:</span>
+                                                        <ul class="list-disc list-inside ml-4 mt-1 space-y-1">
+                                                            <li>Lower floor-to-floor heights (3.1m optimal) with simpler MEP requirements</li>
+                                                            <li>Direct service connections without extensive distribution</li>
+                                                            <li>Smaller cores relative to floor area</li>
+                                                            <li>Different planning efficiency considerations</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <p class="text-xs text-gray-600 dark:text-gray-400 mt-3 italic border-t border-gray-200 dark:border-gray-600 pt-2">
+                                                    💡 The tool automatically adjusts parameter guidance based on your building type selection.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <select id="buildingType" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-base bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary focus:border-transparent">
                                         <option value="">Select building type</option>
                                         <option value="office">Office Building</option>
@@ -366,9 +407,184 @@
                                 <i data-lucide="arrow-left" class="h-5 w-5 mr-2 inline"></i>
                                 Back to Analysis
                             </button>
+                            <button onclick="showPage('resources')" class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors duration-300">
+                                Next Steps & Resources
+                                <i data-lucide="arrow-right" class="h-5 w-5 ml-2 inline"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 4: Next Steps & Resources -->
+            <div id="resourcesPage" class="page">
+                <div class="p-4 sm:p-6">
+                    <div class="max-w-6xl mx-auto">
+                        <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-6">Next Steps & Resources</h2>
+                        
+                        <!-- Contact Section -->
+                        <div class="bg-gradient-to-r from-primary to-blue-600 text-white rounded-lg p-6 mb-6">
+                            <div class="flex items-start gap-4">
+                                <div class="bg-white/20 rounded-lg p-3 flex-shrink-0">
+                                    <i data-lucide="users" class="h-8 w-8"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold mb-2">Need Expert Support?</h3>
+                                    <p class="text-blue-100 mb-4">Contact Lendlease Integrated Solution for detailed analysis and project-specific questions.</p>
+                                    <div class="bg-white/10 rounded-lg p-4">
+                                        <p class="text-sm text-blue-100 mb-2">Our team of experts can help you:</p>
+                                        <ul class="text-sm text-blue-100 space-y-1">
+                                            <li>• Conduct detailed structural and MEP analysis</li>
+                                            <li>• Optimize design parameters for your specific project</li>
+                                            <li>• Implement advanced efficiency strategies</li>
+                                            <li>• Address complex design challenges</li>
+                                        </ul>
+                                    </div>
+                                    <button class="mt-4 bg-white text-primary px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-300">
+                                        <i data-lucide="mail" class="h-5 w-5 mr-2 inline"></i>
+                                        Contact Our Experts
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Resources Grid -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+                            
+                            <!-- LECA Tool -->
+                            <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-600 p-6 hover:shadow-lg transition-all duration-300">
+                                <div class="flex items-start gap-4">
+                                    <div class="bg-green-100 dark:bg-green-900/30 rounded-lg p-3 flex-shrink-0">
+                                        <i data-lucide="calculator" class="h-6 w-6 text-green-600 dark:text-green-400"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-2">LECA Tool</h3>
+                                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-3">Lendlease Embodied Carbon Advisory tool</p>
+                                        <p class="text-gray-700 dark:text-gray-300 text-sm mb-4">Enables projects to set carbon targets at the project level during early-stage decision making.</p>
+                                        <a href="#" class="inline-flex items-center text-primary hover:text-primary/80 text-sm font-medium transition-colors duration-300">
+                                            Access LECA Tool
+                                            <i data-lucide="external-link" class="h-4 w-4 ml-1"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Design Guide -->
+                            <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-600 p-6 hover:shadow-lg transition-all duration-300">
+                                <div class="flex items-start gap-4">
+                                    <div class="bg-blue-100 dark:bg-blue-900/30 rounded-lg p-3 flex-shrink-0">
+                                        <i data-lucide="book-open" class="h-6 w-6 text-blue-600 dark:text-blue-400"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-2">Design Guide</h3>
+                                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-3">Embodied Carbon Design Guide</p>
+                                        <p class="text-gray-700 dark:text-gray-300 text-sm mb-4">Comprehensive guidelines and best practices for reducing embodied carbon in building design.</p>
+                                        <a href="#" class="inline-flex items-center text-primary hover:text-primary/80 text-sm font-medium transition-colors duration-300">
+                                            View Design Guide
+                                            <i data-lucide="external-link" class="h-4 w-4 ml-1"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Integrated Solution -->
+                            <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-600 p-6 hover:shadow-lg transition-all duration-300">
+                                <div class="flex items-start gap-4">
+                                    <div class="bg-purple-100 dark:bg-purple-900/30 rounded-lg p-3 flex-shrink-0">
+                                        <i data-lucide="building" class="h-6 w-6 text-purple-600 dark:text-purple-400"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-2">Integrated Solution</h3>
+                                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-3">Lendlease Integrated Solution</p>
+                                        <p class="text-gray-700 dark:text-gray-300 text-sm mb-4">Complete project delivery services from design to construction and beyond.</p>
+                                        <a href="#" class="inline-flex items-center text-primary hover:text-primary/80 text-sm font-medium transition-colors duration-300">
+                                            Learn More
+                                            <i data-lucide="external-link" class="h-4 w-4 ml-1"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Next Steps -->
+                        <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 mb-6">
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Recommended Next Steps</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <h4 class="font-medium text-gray-800 dark:text-gray-100 mb-3">For Your Current Project:</h4>
+                                    <ul class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+                                        <li class="flex items-start gap-2">
+                                            <i data-lucide="check-circle" class="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0"></i>
+                                            <span>Review and address any risk parameters identified</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <i data-lucide="check-circle" class="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0"></i>
+                                            <span>Consider detailed structural and MEP analysis</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <i data-lucide="check-circle" class="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0"></i>
+                                            <span>Use LECA tool for embodied carbon targets</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <i data-lucide="check-circle" class="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0"></i>
+                                            <span>Engage with specialists for complex parameters</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-800 dark:text-gray-100 mb-3">For Future Projects:</h4>
+                                    <ul class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+                                        <li class="flex items-start gap-2">
+                                            <i data-lucide="lightbulb" class="h-4 w-4 text-yellow-500 mt-0.5 flex-shrink-0"></i>
+                                            <span>Apply efficiency principles from the start</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <i data-lucide="lightbulb" class="h-4 w-4 text-yellow-500 mt-0.5 flex-shrink-0"></i>
+                                            <span>Study the Embodied Carbon Design Guide</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <i data-lucide="lightbulb" class="h-4 w-4 text-yellow-500 mt-0.5 flex-shrink-0"></i>
+                                            <span>Build efficiency into your design process</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <i data-lucide="lightbulb" class="h-4 w-4 text-yellow-500 mt-0.5 flex-shrink-0"></i>
+                                            <span>Consider Lendlease Integrated Solution</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tool Information -->
+                        <div class="bg-blue-50 dark:bg-blue-900/30 rounded-lg p-6">
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">About This Tool</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <h4 class="font-medium text-gray-800 dark:text-gray-100 mb-2">Purpose</h4>
+                                    <p class="text-sm text-gray-700 dark:text-gray-300 mb-4">This Practical Design Efficiency Tool provides early-stage guidance to help identify opportunities for cost reduction, construction optimization, and waste minimization.</p>
+                                    
+                                    <h4 class="font-medium text-gray-800 dark:text-gray-100 mb-2">Limitations</h4>
+                                    <p class="text-sm text-gray-700 dark:text-gray-300">This tool provides indicative guidance only. Detailed analysis by qualified professionals is recommended for all projects.</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-800 dark:text-gray-100 mb-2">Best Results</h4>
+                                    <p class="text-sm text-gray-700 dark:text-gray-300 mb-4">Use this tool early in the design process when parameters can still be easily adjusted. The tool is most effective when combined with professional expertise.</p>
+                                    
+                                    <h4 class="font-medium text-gray-800 dark:text-gray-100 mb-2">Support</h4>
+                                    <p class="text-sm text-gray-700 dark:text-gray-300">For questions about this tool or your analysis results, contact our team through the link above.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Navigation Buttons -->
+                        <div class="flex justify-between mt-8">
+                            <button onclick="showPage('summary')" class="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors duration-300">
+                                <i data-lucide="arrow-left" class="h-5 w-5 mr-2 inline"></i>
+                                Back to Summary
+                            </button>
                             <button onclick="resetTool()" class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors duration-300">
                                 <i data-lucide="refresh-cw" class="h-5 w-5 mr-2 inline"></i>
-                                New Project
+                                Start New Analysis
                             </button>
                         </div>
                     </div>
@@ -429,115 +645,231 @@
                 id: 'form-efficiency',
                 category: 'Building Form',
                 parameter: 'Form Efficiency',
+                metric: 'P/A Ratio',
                 definition: 'The ratio of exterior wall perimeter to floor area. Lower values indicate more compact, efficient forms.',
                 quickRule: 'Keep building shape simple and compact',
                 optimal: '<0.25',
                 acceptable: '<0.30',
                 risk: '>0.30',
-                benefits: ['💰 Considerable material savings', '🌿 Considerable energy reduction', '⏱️ Enhance construction time'],
-                technicalNote: 'Compact forms use 20% less material and reduce heat loss by minimising surface area to volume ratio.',
+                benefits: ['💰 Considerable material savings', '🌿 Major energy impacts', '⏱️ Faster construction'],
+                technicalNote: 'Compact building forms dramatically reduce material usage and energy consumption. A more efficient footprint can save 15-20% in structural materials and 10-15% in ongoing energy costs by minimizing the building envelope surface area.',
                 action: 'Simplify building outline',
-                remediation: ['Simplify outline geometry', 'Remove unnecessary corners', 'Group service cores', 'Use rectangular forms'],
-                impactScore: { cost: 2, carbon: 3, time: 2 },
+                remediation: ['Consolidate projections', 'Square off corners', 'Combine service areas', 'Use rectangular forms'],
+                impactScore: { cost: 'Medium', carbon: 'High', time: 'Medium' },
+                keyImpact: '+15-20% materials, +10-15% energy',
                 inputType: 'number',
                 unit: 'ratio',
+                inputLabel: 'External Perimeter to Area Ratio',
                 ranges: { optimal: { min: 0, max: 0.25 }, acceptable: { min: 0.25, max: 0.30 }, risk: { min: 0.30, max: 1 } },
-                defaultValue: 0.3
+                defaultValue: 0.28
             },
             {
                 id: 'building-proportion',
                 category: 'Building Form',
                 parameter: 'Height/Width Ratio',
-                definition: 'The ratio of building height to its average width. Measures the slenderness of the building.',
+                metric: 'H/W Ratio',
+                definition: 'The ratio of building height to its average width. Measures the slenderness of the building. Calculate as: Building Height ÷ Maximum Building Width.',
                 quickRule: 'Avoid very tall, thin buildings',
                 optimal: '<7:1',
                 acceptable: '<8:1',
                 risk: '>8:1',
                 benefits: ['💰 Reduced wind costs', '⏱️ Simpler structural build', '🌿 Material efficiency'],
-                technicalNote: 'Slender buildings require expensive wind resistance systems and specialised structural solutions.',
+                technicalNote: 'Slender buildings require increasingly expensive wind resistance systems and sophisticated structural solutions. Buildings taller than 7 times their width need specialized lateral systems that can increase structural costs by 20-30%.',
                 action: 'Review massing proportions',
                 remediation: ['Widen floor plate', 'Add setbacks at height', 'Use outrigger systems', 'Consider building separation'],
-                impactScore: { cost: 2, carbon: 2, time: 3 },
+                impactScore: { cost: 'Medium', carbon: 'Medium', time: 'High' },
+                keyImpact: '+20-30% lateral system',
                 inputType: 'number',
-                unit: 'ratio',
+                unit: ':1',
+                inputLabel: 'Height ÷ Width Ratio (enter as decimal)',
+                inputHelp: 'Example: For a 70m tall, 10m wide building, enter 7.0',
                 ranges: { optimal: { min: 0, max: 7 }, acceptable: { min: 7, max: 8 }, risk: { min: 8, max: 20 } },
-                defaultValue: 8.5
+                defaultValue: 6.8
             },
             {
                 id: 'structural-grid',
                 category: 'Structure',
                 parameter: 'Grid Spacing',
+                metric: 'Bay Size',
                 definition: 'The distance between structural columns, determining the span of beams and floor systems.',
                 quickRule: 'Keep structural bay size around 7.5-8m',
                 optimal: '7.5-8.0m',
                 acceptable: '6-9m',
                 risk: '>10.5m',
                 benefits: ['💰 Optimal beam sizing', '⏱️ Standard construction', '🌿 Balanced materials'],
-                technicalNote: 'Optimal span balances structural efficiency with flexibility and cost effectiveness.',
-                action: 'Standardise grid at 7.5-8m',
+                technicalNote: 'Optimal structural bay spacing balances structural efficiency with space planning flexibility. Grids beyond 9m require significantly deeper beams, increasing material use and floor height.',
+                action: 'Standardize grid at 7.5-8m',
                 remediation: ['Add intermediate columns', 'Use post-tensioning', 'Accept deeper beams', 'Consider steel alternatives'],
-                impactScore: { cost: 2, carbon: 3, time: 2 },
+                impactScore: { cost: 'Medium', carbon: 'High', time: 'Medium' },
+                keyImpact: '+40% beam depth at 10.5m',
                 inputType: 'number',
                 unit: 'm',
                 ranges: { optimal: { min: 7.5, max: 8.0 }, acceptable: { min: 6, max: 9 }, risk: { min: 9, max: 15 } },
-                defaultValue: 8.5
+                defaultValue: 7.8
             },
             {
-                id: 'floor-ceiling-height',
-                category: 'Structure',
-                parameter: 'Floor-to-Ceiling Height',
-                definition: 'The vertical distance from finished floor to finished ceiling, affecting volume and structural requirements.',
+                id: 'floor-height',
+                category: 'Vertical Design',
+                parameter: 'Floor-to-Floor Height',
+                metric: 'F2F Height',
+                definition: 'The vertical distance from finished floor to finished floor above, affecting building volume and structural requirements.',
                 quickRule: 'Standard heights reduce costs considerably',
-                optimal: '2.7-3.0m',
-                acceptable: '3.0-3.3m',
-                risk: '>3.5m',
-                benefits: ['💰 Major cost savings', '⏱️ Standard formwork', '🌿 Less concrete volume'],
-                technicalNote: 'Every 300mm of extra height adds ~5% to structural costs due to increased loads and material.',
-                action: 'Optimise ceiling height',
-                remediation: ['Reduce plenum space', 'Integrate services', 'Use efficient MEP design', 'Consider exposed structure'],
-                impactScore: { cost: 3, carbon: 2, time: 2 },
+                optimal: '3.1m (res) / 3.9m (off)',
+                acceptable: '3.0-3.3m / 3.6-4.2m',
+                risk: '>3.6m / >4.5m',
+                benefits: ['💰 Major cost savings', '⏱️ Standard formwork', '🌿 Less structrual materils'],
+                technicalNote: 'Every 100mm adds one floor per 30-story building. Every 100mm of extra height adds ~2-3% to total building carbon through additional materials. Office buildings typically require higher floor-to-floor heights (3.9m) to accommodate larger MEP systems, while residential buildings can use lower heights (3.1m).',
+                action: 'Minimize to functional needs',
+                remediation: ['Optimize MEP zones', 'Use exposed ceilings', 'Coordinate services', 'Reduce plenum space'],
+                impactScore: { cost: 'Medium', carbon: 'Medium', time: 'Low' },
+                keyImpact: '+2-3% total carbon per 100mm',
                 inputType: 'number',
                 unit: 'm',
-                ranges: { optimal: { min: 2.7, max: 3.0 }, acceptable: { min: 3.0, max: 3.3 }, risk: { min: 3.5, max: 6 } },
-                defaultValue: 3.2
+                buildingTypeSpecific: {
+                    office: {
+                        optimal: { min: 3.6, max: 3.9 },
+                        acceptable: { min: 3.6, max: 4.2 },
+                        risk: { min: 4.5, max: 6 },
+                        note: 'Office buildings require additional height for MEP systems and suspended ceilings'
+                    },
+                    residential: {
+                        optimal: { min: 3.0, max: 3.1 },
+                        acceptable: { min: 3.0, max: 3.3 },
+                        risk: { min: 3.6, max: 6 },
+                        note: 'Residential buildings can use lower heights with simpler MEP requirements'
+                    }
+                },
+                ranges: { optimal: { min: 3.0, max: 3.9 }, acceptable: { min: 3.0, max: 4.2 }, risk: { min: 4.2, max: 6 } },
+                defaultValue: 3.9
             },
             {
-                id: 'facade-complexity',
-                category: 'Envelope',
-                parameter: 'Facade Complexity Index',
-                definition: 'A measure of facade design complexity based on material types, details, and geometry variations.',
-                quickRule: 'Simple facades perform better and cost less',
-                optimal: '<1.3',
-                acceptable: '<1.6',
-                risk: '>2.0',
-                benefits: ['💰 Substantial cost reduction', '⏱️ Faster installation', '🌿 Better thermal performance'],
-                technicalNote: 'Complex facades have 3x more thermal bridges and cost 50% more per m² to construct.',
-                action: 'Simplify facade design',
-                remediation: ['Reduce material types', 'Standardise details', 'Minimise projections', 'Use modular systems'],
-                impactScore: { cost: 3, carbon: 2, time: 3 },
+                id: 'cantilevers',
+                category: 'Special Conditions',
+                parameter: 'Cantilever Projection',
+                metric: 'Projection Length',
+                definition: 'The distance that building elements extend beyond their primary structural support.',
+                quickRule: 'Minimize or eliminate cantilevers',
+                optimal: '<1.5m',
+                acceptable: '<2.5m',
+                risk: '>3.5m',
+                benefits: ['💰 Significant material savings', '🌿 Major carbon reduction', '⏱️ Simpler construction'],
+                technicalNote: 'Cantilevers have exponential material impact. Each meter of cantilever can require 40-60% more structural material in the supporting elements.',
+                action: 'Minimise or eliminate',
+                remediation: ['Add columns below', 'Use lightweight materials', 'Consider cable supports', 'Reduce cantilever length'],
+                impactScore: { cost: 'High', carbon: 'High', time: 'High' },
+                keyImpact: '+40-60% structure per metre',
                 inputType: 'number',
-                unit: 'index',
-                ranges: { optimal: { min: 0, max: 1.3 }, acceptable: { min: 1.3, max: 1.6 }, risk: { min: 2.0, max: 5 } },
-                defaultValue: 1.8
+                unit: 'm',
+                inputLabel: 'Longest Distance (m)',
+                ranges: { optimal: { min: 0, max: 1.5 }, acceptable: { min: 1.5, max: 2.5 }, risk: { min: 3.5, max: 10 } },
+                defaultValue: 0
+            },
+            {
+                id: 'transfer-structures',
+                category: 'Structure',
+                parameter: 'Transfer Levels',
+                metric: 'Number of Transfers',
+                definition: 'The number of levels where structural loads are transferred between misaligned vertical elements.',
+                quickRule: 'Align vertical structure wherever possible',
+                optimal: '0-1',
+                acceptable: '2',
+                risk: '>2',
+                benefits: ['💰 Massive cost savings', '🌿 Major carbon reduction', '⏱️ Faster construction'],
+                technicalNote: 'Transfers are the most carbon-intensive structural element, requiring 2-3 times the material of typical structure. They should be avoided whenever possible.',
+                action: 'Align vertical structure',
+                remediation: ['Relocate columns', 'Adjust program stacking', 'Accept layout constraints', 'Use steel alternatives'],
+                impactScore: { cost: 'High', carbon: 'High', time: 'High' },
+                keyImpact: '2-3x material at transfers',
+                inputType: 'number',
+                unit: 'levels',
+                inputLabel: 'No. of Transfers (Levels)',
+                ranges: { optimal: { min: 0, max: 1 }, acceptable: { min: 1, max: 2 }, risk: { min: 2, max: 10 } },
+                defaultValue: 0
             },
             {
                 id: 'window-wall-ratio',
                 category: 'Envelope',
                 parameter: 'Window-to-Wall Ratio',
+                metric: 'WWR %',
                 definition: 'The percentage of wall area occupied by windows and glazed openings.',
                 quickRule: 'Balance daylight with thermal performance',
-                optimal: '30-40%',
-                acceptable: '40-50%',
+                optimal: '35-40%',
+                acceptable: '30-50%',
                 risk: '>60%',
                 benefits: ['💰 Lower HVAC costs', '🌿 Improved energy performance', '⏱️ Simpler construction'],
-                technicalNote: 'High glazing ratios increase cooling loads by 15-25% and require larger HVAC systems.',
-                action: 'Optimise glazing ratio',
-                remediation: ['Add shading devices', 'Use high-performance glazing', 'Redistribute openings', 'Consider light shelves'],
-                impactScore: { cost: 2, carbon: 3, time: 1 },
+                technicalNote: 'Glass has 5x the heat transfer of insulated walls. High glazing ratios increase cooling loads by 15-25% and can increase facade carbon by 40-70%.',
+                action: 'Balance views with solid wall',
+                remediation: ['Add spandrels', 'Use vision strips', 'Optimise by orientation', 'Add shading devices'],
+                impactScore: { cost: 'High', carbon: 'Medium', time: 'Medium' },
+                keyImpact: '+40-70% facade carbon at 60%',
                 inputType: 'number',
                 unit: '%',
-                ranges: { optimal: { min: 30, max: 40 }, acceptable: { min: 40, max: 50 }, risk: { min: 60, max: 90 } },
-                defaultValue: 55
+                ranges: { optimal: { min: 35, max: 40 }, acceptable: { min: 30, max: 50 }, risk: { min: 60, max: 90 } },
+                defaultValue: 45
+            },
+            {
+                id: 'net-to-gross',
+                category: 'Planning',
+                parameter: 'Net-to-Gross Ratio',
+                metric: 'NGA %',
+                definition: 'The ratio of usable floor area to total floor area, indicating planning efficiency.',
+                quickRule: 'Optimize core and circulation for maximum efficiency',
+                optimal: '80-85% (office)',
+                acceptable: '75-80%',
+                risk: '<75%',
+                benefits: ['💰 Direct revenue impact', '🌿 Better space utilization', '⏱️ Efficient planning'],
+                technicalNote: 'Every 1% improvement in net-to-gross ratio equals 1% more revenue-generating space. Poor ratios indicate inefficient core and circulation design.',
+                action: 'Optimize core and circulation',
+                remediation: ['Centralize cores', 'Combine services', 'Reduce circulation', 'Optimize elevator arrangement'],
+                impactScore: { cost: 'High', carbon: 'Medium', time: 'Medium' },
+                keyImpact: 'Direct revenue impact',
+                inputType: 'number',
+                unit: '%',
+                inputLabel: 'Net Gross Area/Gross Floor Area (%)',
+                ranges: { optimal: { min: 80, max: 85 }, acceptable: { min: 75, max: 80 }, risk: { min: 60, max: 75 } },
+                defaultValue: 78
+            },
+            {
+                id: 'column-stacking',
+                category: 'Structure',
+                parameter: 'Column Alignment',
+                metric: 'Stacking %',
+                definition: 'The percentage of columns that stack vertically without requiring transfer structures.',
+                quickRule: 'Maintain vertical continuity of structure',
+                optimal: '>85%',
+                acceptable: '70-85%',
+                risk: '<70%',
+                benefits: ['💰 Eliminates transfer costs', '🌿 Major carbon reduction', '⏱️ Simpler construction'],
+                technicalNote: 'Poor column alignment forces expensive transfer structures. Each transfer can add 200% more material locally and complicate construction significantly.',
+                action: 'Maintain vertical continuity',
+                remediation: ['Adjust layouts', 'Accept program constraints', 'Add transfer beams', 'Relocate service cores'],
+                impactScore: { cost: 'High', carbon: 'High', time: 'Medium' },
+                keyImpact: 'Each transfer +200% local structure',
+                inputType: 'number',
+                unit: '%',
+                ranges: { optimal: { min: 85, max: 100 }, acceptable: { min: 70, max: 85 }, risk: { min: 0, max: 70 } },
+                defaultValue: 82
+            },
+            {
+                id: 'service-runs',
+                category: 'MEP',
+                parameter: 'Horizontal Service Runs',
+                metric: 'Distance from Core',
+                definition: 'The maximum horizontal distance from service cores to the furthest served space.',
+                quickRule: 'Keep service runs short and direct',
+                optimal: '<25m',
+                acceptable: '25-35m',
+                risk: '>35m',
+                benefits: ['💰 Reduced duct sizing', '🌿 Less material usage', '⏱️ Simpler installation'],
+                technicalNote: 'Long service runs need upsizing for pressure drop, increasing material use by 40% for ducts and 30% overall. They also reduce system efficiency.',
+                action: 'Add risers or relocate core',
+                remediation: ['Add satellite risers', 'Relocate equipment rooms', 'Use fan-powered boxes', 'Optimize core location'],
+                impactScore: { cost: 'Medium', carbon: 'Medium', time: 'Medium' },
+                keyImpact: '+40% duct size, +30% material',
+                inputType: 'number',
+                unit: 'm',
+                ranges: { optimal: { min: 0, max: 25 }, acceptable: { min: 25, max: 35 }, risk: { min: 35, max: 100 } },
+                defaultValue: 28
             }
         ];
 
@@ -674,7 +1006,7 @@
                             <div class="space-y-4">
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                        Current Value (${param.unit})
+                                        ${param.inputLabel || `Current Value (${param.unit})`}
                                     </label>
                                     <div class="flex space-x-2">
                                         <input 
@@ -692,6 +1024,11 @@
                                             Use Optimal
                                         </button>
                                     </div>
+                                    ${param.inputHelp ? `
+                                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-2 italic">
+                                            ${param.inputHelp}
+                                        </p>
+                                    ` : ''}
                                 </div>
                                 
                                 <div>
@@ -888,10 +1225,10 @@
             });
         }
 
-        // Get score color classes
-        function getScoreColor(score) {
-            if (score >= 3) return 'text-red-600 bg-red-50 dark:text-red-400 dark:bg-red-900/30';
-            if (score >= 2) return 'text-yellow-600 bg-yellow-50 dark:text-yellow-400 dark:bg-yellow-900/30';
+        // Get score colour classes for qualitative ratings
+        function getScoreColour(score) {
+            if (score === 'High') return 'text-red-600 bg-red-50 dark:text-red-400 dark:bg-red-900/30';
+            if (score === 'Medium') return 'text-yellow-600 bg-yellow-50 dark:text-yellow-400 dark:bg-yellow-900/30';
             return 'text-green-600 bg-green-50 dark:text-green-400 dark:bg-green-900/30';
         }
 
@@ -903,12 +1240,10 @@
                 time: 'clock'
             };
             
-            const qualitativeRating = score >= 3 ? 'High' : score >= 2 ? 'Medium' : 'Low';
-            
             return `
-                <div class="impact-indicator flex items-center px-2 py-1 rounded-full ${getScoreColor(score)}">
+                <div class="impact-indicator flex items-center px-2 py-1 rounded-full ${getScoreColour(score)}">
                     <i data-lucide="${icons[type]}" class="h-4 w-4"></i>
-                    <span class="ml-1 text-xs font-semibold">${qualitativeRating}</span>
+                    <span class="ml-1 text-xs font-semibold">${score}</span>
                 </div>
             `;
         }
@@ -942,6 +1277,45 @@
                                 <div class="flex items-center mb-2">
                                     <span class="text-lg mr-2">${statusIcon}</span>
                                     <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">${param.quickRule}</h3>
+                                    <div class="relative ml-2">
+                                        <button 
+                                            class="info-button w-5 h-5 rounded-full bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-300 hover:bg-primary hover:text-white flex items-center justify-center text-xs transition-colors"
+                                            onclick="event.stopPropagation(); toggleParameterInfo('quick-${param.id}')"
+                                        >
+                                            <i data-lucide="info" class="h-3 w-3"></i>
+                                        </button>
+                                        <div id="info-quick-${param.id}" class="info-popup hidden absolute z-10 left-0 top-6 w-80 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg shadow-lg p-4">
+                                            <div class="mb-3">
+                                                <div class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Definition:</div>
+                                                <p class="text-xs text-gray-600 dark:text-gray-400 mb-3">${param.definition}</p>
+                                                
+                                                <div class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Performance Ranges:</div>
+                                                <div class="space-y-1">
+                                                    <div class="flex items-center justify-between p-2 bg-green-50 dark:bg-green-900/30 rounded text-xs">
+                                                        <span class="text-green-700 dark:text-green-300 font-medium">Optimal</span>
+                                                        <span class="text-green-800 dark:text-green-200">${param.optimal}</span>
+                                                    </div>
+                                                    <div class="flex items-center justify-between p-2 bg-yellow-50 dark:bg-yellow-900/30 rounded text-xs">
+                                                        <span class="text-yellow-700 dark:text-yellow-300 font-medium">Acceptable</span>
+                                                        <span class="text-yellow-800 dark:text-yellow-200">${param.acceptable}</span>
+                                                    </div>
+                                                    <div class="flex items-center justify-between p-2 bg-red-50 dark:bg-red-900/30 rounded text-xs">
+                                                        <span class="text-red-700 dark:text-red-300 font-medium">Risk</span>
+                                                        <span class="text-red-800 dark:text-red-200">${param.risk}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div>
+                                                <div class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Impact Scores:</div>
+                                                <div class="flex space-x-1">
+                                                    ${createImpactIndicator(param.impactScore.cost, 'cost')}
+                                                    ${createImpactIndicator(param.impactScore.time, 'time')}
+                                                    ${createImpactIndicator(param.impactScore.carbon, 'carbon')}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <p class="text-sm text-gray-500 dark:text-gray-400 mb-3">${param.parameter} • ${param.category}</p>
                                 ${paramData?.value ? `
@@ -980,8 +1354,51 @@
                 return `
                     <tr class="border-b border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-300">
                         <td class="p-3">
-                            <p class="font-medium text-gray-900 dark:text-gray-100">${param.parameter}</p>
-                            <p class="text-sm text-gray-500 dark:text-gray-400">${param.category}</p>
+                            <div class="flex items-center gap-2">
+                                <div>
+                                    <p class="font-medium text-gray-900 dark:text-gray-100">${param.parameter}</p>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">${param.category}</p>
+                                </div>
+                                <div class="relative">
+                                    <button 
+                                        class="info-button w-5 h-5 rounded-full bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-300 hover:bg-primary hover:text-white flex items-center justify-center text-xs transition-colors"
+                                        onclick="toggleParameterInfo('tech-${param.id}')"
+                                    >
+                                        <i data-lucide="info" class="h-3 w-3"></i>
+                                    </button>
+                                    <div id="info-tech-${param.id}" class="info-popup hidden absolute z-10 left-0 top-6 w-80 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg shadow-lg p-4">
+                                        <div class="mb-3">
+                                            <div class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Definition:</div>
+                                            <p class="text-xs text-gray-600 dark:text-gray-400 mb-3">${param.definition}</p>
+                                            
+                                            <div class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Performance Ranges:</div>
+                                            <div class="space-y-1">
+                                                <div class="flex items-center justify-between p-2 bg-green-50 dark:bg-green-900/30 rounded text-xs">
+                                                    <span class="text-green-700 dark:text-green-300 font-medium">Optimal</span>
+                                                    <span class="text-green-800 dark:text-green-200">${param.optimal}</span>
+                                                </div>
+                                                <div class="flex items-center justify-between p-2 bg-yellow-50 dark:bg-yellow-900/30 rounded text-xs">
+                                                    <span class="text-yellow-700 dark:text-yellow-300 font-medium">Acceptable</span>
+                                                    <span class="text-yellow-800 dark:text-yellow-200">${param.acceptable}</span>
+                                                </div>
+                                                <div class="flex items-center justify-between p-2 bg-red-50 dark:bg-red-900/30 rounded text-xs">
+                                                    <span class="text-red-700 dark:text-red-300 font-medium">Risk</span>
+                                                    <span class="text-red-800 dark:text-red-200">${param.risk}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div>
+                                            <div class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Impact Scores:</div>
+                                            <div class="flex space-x-1">
+                                                ${createImpactIndicator(param.impactScore.cost, 'cost')}
+                                                ${createImpactIndicator(param.impactScore.time, 'time')}
+                                                ${createImpactIndicator(param.impactScore.carbon, 'carbon')}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </td>
                         <td class="p-3">
                             <span class="font-semibold">${value}${param.unit}</span>
@@ -1066,6 +1483,45 @@
                                                 <h4 class="font-medium text-gray-800 dark:text-gray-100">${param.parameter}</h4>
                                                 <p class="text-sm text-gray-600 dark:text-gray-400">${param.category}</p>
                                             </div>
+                                            <div class="relative ml-2">
+                                                <button 
+                                                    class="info-button w-5 h-5 rounded-full bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-300 hover:bg-primary hover:text-white flex items-center justify-center text-xs transition-colors"
+                                                    onclick="toggleParameterInfo('summary-${param.id}')"
+                                                >
+                                                    <i data-lucide="info" class="h-3 w-3"></i>
+                                                </button>
+                                                <div id="info-summary-${param.id}" class="info-popup hidden absolute z-10 left-0 top-6 w-80 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg shadow-lg p-4">
+                                                    <div class="mb-3">
+                                                        <div class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Definition:</div>
+                                                        <p class="text-xs text-gray-600 dark:text-gray-400 mb-3">${param.definition}</p>
+                                                        
+                                                        <div class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Performance Ranges:</div>
+                                                        <div class="space-y-1">
+                                                            <div class="flex items-center justify-between p-2 bg-green-50 dark:bg-green-900/30 rounded text-xs">
+                                                                <span class="text-green-700 dark:text-green-300 font-medium">Optimal</span>
+                                                                <span class="text-green-800 dark:text-green-200">${param.optimal}</span>
+                                                            </div>
+                                                            <div class="flex items-center justify-between p-2 bg-yellow-50 dark:bg-yellow-900/30 rounded text-xs">
+                                                                <span class="text-yellow-700 dark:text-yellow-300 font-medium">Acceptable</span>
+                                                                <span class="text-yellow-800 dark:text-yellow-200">${param.acceptable}</span>
+                                                            </div>
+                                                            <div class="flex items-center justify-between p-2 bg-red-50 dark:bg-red-900/30 rounded text-xs">
+                                                                <span class="text-red-700 dark:text-red-300 font-medium">Risk</span>
+                                                                <span class="text-red-800 dark:text-red-200">${param.risk}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div>
+                                                        <div class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Impact Scores:</div>
+                                                        <div class="flex space-x-1">
+                                                            ${createImpactIndicator(param.impactScore.cost, 'cost')}
+                                                            ${createImpactIndicator(param.impactScore.time, 'time')}
+                                                            ${createImpactIndicator(param.impactScore.carbon, 'carbon')}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="text-right">
                                             <div class="font-semibold text-gray-800 dark:text-gray-100">${value}${param.unit}</div>
@@ -1138,7 +1594,7 @@
                                     <h5 class="font-medium text-yellow-800 dark:text-yellow-200 mb-2">Recommendations:</h5>
                                     <ul class="text-sm text-yellow-700 dark:text-yellow-300 space-y-1">
                                         <li>• Complete all parameter inputs for comprehensive analysis</li>
-                                        <li>• Focus on high-impact parameters (cost and carbon scores of 3)</li>
+                                        <li>• Focus on high-impact parameters (cost and carbon scores)</li>
                                         <li>• Consider project-specific constraints when setting values</li>
                                         <li>• Review parameter definitions using the info (ℹ️) icons if needed</li>
                                     </ul>
@@ -1169,6 +1625,24 @@
                     recommendation = 'Comprehensive redesign required. Multiple efficiency opportunities need to be addressed.';
                 }
                 
+                // Determine completeness qualitatively based on provided information
+                let completenessQuality = '';
+                let completenessColor = '';
+                
+                if (consideredParams >= 8) {
+                    completenessQuality = 'Comprehensive';
+                    completenessColor = 'text-green-600';
+                } else if (consideredParams >= 6) {
+                    completenessQuality = 'Good';
+                    completenessColor = 'text-blue-600';
+                } else if (consideredParams >= 4) {
+                    completenessQuality = 'Partial';
+                    completenessColor = 'text-yellow-600';
+                } else {
+                    completenessQuality = 'Limited';
+                    completenessColor = 'text-red-600';
+                }
+                
                 container.innerHTML = `
                     <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Overall Assessment</h3>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
@@ -1177,12 +1651,12 @@
                             <div class="text-sm text-gray-600 dark:text-gray-400">Overall Grade</div>
                         </div>
                         <div class="text-center">
-                            <div class="text-2xl font-bold text-primary mb-2">${completionRate}%</div>
-                            <div class="text-sm text-gray-600 dark:text-gray-400">Parameters Analyzed</div>
+                            <div class="text-2xl font-bold ${completenessColor} mb-2">${completenessQuality}</div>
+                            <div class="text-sm text-gray-600 dark:text-gray-400">Analysis Completeness</div>
                         </div>
                         <div class="text-center">
-                            <div class="text-2xl font-bold text-green-600 mb-2">${optimizationRate}%</div>
-                            <div class="text-sm text-gray-600 dark:text-gray-400">Optimization Rate</div>
+                            <div class="text-2xl font-bold text-green-600 mb-2">${optimalParams}/${consideredParams}</div>
+                            <div class="text-sm text-gray-600 dark:text-gray-400">Optimal Parameters</div>
                         </div>
                     </div>
                     
@@ -1196,10 +1670,10 @@
                             <strong>Overall Grade:</strong> Professional assessment based on parameter optimization and risk factors
                         </div>
                         <div class="bg-gray-50 dark:bg-gray-700 rounded p-3">
-                            <strong>Parameters Analyzed:</strong> Percentage of total parameters considered in this analysis
+                            <strong>Analysis Completeness:</strong> Quality assessment based on number and variety of parameters provided
                         </div>
                         <div class="bg-gray-50 dark:bg-gray-700 rounded p-3">
-                            <strong>Optimization Rate:</strong> Percentage of analyzed parameters achieving optimal performance
+                            <strong>Optimal Parameters:</strong> Number of parameters achieving optimal performance out of total analyzed
                         </div>
                     </div>
                 `;
@@ -1523,6 +1997,22 @@
             });
         });
 
+        // Building Type Info Functions
+        function toggleBuildingTypeInfo() {
+            const popup = document.getElementById('buildingTypeInfo');
+            popup.classList.toggle('hidden');
+        }
+
+        function showBuildingTypeInfo() {
+            const popup = document.getElementById('buildingTypeInfo');
+            popup.classList.remove('hidden');
+        }
+
+        function hideBuildingTypeInfo() {
+            const popup = document.getElementById('buildingTypeInfo');
+            popup.classList.add('hidden');
+        }
+
         // Global functions for onclick handlers
         window.showPage = showPage;
         window.showParameterDetail = showParameterDetail;
@@ -1537,6 +2027,9 @@
         window.generatePresentation = generatePresentation;
         window.resetTool = resetTool;
         window.toggleParameterInfo = toggleParameterInfo;
+        window.toggleBuildingTypeInfo = toggleBuildingTypeInfo;
+        window.showBuildingTypeInfo = showBuildingTypeInfo;
+        window.hideBuildingTypeInfo = hideBuildingTypeInfo;
 
         // Close info popups when clicking outside
         document.addEventListener('click', function(e) {
