@@ -1134,6 +1134,24 @@
                         <!-- Resources Grid -->
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                             
+                            <!-- Comprehensive Design Efficiency Guide -->
+                            <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-600 p-6 hover:shadow-lg transition-all duration-300">
+                                <div class="flex items-start gap-4">
+                                    <div class="bg-indigo-100 dark:bg-indigo-900/30 rounded-lg p-3 flex-shrink-0">
+                                        <i data-lucide="book" class="h-6 w-6 text-indigo-600 dark:text-indigo-400"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-2">Comprehensive Design Guide</h3>
+                                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-3">Complete Parameter Reference & Analysis Guide</p>
+                                        <p class="text-gray-700 dark:text-gray-300 text-sm mb-4">Visual guides, statistical analysis methodology, impact estimation techniques, and compliance checking procedures for all 10 efficiency parameters.</p>
+                                        <button onclick="showComprehensiveGuide()" class="inline-flex items-center text-primary hover:text-primary/80 text-sm font-medium transition-colors duration-300">
+                                            View Complete Guide
+                                            <i data-lucide="book-open" class="h-4 w-4 ml-1"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
                             <!-- LECA Tool -->
                             <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-600 p-6 hover:shadow-lg transition-all duration-300">
                                 <div class="flex items-start gap-4">
@@ -1159,13 +1177,49 @@
                                         <i data-lucide="book-open" class="h-6 w-6 text-blue-600 dark:text-blue-400"></i>
                                     </div>
                                     <div>
-                                        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-2">Design Guide</h3>
-                                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-3">Embodied Carbon Design Guide</p>
+                                        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-2">Embodied Carbon Guide</h3>
+                                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-3">Lendlease Embodied Carbon Design Guide</p>
                                         <p class="text-gray-700 dark:text-gray-300 text-sm mb-4">Comprehensive guidelines and best practices for reducing embodied carbon in building design.</p>
                                         <a href="https://lendlease.sharepoint.com/:b:/r/sites/KnowledgeGateway/KnowledgeLibrary/LowEmbodiedCarbonGuide_Internal_V1_Spreads_09102023094804.pdf?csf=1&web=1&e=gVUP8q" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-primary hover:text-primary/80 text-sm font-medium transition-colors duration-300">
                                             View Design Guide
                                             <i data-lucide="external-link" class="h-4 w-4 ml-1"></i>
                                         </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- BIM Integration -->
+                            <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-600 p-6 hover:shadow-lg transition-all duration-300">
+                                <div class="flex items-start gap-4">
+                                    <div class="bg-cyan-100 dark:bg-cyan-900/30 rounded-lg p-3 flex-shrink-0">
+                                        <i data-lucide="box" class="h-6 w-6 text-cyan-600 dark:text-cyan-400"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-2">BIM Integration</h3>
+                                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-3">Automated Parameter Extraction & Analysis</p>
+                                        <p class="text-gray-700 dark:text-gray-300 text-sm mb-4">Connect design efficiency analysis with your BIM workflow using IFC and Revit API integration.</p>
+                                        <button onclick="showBIMIntegration()" class="inline-flex items-center text-primary hover:text-primary/80 text-sm font-medium transition-colors duration-300">
+                                            View BIM Integration
+                                            <i data-lucide="external-link" class="h-4 w-4 ml-1"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Statistical Analysis -->
+                            <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-600 p-6 hover:shadow-lg transition-all duration-300">
+                                <div class="flex items-start gap-4">
+                                    <div class="bg-orange-100 dark:bg-orange-900/30 rounded-lg p-3 flex-shrink-0">
+                                        <i data-lucide="bar-chart-3" class="h-6 w-6 text-orange-600 dark:text-orange-400"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-2">Statistical Methodology</h3>
+                                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-3">Impact Analysis & Compliance Framework</p>
+                                        <p class="text-gray-700 dark:text-gray-300 text-sm mb-4">Learn how impacts are estimated, statistical significance is determined, and compliance with design limits is verified.</p>
+                                        <button onclick="showStatisticalMethodology()" class="inline-flex items-center text-primary hover:text-primary/80 text-sm font-medium transition-colors duration-300">
+                                            View Methodology
+                                            <i data-lucide="trending-up" class="h-4 w-4 ml-1"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -1330,6 +1384,303 @@
         </div>
     </div>
 
+    <!-- Comprehensive Design Guide Modal -->
+    <div id="comprehensiveGuideModal" class="fixed inset-0 bg-black/50 modal-backdrop flex items-center justify-center z-50 p-4 hidden">
+        <div class="bg-white dark:bg-gray-800 rounded-xl max-w-6xl w-full max-h-[90vh] overflow-y-auto transition-colors duration-300">
+            <div class="p-4 sm:p-6 border-b border-gray-200 dark:border-gray-600 flex justify-between items-start">
+                <div class="flex-1 pr-4">
+                    <h2 class="text-xl sm:text-2xl font-bold text-gray-800 dark:text-gray-100">Comprehensive Design Efficiency Guide</h2>
+                    <p class="text-gray-600 dark:text-gray-400 mt-1">Complete parameter reference, statistical analysis methodology & compliance framework</p>
+                </div>
+                <button onclick="closeComprehensiveGuide()" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors flex-shrink-0">
+                    <i data-lucide="x-circle" class="h-6 w-6"></i>
+                </button>
+            </div>
+
+            <div class="p-4 sm:p-6">
+                <!-- Navigation -->
+                <div class="flex space-x-1 mb-6 bg-gray-100 dark:bg-gray-700 rounded-lg p-1">
+                    <button 
+                        id="overviewNavBtn" 
+                        onclick="showGuideSection('overview')"
+                        class="guide-nav-btn flex-1 px-3 py-2 rounded-md text-sm font-medium transition-colors bg-primary text-white"
+                    >
+                        Overview
+                    </button>
+                    <button 
+                        id="parametersNavBtn" 
+                        onclick="showGuideSection('parameters')"
+                        class="guide-nav-btn flex-1 px-3 py-2 rounded-md text-sm font-medium transition-colors text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600"
+                    >
+                        Parameters
+                    </button>
+                    <button 
+                        id="analysisNavBtn" 
+                        onclick="showGuideSection('analysis')"
+                        class="guide-nav-btn flex-1 px-3 py-2 rounded-md text-sm font-medium transition-colors text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600"
+                    >
+                        Statistical Analysis
+                    </button>
+                    <button 
+                        id="complianceNavBtn" 
+                        onclick="showGuideSection('compliance')"
+                        class="guide-nav-btn flex-1 px-3 py-2 rounded-md text-sm font-medium transition-colors text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600"
+                    >
+                        Compliance
+                    </button>
+                    <button 
+                        id="implementationNavBtn" 
+                        onclick="showGuideSection('implementation')"
+                        class="guide-nav-btn flex-1 px-3 py-2 rounded-md text-sm font-medium transition-colors text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600"
+                    >
+                        Implementation
+                    </button>
+                </div>
+
+                <!-- Content Sections -->
+                <div id="overviewSection" class="guide-section"></div>
+                <div id="parametersSection" class="guide-section hidden"></div>
+                <div id="analysisSection" class="guide-section hidden"></div>
+                <div id="complianceSection" class="guide-section hidden"></div>
+                <div id="implementationSection" class="guide-section hidden"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistical Methodology Modal -->
+    <div id="statisticalMethodologyModal" class="fixed inset-0 bg-black/50 modal-backdrop flex items-center justify-center z-50 p-4 hidden">
+        <div class="bg-white dark:bg-gray-800 rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto transition-colors duration-300">
+            <div class="p-4 sm:p-6 border-b border-gray-200 dark:border-gray-600 flex justify-between items-start">
+                <div class="flex-1 pr-4">
+                    <h2 class="text-xl sm:text-2xl font-bold text-gray-800 dark:text-gray-100">Statistical Methodology & Impact Analysis</h2>
+                    <p class="text-gray-600 dark:text-gray-400 mt-1">How impacts are estimated, significance is determined, and compliance is verified</p>
+                </div>
+                <button onclick="closeStatisticalMethodology()" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors flex-shrink-0">
+                    <i data-lucide="x-circle" class="h-6 w-6"></i>
+                </button>
+            </div>
+
+            <div class="p-4 sm:p-6 space-y-6">
+                <!-- Quick Overview -->
+                <div class="bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-700 rounded-lg p-6">
+                    <h3 class="text-lg font-semibold text-blue-800 dark:text-blue-200 mb-4">
+                        <i data-lucide="trending-up" class="h-5 w-5 mr-2 inline"></i>
+                        Methodology Overview
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-white dark:bg-gray-700 rounded p-4">
+                            <h4 class="font-semibold text-gray-800 dark:text-gray-100 mb-2">1. Parameter Classification</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Each parameter is assigned impact levels (High/Medium/Low) for cost, carbon, and construction time based on industry research</p>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 rounded p-4">
+                            <h4 class="font-semibold text-gray-800 dark:text-gray-100 mb-2">2. Quantitative Analysis</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Mathematical models estimate percentage impacts on material usage, energy consumption, and construction duration</p>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 rounded p-4">
+                            <h4 class="font-semibold text-gray-800 dark:text-gray-100 mb-2">3. Compliance Verification</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Values are checked against building codes, sustainability standards, and industry best practices</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- This is only Mockup and need proper work to define it properly -->
+                <div class="bg-yellow-50 dark:bg-yellow-900/30 border border-yellow-200 dark:border-yellow-700 rounded-lg p-4 mb-6">
+                    <h3 class="text-lg font-semibold text-yellow-800 dark:text-yellow-200 mb-2">
+                        <i data-lucide="construction" class="h-5 w-5 mr-2 inline"></i>
+                        This is only Mockup and need proper work to define it properly
+                    </h3>
+                    <p class="text-sm text-yellow-700 dark:text-yellow-300">
+                        The following calculations and formulas are illustrative examples for demonstration purposes. 
+                        All values, methodologies, and statistical models require proper validation and calibration 
+                        with real project data before implementation.
+                    </p>
+                </div>
+                
+                <!-- Impact Calculation Examples -->
+                <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg p-6">
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Impact Calculation Examples</h3>
+                    <div class="bg-orange-50 dark:bg-orange-900/30 border border-orange-200 dark:border-orange-700 rounded-lg p-4 mb-4">
+                        <p class="text-sm text-orange-800 dark:text-orange-200 font-semibold">
+                            <i data-lucide="info" class="h-4 w-4 mr-1 inline"></i>
+                            Note: All of the following are indicative and needs to be properly defined
+                        </p>
+                        <p class="text-xs text-orange-700 dark:text-orange-300 mt-1">
+                            These calculations serve as examples only. Actual implementation requires detailed engineering analysis, 
+                            validation with industry data, and calibration for specific project contexts.
+                        </p>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-medium text-gray-700 dark:text-gray-300 mb-3">Form Efficiency Impact on Energy & Cost</h4>
+                            <div class="bg-gray-50 dark:bg-gray-700 rounded p-4">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <h5 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Energy Impact Formula:</h5>
+                                        <div class="bg-gray-100 dark:bg-gray-600 rounded p-3 font-mono text-sm">
+                                            energy_multiplier = 1 + (form_eff - 0.25) × 0.8<br>
+                                            annual_energy = baseline × energy_multiplier
+                                        </div>
+                                        <p class="text-xs text-gray-600 dark:text-gray-400 mt-2">Example: Form efficiency 0.35 = 108 kWh/m²/year vs 100 baseline</p>
+                                    </div>
+                                    <div>
+                                        <h5 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Construction Cost Formula:</h5>
+                                        <div class="bg-gray-100 dark:bg-gray-600 rounded p-3 font-mono text-sm">
+                                            cost_multiplier = 1 + (form_eff - 0.25) × 0.6<br>
+                                            envelope_cost = baseline × cost_multiplier
+                                        </div>
+                                        <p class="text-xs text-gray-600 dark:text-gray-400 mt-2">Example: Form efficiency 0.35 = $1,060/m² vs $1,000 baseline</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="font-medium text-gray-700 dark:text-gray-300 mb-3">Structural Grid Impact on Material Usage</h4>
+                            <div class="bg-gray-50 dark:bg-gray-700 rounded p-4">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <h5 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Beam Depth Calculation:</h5>
+                                        <div class="bg-gray-100 dark:bg-gray-600 rounded p-3 font-mono text-sm">
+                                            if span ≤ 8m: depth_factor = 1.0<br>
+                                            if span > 8m: depth_factor = 1 + ((span-8)/8)^1.5
+                                        </div>
+                                        <p class="text-xs text-gray-600 dark:text-gray-400 mt-2">Example: 10m span = 1.35× beam depth vs 8m span</p>
+                                    </div>
+                                    <div>
+                                        <h5 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Material Impact:</h5>
+                                        <div class="bg-gray-100 dark:bg-gray-600 rounded p-3 font-mono text-sm">
+                                            material_multiplier = depth_factor × 1.2<br>
+                                            total_impact = material_multiplier × 1.1
+                                        </div>
+                                        <p class="text-xs text-gray-600 dark:text-gray-400 mt-2">Example: 10m span = 1.78× total structural material</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="font-medium text-gray-700 dark:text-gray-300 mb-3">Floor Height Impact on Building Volume</h4>
+                            <div class="bg-gray-50 dark:bg-gray-700 rounded p-4">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <h5 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Direct Volume Impact:</h5>
+                                        <div class="bg-gray-100 dark:bg-gray-600 rounded p-3 font-mono text-sm">
+                                            volume_multiplier = actual_height / optimal_height<br>
+                                            total_volume = floor_area × height
+                                        </div>
+                                        <p class="text-xs text-gray-600 dark:text-gray-400 mt-2">Every 100mm adds 2-3% to total building carbon footprint</p>
+                                    </div>
+                                    <div>
+                                        <h5 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Storey Efficiency:</h5>
+                                        <div class="bg-gray-100 dark:bg-gray-600 rounded p-3 font-mono text-sm">
+                                            floors_gained = (excess_height × floors) / typical_height<br>
+                                            efficiency_loss = excess_height / total_height
+                                        </div>
+                                        <p class="text-xs text-gray-600 dark:text-gray-400 mt-2">Extra height reduces number of floors achievable in height limit</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Compliance Standards -->
+                <div class="bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-700 rounded-lg p-6">
+                    <h3 class="text-lg font-semibold text-green-800 dark:text-green-200 mb-4">
+                        <i data-lucide="shield-check" class="h-5 w-5 mr-2 inline"></i>
+                        Compliance Standards & Limits
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div class="bg-white dark:bg-gray-700 rounded p-4">
+                            <h4 class="font-semibold text-gray-800 dark:text-gray-100 mb-3">Building Code Compliance</h4>
+                            <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-2">
+                                <li>• <strong>Floor Heights:</strong> Minimum 2.4m ceiling height (NCC)</li>
+                                <li>• <strong>Fire Safety:</strong> Maximum travel distances and egress widths</li>
+                                <li>• <strong>Accessibility:</strong> AS 1428 compliance for universal access</li>
+                                <li>• <strong>Structural:</strong> AS 1170 loading and AS 3600 concrete design</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-white dark:bg-gray-700 rounded p-4">
+                            <h4 class="font-semibold text-gray-800 dark:text-gray-100 mb-3">Sustainability Benchmarks</h4>
+                            <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-2">
+                                <li>• <strong>Green Star:</strong> Form efficiency TBD for points</li>
+                                <li>• <strong>NABERS:</strong> Energy performance targeting 5+ stars</li>
+                                <li>• <strong>Net Zero:</strong> Embodied carbon ≤ 500 kgCO₂e/m²</li>
+                                <li>• <strong>LEED:</strong> Optimize energy performance criteria</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-white dark:bg-gray-700 rounded p-4">
+                            <h4 class="font-semibold text-gray-800 dark:text-gray-100 mb-3">Industry Best Practice</h4>
+                            <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-2">
+                                <li>• <strong>Grid Spacing:</strong> 7.5-8.5m for structural efficiency</li>
+                                <li>• <strong>Net-to-Gross:</strong> 80-85% for office buildings</li>
+                                <li>• <strong>Service Runs:</strong> ≤ 25m for HVAC distribution</li>
+                                <li>• <strong>Cantilevers:</strong> ≤ 2.5m without significant material penalty</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Risk Assessment Framework -->
+                <div class="bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-700 rounded-lg p-6">
+                    <h3 class="text-lg font-semibold text-red-800 dark:text-red-200 mb-4">
+                        <i data-lucide="alert-triangle" class="h-5 w-5 mr-2 inline"></i>
+                        Risk Assessment Framework
+                    </h3>
+                    
+                    <div class="space-y-4">
+                        <p class="text-red-700 dark:text-red-300">
+                            The tool categorizes parameter values into three risk levels based on potential impact severity and compliance requirements:
+                        </p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="bg-white dark:bg-gray-700 rounded p-4 border-l-4 border-green-500">
+                                <h4 class="font-semibold text-green-700 dark:text-green-300 mb-2">✓ Optimal/Acceptable</h4>
+                                <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                                    <li>• Meets all compliance requirements</li>
+                                    <li>• Follows industry best practices</li>
+                                    <li>• Minimal additional costs or complexity</li>
+                                    <li>• No action required</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="bg-white dark:bg-gray-700 rounded p-4 border-l-4 border-yellow-500">
+                                <h4 class="font-semibold text-yellow-700 dark:text-yellow-300 mb-2">⚠ Review Required</h4>
+                                <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                                    <li>• Meets minimum compliance</li>
+                                    <li>• May impact efficiency or cost</li>
+                                    <li>• Consider optimization opportunities</li>
+                                    <li>• Document justification if retained</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="bg-white dark:bg-gray-700 rounded p-4 border-l-4 border-red-500">
+                                <h4 class="font-semibold text-red-700 dark:text-red-300 mb-2">⚠ High Risk</h4>
+                                <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                                    <li>• May violate compliance requirements</li>
+                                    <li>• Significant cost or carbon impact</li>
+                                    <li>• Construction complexity issues</li>
+                                    <li>• Redesign strongly recommended</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-yellow-100 dark:bg-yellow-900/30 rounded p-4 mt-4">
+                            <p class="text-sm text-yellow-800 dark:text-yellow-200">
+                                <strong>Important:</strong> This tool provides guidance only. All designs should be validated by qualified professionals 
+                                and detailed analysis before implementation. Local codes and project-specific requirements may override these recommendations.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- BIM Integration Modal -->
     <div id="bimModal" class="fixed inset-0 bg-black/50 modal-backdrop flex items-center justify-center z-50 p-4 hidden">
         <div class="bg-white dark:bg-gray-800 rounded-xl max-w-5xl w-full max-h-[90vh] overflow-y-auto transition-colors duration-300">
@@ -1351,10 +1702,10 @@
                             <i data-lucide="box" class="h-8 w-8 text-blue-600 dark:text-blue-400"></i>
                         </div>
                         <div>
-                            <h3 class="text-lg font-semibold text-blue-800 dark:text-blue-200 mb-2">Automated Parameter Extraction</h3>
+                            <h3 class="text-lg font-semibold text-blue-800 dark:text-blue-200 mb-2">Automated Parameter Extraction & Statistical Analysis</h3>
                             <p class="text-blue-700 dark:text-blue-300 mb-4">
-                                Automatically extract design parameters from your IFC models to populate the efficiency analysis tool, 
-                                eliminating manual data entry and ensuring accuracy.
+                                Automatically extract design parameters from your IFC/Revit models, analyze statistical impacts, 
+                                determine parameter significance, and check compliance with design limits.
                             </p>
                             <div class="bg-blue-100 dark:bg-blue-800/30 rounded p-3">
                                 <p class="text-sm text-blue-800 dark:text-blue-200 font-medium mb-2">Supported BIM Software:</p>
@@ -1366,6 +1717,1380 @@
                                     <span class="bg-white dark:bg-gray-700 px-3 py-1 rounded-full text-xs text-blue-700 dark:text-blue-300">IFC 2x3/4</span>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Statistical Analysis Features -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-green-50 dark:bg-green-900/30 rounded-lg p-6">
+                        <div class="flex items-start gap-3 mb-4">
+                            <i data-lucide="bar-chart-3" class="h-6 w-6 text-green-600 dark:text-green-400 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold text-green-800 dark:text-green-200">Statistical Impact Analysis</h4>
+                                <p class="text-sm text-green-700 dark:text-green-300 mt-1">
+                                    Quantify the impact of each parameter on cost, carbon, and construction time
+                                </p>
+                            </div>
+                        </div>
+                        <div class="space-y-2 text-sm text-green-700 dark:text-green-300">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="check" class="h-4 w-4"></i>
+                                <span>Parameter sensitivity analysis</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="check" class="h-4 w-4"></i>
+                                <span>Monte Carlo simulation for uncertainty</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="check" class="h-4 w-4"></i>
+                                <span>Multi-objective optimization scoring</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="check" class="h-4 w-4"></i>
+                                <span>Correlation analysis between parameters</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-purple-50 dark:bg-purple-900/30 rounded-lg p-6">
+                        <div class="flex items-start gap-3 mb-4">
+                            <i data-lucide="target" class="h-6 w-6 text-purple-600 dark:text-purple-400 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold text-purple-800 dark:text-purple-200">Compliance Checking</h4>
+                                <p class="text-sm text-purple-700 dark:text-purple-300 mt-1">
+                                    Automatic verification against design standards and performance limits
+                                </p>
+                            </div>
+                        </div>
+                        <div class="space-y-2 text-sm text-purple-700 dark:text-purple-300">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="check" class="h-4 w-4"></i>
+                                <span>Building code compliance verification</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="check" class="h-4 w-4"></i>
+                                <span>Sustainability benchmark comparisons</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="check" class="h-4 w-4"></i>
+                                <span>Performance limit validation</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="check" class="h-4 w-4"></i>
+                                <span>Risk assessment and flagging</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Code Examples Section -->
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">
+                        <i data-lucide="code" class="h-5 w-5 mr-2 inline"></i>
+                        BIM Integration Code Examples
+                    </h3>
+                    
+                    <!-- Tab Navigation -->
+                    <div class="flex space-x-1 mb-4 bg-gray-200 dark:bg-gray-600 rounded-lg p-1">
+                        <button 
+                            id="ifcTab" 
+                            onclick="showCodeTab('ifc')"
+                            class="code-tab flex-1 px-3 py-2 rounded-md text-sm font-medium transition-colors bg-white dark:bg-gray-500 text-gray-900 dark:text-gray-100"
+                        >
+                            IFC Extraction
+                        </button>
+                        <button 
+                            id="revitTab" 
+                            onclick="showCodeTab('revit')"
+                            class="code-tab flex-1 px-3 py-2 rounded-md text-sm font-medium transition-colors text-gray-600 dark:text-gray-300"
+                        >
+                            Revit API
+                        </button>
+                        <button 
+                            id="statisticsTab" 
+                            onclick="showCodeTab('statistics')"
+                            class="code-tab flex-1 px-3 py-2 rounded-md text-sm font-medium transition-colors text-gray-600 dark:text-gray-300"
+                        >
+                            Statistical Analysis
+                        </button>
+                    </div>
+
+                    <!-- IFC Extraction Code -->
+                    <div id="ifcCode" class="code-content">
+                        <h4 class="font-semibold text-gray-800 dark:text-gray-100 mb-3">IFC Parameter Extraction (Python)</h4>
+                        <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+                            <pre class="text-green-400 text-sm"><code>import ifcopenshell
+import numpy as np
+from collections import defaultdict
+
+class IFCEfficiencyAnalyzer:
+    def __init__(self, ifc_file_path):
+        self.model = ifcopenshell.open(ifc_file_path)
+        self.parameters = {}
+        self.statistical_data = defaultdict(list)
+    
+    def extract_building_form_efficiency(self):
+        """Extract form efficiency (perimeter/area ratio) from IFC model"""
+        # Get building storeys
+        storeys = self.model.by_type('IfcBuildingStorey')
+        
+        total_perimeter = 0
+        total_area = 0
+        
+        for storey in storeys:
+            # Get spaces or slabs for each storey
+            spaces = ifcopenshell.util.element.get_decomposition(storey)
+            
+            for space in spaces:
+                if space.is_a('IfcSpace'):
+                    # Extract space geometry
+                    area = self._get_space_area(space)
+                    perimeter = self._get_space_perimeter(space)
+                    
+                    total_area += area
+                    total_perimeter += perimeter
+                    
+                    # Store for statistical analysis
+                    self.statistical_data['space_areas'].append(area)
+                    self.statistical_data['space_perimeters'].append(perimeter)
+        
+        # Calculate form efficiency
+        form_efficiency = total_perimeter / total_area if total_area > 0 else 0
+        
+        self.parameters['form_efficiency'] = {
+            'value': form_efficiency,
+            'confidence': self._calculate_extraction_confidence('form'),
+            'source_elements': len(storeys),
+            'statistical_impact': self._analyze_form_impact(form_efficiency)
+        }
+        
+        return form_efficiency
+    
+    def extract_structural_grid(self):
+        """Extract structural grid spacing from columns and beams"""
+        columns = self.model.by_type('IfcColumn')
+        beams = self.model.by_type('IfcBeam')
+        
+        grid_spacings = []
+        column_positions = []
+        
+        # Extract column positions
+        for column in columns:
+            pos = self._get_element_position(column)
+            if pos:
+                column_positions.append(pos)
+        
+        # Calculate grid spacings
+        if len(column_positions) > 1:
+            # Group columns by elevation
+            columns_by_level = defaultdict(list)
+            for pos in column_positions:
+                level = round(pos[2], 1)  # Round Z coordinate
+                columns_by_level[level].append(pos)
+            
+            # Calculate spacings for each level
+            for level, positions in columns_by_level.items():
+                if len(positions) > 1:
+                    # Sort by X then Y coordinates
+                    positions.sort(key=lambda p: (p[0], p[1]))
+                    
+                    # Calculate distances between adjacent columns
+                    for i in range(len(positions) - 1):
+                        dist = np.sqrt(
+                            (positions[i+1][0] - positions[i][0])**2 + 
+                            (positions[i+1][1] - positions[i][1])**2
+                        )
+                        if 3.0 <= dist <= 15.0:  # Reasonable grid spacing range
+                            grid_spacings.append(dist)
+        
+        # Statistical analysis
+        if grid_spacings:
+            avg_spacing = np.mean(grid_spacings)
+            std_spacing = np.std(grid_spacings)
+            
+            self.parameters['structural_grid'] = {
+                'value': avg_spacing,
+                'std_deviation': std_spacing,
+                'sample_size': len(grid_spacings),
+                'confidence': self._calculate_statistical_confidence(grid_spacings),
+                'statistical_impact': self._analyze_grid_impact(avg_spacing, std_spacing)
+            }
+            
+            return avg_spacing
+        
+        return None
+    
+    def extract_floor_heights(self):
+        """Extract floor-to-floor heights with statistical analysis"""
+        storeys = self.model.by_type('IfcBuildingStorey')
+        floor_heights = []
+        
+        # Sort storeys by elevation
+        storey_elevations = []
+        for storey in storeys:
+            elevation = self._get_storey_elevation(storey)
+            if elevation is not None:
+                storey_elevations.append(elevation)
+        
+        storey_elevations.sort()
+        
+        # Calculate floor-to-floor heights
+        for i in range(len(storey_elevations) - 1):
+            height = storey_elevations[i+1] - storey_elevations[i]
+            if 2.5 <= height <= 6.0:  # Reasonable floor height range
+                floor_heights.append(height)
+        
+        if floor_heights:
+            avg_height = np.mean(floor_heights)
+            std_height = np.std(floor_heights)
+            
+            # Analyze consistency and statistical significance
+            coefficient_of_variation = std_height / avg_height if avg_height > 0 else 0
+            
+            self.parameters['floor_height'] = {
+                'value': avg_height,
+                'std_deviation': std_height,
+                'coefficient_of_variation': coefficient_of_variation,
+                'consistency_score': 1 - min(coefficient_of_variation, 0.2) / 0.2,
+                'statistical_impact': self._analyze_height_impact(avg_height, std_height)
+            }
+            
+            return avg_height
+        
+        return None
+    
+    def analyze_cantilevers(self):
+        """Detect and analyze cantilever projections"""
+        slabs = self.model.by_type('IfcSlab')
+        columns = self.model.by_type('IfcColumn')
+        
+        cantilever_lengths = []
+        
+        for slab in slabs:
+            # Get slab geometry and find unsupported edges
+            slab_geometry = self._get_slab_geometry(slab)
+            if slab_geometry:
+                # Find maximum distance from any point to nearest column
+                max_cantilever = self._calculate_max_cantilever(slab_geometry, columns)
+                if max_cantilever > 1.0:  # Only consider significant cantilevers
+                    cantilever_lengths.append(max_cantilever)
+        
+        if cantilever_lengths:
+            max_cantilever = max(cantilever_lengths)
+            avg_cantilever = np.mean(cantilever_lengths)
+            
+            self.parameters['cantilevers'] = {
+                'max_value': max_cantilever,
+                'average_value': avg_cantilever,
+                'count': len(cantilever_lengths),
+                'risk_assessment': 'high' if max_cantilever > 3.0 else 'medium' if max_cantilever > 2.0 else 'low',
+                'statistical_impact': self._analyze_cantilever_impact(max_cantilever, cantilever_lengths)
+            }
+            
+            return max_cantilever
+        
+        return 0
+    
+    def check_column_alignment(self):
+        """Analyze vertical column alignment and transfer requirements"""
+        columns = self.model.by_type('IfcColumn')
+        
+        # Group columns by level
+        columns_by_level = defaultdict(list)
+        for column in columns:
+            level = self._get_element_level(column)
+            position = self._get_element_position(column)
+            if level and position:
+                columns_by_level[level].append(position)
+        
+        # Analyze alignment between levels
+        levels = sorted(columns_by_level.keys())
+        alignment_score = 0
+        total_columns = 0
+        transfer_count = 0
+        
+        for i in range(len(levels) - 1):
+            lower_level = levels[i]
+            upper_level = levels[i + 1]
+            
+            aligned_count = self._count_aligned_columns(
+                columns_by_level[lower_level],
+                columns_by_level[upper_level],
+                tolerance=1.5  # 1.5m alignment tolerance
+            )
+            
+            upper_count = len(columns_by_level[upper_level])
+            if upper_count > 0:
+                level_alignment = aligned_count / upper_count
+                alignment_score += level_alignment
+                total_columns += upper_count
+                
+                # Count potential transfers
+                if level_alignment < 0.8:  # Less than 80% aligned
+                    transfer_count += 1
+        
+        overall_alignment = (alignment_score / (len(levels) - 1)) * 100 if len(levels) > 1 else 100
+        
+        self.parameters['column_stacking'] = {
+            'alignment_percentage': overall_alignment,
+            'transfer_levels': transfer_count,
+            'total_levels': len(levels) - 1,
+            'risk_assessment': 'low' if overall_alignment > 85 else 'medium' if overall_alignment > 70 else 'high',
+            'statistical_impact': self._analyze_alignment_impact(overall_alignment, transfer_count)
+        }
+        
+        return overall_alignment
+    
+    def analyze_mep_efficiency(self):
+        """Analyze MEP system distribution efficiency"""
+        # Get MEP elements
+        hvac_elements = (self.model.by_type('IfcDuctSegment') + 
+                        self.model.by_type('IfcPipeSegment') + 
+                        self.model.by_type('IfcCableCarrierSegment'))
+        
+        equipment_rooms = self._find_equipment_rooms()
+        
+        if not equipment_rooms or not hvac_elements:
+            return None
+        
+        # Calculate service run distances
+        max_distances = []
+        for room in equipment_rooms:
+            room_pos = self._get_room_position(room)
+            max_dist = self._calculate_max_service_distance(room_pos, hvac_elements)
+            if max_dist:
+                max_distances.append(max_dist)
+        
+        if max_distances:
+            max_service_run = max(max_distances)
+            avg_service_run = np.mean(max_distances)
+            
+            self.parameters['service_runs'] = {
+                'max_distance': max_service_run,
+                'average_distance': avg_service_run,
+                'equipment_rooms': len(equipment_rooms),
+                'efficiency_score': max(0, 100 - (max_service_run - 20) * 5),  # Score decreases after 20m
+                'statistical_impact': self._analyze_mep_impact(max_service_run, avg_service_run)
+            }
+            
+            return max_service_run
+        
+        return None
+    
+    def generate_comprehensive_report(self):
+        """Generate comprehensive statistical analysis report"""
+        report = {
+            'extraction_summary': {
+                'total_parameters': len(self.parameters),
+                'extraction_confidence': np.mean([
+                    p.get('confidence', 0) for p in self.parameters.values()
+                ]),
+                'model_completeness': self._assess_model_completeness()
+            },
+            'statistical_analysis': {},
+            'compliance_check': {},
+            'recommendations': []
+        }
+        
+        # Statistical analysis for each parameter
+        for param_name, param_data in self.parameters.items():
+            if 'statistical_impact' in param_data:
+                report['statistical_analysis'][param_name] = param_data['statistical_impact']
+        
+        # Compliance checking
+        report['compliance_check'] = self._check_all_compliance()
+        
+        # Generate recommendations
+        report['recommendations'] = self._generate_recommendations()
+        
+        return report
+    
+    # Helper methods for statistical analysis
+    def _analyze_form_impact(self, form_efficiency):
+        """Analyze statistical impact of form efficiency"""
+        baseline_energy = 100  # kWh/m²/year baseline
+        baseline_cost = 1000   # $/m² baseline construction cost
+        
+        # Form efficiency impact on energy (exponential relationship)
+        energy_multiplier = 1 + (form_efficiency - 0.25) * 0.8
+        energy_impact = baseline_energy * energy_multiplier
+        
+        # Form efficiency impact on cost (linear relationship for envelope)
+        envelope_cost_multiplier = 1 + (form_efficiency - 0.25) * 0.6
+        cost_impact = baseline_cost * envelope_cost_multiplier
+        
+        return {
+            'energy_consumption': energy_impact,
+            'construction_cost': cost_impact,
+            'envelope_area_multiplier': envelope_cost_multiplier,
+            'significance': 'high' if abs(form_efficiency - 0.25) > 0.05 else 'medium',
+            'confidence_interval': self._calculate_confidence_interval(form_efficiency, 0.02)
+        }
+    
+    def _analyze_grid_impact(self, avg_spacing, std_deviation):
+        """Analyze statistical impact of structural grid spacing"""
+        # Beam depth increases exponentially with span
+        if avg_spacing <= 8:
+            beam_depth_factor = 1.0
+        else:
+            beam_depth_factor = 1.0 + ((avg_spacing - 8) / 8) ** 1.5
+        
+        # Material quantity impact
+        material_multiplier = beam_depth_factor * 1.2  # Account for increased steel/concrete
+        cost_multiplier = material_multiplier * 1.1    # Labor inefficiency factor
+        
+        # Construction time impact
+        time_multiplier = 1.0 + (beam_depth_factor - 1.0) * 0.5
+        
+        return {
+            'beam_depth_factor': beam_depth_factor,
+            'material_quantity_multiplier': material_multiplier,
+            'cost_multiplier': cost_multiplier,
+            'construction_time_multiplier': time_multiplier,
+            'variability_impact': std_deviation / avg_spacing,  # Coefficient of variation
+            'significance': 'high' if avg_spacing > 9 or std_deviation > 1.5 else 'medium'
+        }
+    
+    def _check_all_compliance(self):
+        """Check compliance with all relevant standards"""
+        compliance = {}
+        
+        # Building code compliance
+        compliance['building_code'] = {}
+        if 'floor_height' in self.parameters:
+            height = self.parameters['floor_height']['value']
+            compliance['building_code']['minimum_height'] = {
+                'value': height,
+                'requirement': 2.4,  # Minimum ceiling height
+                'compliant': height >= 2.4,
+                'margin': height - 2.4
+            }
+        
+        # Sustainability benchmarks
+        compliance['sustainability'] = {}
+        if 'form_efficiency' in self.parameters:
+            form_eff = self.parameters['form_efficiency']['value']
+            # Green building standards typically require form efficiency < 0.30
+            compliance['sustainability']['form_efficiency'] = {
+                'value': form_eff,
+                'green_building_target': 0.30,
+                'compliant': form_eff <= 0.30,
+                'performance_level': 'excellent' if form_eff <= 0.25 else 'good' if form_eff <= 0.30 else 'needs_improvement'
+            }
+        
+        # Structural efficiency limits
+        compliance['structural'] = {}
+        if 'structural_grid' in self.parameters:
+            grid = self.parameters['structural_grid']['value']
+            compliance['structural']['grid_efficiency'] = {
+                'value': grid,
+                'optimal_range': [7.5, 8.5],
+                'compliant': 7.5 <= grid <= 8.5,
+                'efficiency_rating': self._calculate_grid_efficiency_rating(grid)
+            }
+        
+        return compliance
+    
+    def _generate_recommendations(self):
+        """Generate specific recommendations based on analysis"""
+        recommendations = []
+        
+        # Form efficiency recommendations
+        if 'form_efficiency' in self.parameters:
+            form_eff = self.parameters['form_efficiency']['value']
+            impact = self.parameters['form_efficiency']['statistical_impact']
+            
+            if form_eff > 0.30:
+                recommendations.append({
+                    'parameter': 'form_efficiency',
+                    'priority': 'high',
+                    'issue': f'Form efficiency ({form_eff:.3f}) exceeds recommended limit (0.30)',
+                    'impact': f'Estimated {impact["energy_consumption"]:.0f} kWh/m²/year energy consumption',
+                    'action': 'Simplify building form by consolidating projections and creating more rectangular shapes',
+                    'potential_savings': {
+                        'energy': f'{(impact["energy_consumption"] - 100):.0f} kWh/m²/year reduction possible',
+                        'cost': f'{(impact["construction_cost"] - 1000):.0f} $/m² construction cost reduction'
+                    }
+                })
+        
+        # Structural grid recommendations
+        if 'structural_grid' in self.parameters:
+            grid = self.parameters['structural_grid']['value']
+            impact = self.parameters['structural_grid']['statistical_impact']
+            
+            if grid > 9.0:
+                recommendations.append({
+                    'parameter': 'structural_grid',
+                    'priority': 'medium',
+                    'issue': f'Grid spacing ({grid:.1f}m) requires deep structural elements',
+                    'impact': f'{impact["material_quantity_multiplier"]:.1f}x material usage increase',
+                    'action': 'Add intermediate columns or consider post-tensioned solutions',
+                    'potential_savings': {
+                        'material': f'{(impact["material_quantity_multiplier"] - 1) * 100:.0f}% material reduction possible',
+                        'cost': f'{(impact["cost_multiplier"] - 1) * 100:.0f}% cost reduction with optimal grid'
+                    }
+                })
+        
+        # Column alignment recommendations
+        if 'column_stacking' in self.parameters:
+            alignment = self.parameters['column_stacking']['alignment_percentage']
+            transfers = self.parameters['column_stacking']['transfer_levels']
+            
+            if alignment < 80:
+                recommendations.append({
+                    'parameter': 'column_stacking',
+                    'priority': 'high',
+                    'issue': f'Poor column alignment ({alignment:.0f}%) requiring {transfers} transfer structures',
+                    'impact': f'Each transfer adds ~200% more structural material locally',
+                    'action': 'Realign columns vertically or accept program constraints with transfer beams',
+                    'potential_savings': {
+                        'material': f'{transfers * 200}% local material reduction by eliminating transfers',
+                        'construction': 'Significant simplification of construction sequence'
+                    }
+                })
+        
+        return recommendations
+
+# Example usage
+def analyze_ifc_model(file_path):
+    analyzer = IFCEfficiencyAnalyzer(file_path)
+    
+    # Extract all parameters
+    analyzer.extract_building_form_efficiency()
+    analyzer.extract_structural_grid()
+    analyzer.extract_floor_heights()
+    analyzer.analyze_cantilevers()
+    analyzer.check_column_alignment()
+    analyzer.analyze_mep_efficiency()
+    
+    # Generate comprehensive report
+    report = analyzer.generate_comprehensive_report()
+    
+    return analyzer.parameters, report</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Revit API Code -->
+                    <div id="revitCode" class="code-content hidden">
+                        <h4 class="font-semibold text-gray-800 dark:text-gray-100 mb-3">Revit API Parameter Extraction (C#)</h4>
+                        <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+                            <pre class="text-green-400 text-sm"><code>using Autodesk.Revit.DB;
+using Autodesk.Revit.UI;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public class RevitEfficiencyAnalyzer
+{
+    private Document doc;
+    private Dictionary<string, ParameterAnalysis> parameters;
+    
+    public class ParameterAnalysis
+    {
+        public double Value { get; set; }
+        public double Confidence { get; set; }
+        public string Significance { get; set; }
+        public Dictionary<string, double> StatisticalImpact { get; set; }
+        public bool PassesLimit { get; set; }
+        public string ComplianceStatus { get; set; }
+    }
+    
+    public RevitEfficiencyAnalyzer(Document document)
+    {
+        doc = document;
+        parameters = new Dictionary<string, ParameterAnalysis>();
+    }
+    
+    public ParameterAnalysis AnalyzeFormEfficiency()
+    {
+        // Get all floors/levels
+        FilteredElementCollector floorCollector = new FilteredElementCollector(doc)
+            .OfCategory(BuiltInCategory.OST_Floors);
+        
+        double totalArea = 0;
+        double totalPerimeter = 0;
+        List<double> floorAreas = new List<double>();
+        List<double> floorPerimeters = new List<double>();
+        
+        foreach (Floor floor in floorCollector)
+        {
+            // Get floor geometry
+            Options geometryOptions = new Options();
+            GeometryElement geometryElement = floor.get_Geometry(geometryOptions);
+            
+            double floorArea = 0;
+            double floorPerimeter = 0;
+            
+            foreach (GeometryObject geometryObject in geometryElement)
+            {
+                if (geometryObject is Solid solid && solid.Volume > 0)
+                {
+                    // Calculate area and perimeter from solid faces
+                    foreach (Face face in solid.Faces)
+                    {
+                        if (IsHorizontalFace(face))
+                        {
+                            floorArea += face.Area;
+                            floorPerimeter += CalculatePerimeter(face);
+                        }
+                    }
+                }
+            }
+            
+            if (floorArea > 0)
+            {
+                totalArea += floorArea;
+                totalPerimeter += floorPerimeter;
+                floorAreas.Add(floorArea);
+                floorPerimeters.Add(floorPerimeter);
+            }
+        }
+        
+        double formEfficiency = totalArea > 0 ? totalPerimeter / totalArea : 0;
+        
+        // Statistical analysis
+        var analysis = new ParameterAnalysis
+        {
+            Value = formEfficiency,
+            Confidence = CalculateExtractionConfidence(floorAreas.Count),
+            Significance = DetermineSignificance(formEfficiency, 0.25, 0.05),
+            StatisticalImpact = CalculateFormEfficiencyImpact(formEfficiency),
+            PassesLimit = formEfficiency <= 0.30,
+            ComplianceStatus = formEfficiency <= 0.25 ? "Optimal" : 
+                              formEfficiency <= 0.30 ? "Acceptable" : "Exceeds Limit"
+        };
+        
+        parameters["form_efficiency"] = analysis;
+        return analysis;
+    }
+    
+    public ParameterAnalysis AnalyzeStructuralGrid()
+    {
+        // Get all structural columns
+        FilteredElementCollector columnCollector = new FilteredElementCollector(doc)
+            .OfCategory(BuiltInCategory.OST_StructuralColumns);
+        
+        List<XYZ> columnPositions = new List<XYZ>();
+        List<double> gridSpacings = new List<double>();
+        
+        foreach (FamilyInstance column in columnCollector)
+        {
+            LocationPoint location = column.Location as LocationPoint;
+            if (location != null)
+            {
+                columnPositions.Add(location.Point);
+            }
+        }
+        
+        // Calculate grid spacings
+        if (columnPositions.Count > 1)
+        {
+            // Group columns by level (Z coordinate)
+            var columnsByLevel = columnPositions
+                .GroupBy(p => Math.Round(p.Z, 1))
+                .Where(g => g.Count() > 1);
+            
+            foreach (var levelGroup in columnsByLevel)
+            {
+                var positions = levelGroup.OrderBy(p => p.X).ThenBy(p => p.Y).ToList();
+                
+                for (int i = 0; i < positions.Count - 1; i++)
+                {
+                    double distance = positions[i].DistanceTo(positions[i + 1]);
+                    if (distance >= 3.0 && distance <= 15.0) // Reasonable grid spacing
+                    {
+                        gridSpacings.Add(distance);
+                    }
+                }
+            }
+        }
+        
+        if (gridSpacings.Count > 0)
+        {
+            double avgSpacing = gridSpacings.Average();
+            double stdDev = CalculateStandardDeviation(gridSpacings);
+            
+            var analysis = new ParameterAnalysis
+            {
+                Value = avgSpacing,
+                Confidence = CalculateStatisticalConfidence(gridSpacings.Count, stdDev / avgSpacing),
+                Significance = DetermineSignificance(avgSpacing, 7.75, 1.0),
+                StatisticalImpact = CalculateGridSpacingImpact(avgSpacing, stdDev),
+                PassesLimit = avgSpacing <= 9.0,
+                ComplianceStatus = avgSpacing <= 8.0 ? "Optimal" : 
+                                  avgSpacing <= 9.0 ? "Acceptable" : "Exceeds Recommended"
+            };
+            
+            parameters["structural_grid"] = analysis;
+            return analysis;
+        }
+        
+        return null;
+    }
+    
+    public ParameterAnalysis AnalyzeFloorHeights()
+    {
+        // Get all levels
+        FilteredElementCollector levelCollector = new FilteredElementCollector(doc)
+            .OfClass(typeof(Level));
+        
+        List<double> elevations = new List<double>();
+        List<double> floorHeights = new List<double>();
+        
+        foreach (Level level in levelCollector)
+        {
+            elevations.Add(level.Elevation);
+        }
+        
+        elevations.Sort();
+        
+        // Calculate floor-to-floor heights
+        for (int i = 0; i < elevations.Count - 1; i++)
+        {
+            double height = elevations[i + 1] - elevations[i];
+            if (height >= 2.5 && height <= 6.0) // Reasonable range
+            {
+                floorHeights.Add(height);
+            }
+        }
+        
+        if (floorHeights.Count > 0)
+        {
+            double avgHeight = floorHeights.Average();
+            double stdDev = CalculateStandardDeviation(floorHeights);
+            double coefficientOfVariation = stdDev / avgHeight;
+            
+            var analysis = new ParameterAnalysis
+            {
+                Value = avgHeight,
+                Confidence = 1.0 - Math.Min(coefficientOfVariation, 0.2) / 0.2,
+                Significance = DetermineHeightSignificance(avgHeight),
+                StatisticalImpact = CalculateHeightImpact(avgHeight, stdDev),
+                PassesLimit = avgHeight <= 4.0,
+                ComplianceStatus = avgHeight <= 3.2 ? "Optimal" : 
+                                  avgHeight <= 4.0 ? "Acceptable" : "Exceeds Efficient Range"
+            };
+            
+            parameters["floor_height"] = analysis;
+            return analysis;
+        }
+        
+        return null;
+    }
+    
+    public ParameterAnalysis AnalyzeCantilevers()
+    {
+        // Get structural framing and identify cantilevers
+        FilteredElementCollector beamCollector = new FilteredElementCollector(doc)
+            .OfCategory(BuiltInCategory.OST_StructuralFraming);
+        
+        List<double> cantileverLengths = new List<double>();
+        
+        foreach (FamilyInstance beam in beamCollector)
+        {
+            // Analyze beam support conditions
+            double cantileverLength = AnalyzeBeamCantilever(beam);
+            if (cantileverLength > 1.0) // Significant cantilever
+            {
+                cantileverLengths.Add(cantileverLength);
+            }
+        }
+        
+        // Also check floor slabs for cantilevers
+        FilteredElementCollector floorCollector = new FilteredElementCollector(doc)
+            .OfCategory(BuiltInCategory.OST_Floors);
+        
+        foreach (Floor floor in floorCollector)
+        {
+            double maxCantilever = AnalyzeFloorCantilever(floor);
+            if (maxCantilever > 1.0)
+            {
+                cantileverLengths.Add(maxCantilever);
+            }
+        }
+        
+        double maxCantilever = cantileverLengths.Count > 0 ? cantileverLengths.Max() : 0;
+        
+        var analysis = new ParameterAnalysis
+        {
+            Value = maxCantilever,
+            Confidence = CalculateGeometricConfidence(cantileverLengths.Count),
+            Significance = maxCantilever > 2.0 ? "High" : maxCantilever > 1.0 ? "Medium" : "Low",
+            StatisticalImpact = CalculateCantileverImpact(maxCantilever, cantileverLengths),
+            PassesLimit = maxCantilever <= 2.5,
+            ComplianceStatus = maxCantilever <= 1.5 ? "Optimal" : 
+                              maxCantilever <= 2.5 ? "Acceptable" : "Structural Risk"
+        };
+        
+        parameters["cantilevers"] = analysis;
+        return analysis;
+    }
+    
+    // Statistical Impact Calculation Methods
+    private Dictionary<string, double> CalculateFormEfficiencyImpact(double formEfficiency)
+    {
+        double baselineEnergy = 100; // kWh/m²/year
+        double baselineCost = 1000;  // $/m²
+        
+        double energyMultiplier = 1 + (formEfficiency - 0.25) * 0.8;
+        double costMultiplier = 1 + (formEfficiency - 0.25) * 0.6;
+        
+        return new Dictionary<string, double>
+        {
+            ["energy_impact"] = baselineEnergy * energyMultiplier,
+            ["cost_impact"] = baselineCost * costMultiplier,
+            ["envelope_multiplier"] = costMultiplier,
+            ["carbon_impact"] = CalculateCarbonImpact(energyMultiplier, costMultiplier)
+        };
+    }
+    
+    private Dictionary<string, double> CalculateGridSpacingImpact(double spacing, double stdDev)
+    {
+        double beamDepthFactor = spacing <= 8 ? 1.0 : 1.0 + Math.Pow((spacing - 8) / 8, 1.5);
+        double materialMultiplier = beamDepthFactor * 1.2;
+        double costMultiplier = materialMultiplier * 1.1;
+        double timeMultiplier = 1.0 + (beamDepthFactor - 1.0) * 0.5;
+        
+        return new Dictionary<string, double>
+        {
+            ["beam_depth_factor"] = beamDepthFactor,
+            ["material_multiplier"] = materialMultiplier,
+            ["cost_multiplier"] = costMultiplier,
+            ["time_multiplier"] = timeMultiplier,
+            ["variability_coefficient"] = stdDev / spacing
+        };
+    }
+    
+    // Compliance Checking Methods
+    public Dictionary<string, object> CheckAllCompliance()
+    {
+        var compliance = new Dictionary<string, object>();
+        
+        // Building code compliance
+        var buildingCodeCompliance = new Dictionary<string, object>();
+        if (parameters.ContainsKey("floor_height"))
+        {
+            var height = parameters["floor_height"];
+            buildingCodeCompliance["minimum_height"] = new
+            {
+                value = height.Value,
+                requirement = 2.4,
+                compliant = height.Value >= 2.4,
+                margin = height.Value - 2.4
+            };
+        }
+        compliance["building_code"] = buildingCodeCompliance;
+        
+        // Sustainability benchmarks
+        var sustainabilityCompliance = new Dictionary<string, object>();
+        if (parameters.ContainsKey("form_efficiency"))
+        {
+            var formEff = parameters["form_efficiency"];
+            sustainabilityCompliance["form_efficiency"] = new
+            {
+                value = formEff.Value,
+                green_building_target = 0.30,
+                compliant = formEff.Value <= 0.30,
+                performance_level = formEff.Value <= 0.25 ? "excellent" : 
+                                   formEff.Value <= 0.30 ? "good" : "needs_improvement"
+            };
+        }
+        compliance["sustainability"] = sustainabilityCompliance;
+        
+        // Structural efficiency
+        var structuralCompliance = new Dictionary<string, object>();
+        if (parameters.ContainsKey("structural_grid"))
+        {
+            var grid = parameters["structural_grid"];
+            structuralCompliance["grid_efficiency"] = new
+            {
+                value = grid.Value,
+                optimal_range = new[] { 7.5, 8.5 },
+                compliant = grid.Value >= 7.5 && grid.Value <= 8.5,
+                efficiency_rating = CalculateGridEfficiencyRating(grid.Value)
+            };
+        }
+        compliance["structural"] = structuralCompliance;
+        
+        return compliance;
+    }
+    
+    public List<object> GenerateRecommendations()
+    {
+        var recommendations = new List<object>();
+        
+        foreach (var param in parameters)
+        {
+            if (!param.Value.PassesLimit)
+            {
+                var recommendation = new
+                {
+                    parameter = param.Key,
+                    priority = param.Value.Significance.ToLower(),
+                    current_value = param.Value.Value,
+                    compliance_status = param.Value.ComplianceStatus,
+                    statistical_impact = param.Value.StatisticalImpact,
+                    action_required = GetActionRecommendation(param.Key, param.Value)
+                };
+                
+                recommendations.Add(recommendation);
+            }
+        }
+        
+        return recommendations;
+    }
+    
+    // Helper methods for geometry analysis and calculations would be implemented here
+    // ... (Additional implementation details)
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Statistical Analysis Code -->
+                    <div id="statisticsCode" class="code-content hidden">
+                        <h4 class="font-semibold text-gray-800 dark:text-gray-100 mb-3">Statistical Analysis & Significance Testing (Python)</h4>
+                        <div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+                            <pre class="text-green-400 text-sm"><code>import numpy as np
+import pandas as pd
+from scipy import stats
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.preprocessing import StandardScaler
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+class ParameterStatisticalAnalyzer:
+    def __init__(self):
+        self.parameter_database = None
+        self.benchmark_data = None
+        self.load_benchmark_data()
+    
+    def load_benchmark_data(self):
+        """Load benchmark data from industry standards and completed projects"""
+        # Example benchmark data structure
+        self.benchmark_data = {
+            'form_efficiency': {
+                'optimal': {'mean': 0.22, 'std': 0.02, 'n': 150},
+                'acceptable': {'mean': 0.27, 'std': 0.03, 'n': 300},
+                'poor': {'mean': 0.35, 'std': 0.05, 'n': 100}
+            },
+            'structural_grid': {
+                'optimal': {'mean': 7.8, 'std': 0.3, 'n': 200},
+                'acceptable': {'mean': 8.5, 'std': 0.8, 'n': 250},
+                'poor': {'mean': 10.2, 'std': 1.5, 'n': 80}
+            },
+            # Add more parameters...
+        }
+    
+    def calculate_parameter_significance(self, parameter_name, observed_value, 
+                                       project_context=None):
+        """
+        Calculate statistical significance of a parameter value
+        using industry benchmarks and project-specific context
+        """
+        if parameter_name not in self.benchmark_data:
+            return None
+        
+        benchmark = self.benchmark_data[parameter_name]
+        
+        # Determine which benchmark category the value falls into
+        category = self._classify_parameter_value(parameter_name, observed_value)
+        
+        # Calculate z-score relative to benchmark
+        benchmark_stats = benchmark[category]
+        z_score = (observed_value - benchmark_stats['mean']) / benchmark_stats['std']
+        
+        # Calculate p-value (two-tailed test)
+        p_value = 2 * (1 - stats.norm.cdf(abs(z_score)))
+        
+        # Determine significance level
+        if p_value < 0.01:
+            significance = "Highly Significant"
+        elif p_value < 0.05:
+            significance = "Significant"
+        elif p_value < 0.10:
+            significance = "Marginally Significant"
+        else:
+            significance = "Not Significant"
+        
+        # Calculate confidence intervals
+        confidence_95 = stats.norm.interval(0.95, 
+                                          loc=benchmark_stats['mean'],
+                                          scale=benchmark_stats['std'])
+        
+        # Effect size (Cohen's d)
+        effect_size = abs(z_score)
+        effect_interpretation = self._interpret_effect_size(effect_size)
+        
+        return {
+            'observed_value': observed_value,
+            'benchmark_category': category,
+            'z_score': z_score,
+            'p_value': p_value,
+            'significance': significance,
+            'confidence_interval_95': confidence_95,
+            'effect_size': effect_size,
+            'effect_interpretation': effect_interpretation,
+            'sample_size': benchmark_stats['n']
+        }
+    
+    def analyze_multi_parameter_correlation(self, project_parameters):
+        """
+        Analyze correlations between multiple parameters and their
+        combined impact on cost, carbon, and construction time
+        """
+        # Create feature matrix
+        feature_names = list(project_parameters.keys())
+        X = np.array([list(project_parameters.values())])
+        
+        # Load historical project data for correlation analysis
+        historical_data = self._load_historical_project_data()
+        
+        if historical_data is None:
+            return self._simplified_correlation_analysis(project_parameters)
+        
+        # Fit random forest model to understand feature importance
+        rf_cost = RandomForestRegressor(n_estimators=100, random_state=42)
+        rf_carbon = RandomForestRegressor(n_estimators=100, random_state=42)
+        rf_time = RandomForestRegressor(n_estimators=100, random_state=42)
+        
+        X_hist = historical_data[feature_names].values
+        y_cost = historical_data['cost_per_sqm'].values
+        y_carbon = historical_data['carbon_intensity'].values
+        y_time = historical_data['construction_months'].values
+        
+        # Fit models
+        rf_cost.fit(X_hist, y_cost)
+        rf_carbon.fit(X_hist, y_carbon)
+        rf_time.fit(X_hist, y_time)
+        
+        # Get feature importance
+        cost_importance = dict(zip(feature_names, rf_cost.feature_importances_))
+        carbon_importance = dict(zip(feature_names, rf_carbon.feature_importances_))
+        time_importance = dict(zip(feature_names, rf_time.feature_importances_))
+        
+        # Predict impact for current project
+        predicted_cost = rf_cost.predict(X)[0]
+        predicted_carbon = rf_carbon.predict(X)[0]
+        predicted_time = rf_time.predict(X)[0]
+        
+        # Calculate correlation matrix
+        correlation_matrix = historical_data[feature_names].corr()
+        
+        return {
+            'feature_importance': {
+                'cost': cost_importance,
+                'carbon': carbon_importance,
+                'time': time_importance
+            },
+            'predicted_outcomes': {
+                'cost_per_sqm': predicted_cost,
+                'carbon_intensity': predicted_carbon,
+                'construction_months': predicted_time
+            },
+            'parameter_correlations': correlation_matrix.to_dict(),
+            'key_insights': self._generate_correlation_insights(
+                correlation_matrix, cost_importance, carbon_importance
+            )
+        }
+    
+    def perform_sensitivity_analysis(self, base_parameters, target_outcomes):
+        """
+        Perform sensitivity analysis to determine which parameters
+        have the highest impact on target outcomes
+        """
+        sensitivity_results = {}
+        
+        for param_name, base_value in base_parameters.items():
+            # Test parameter variations (±10%, ±20%)
+            variations = [-0.2, -0.1, 0, 0.1, 0.2]
+            outcomes = []
+            
+            for variation in variations:
+                modified_params = base_parameters.copy()
+                modified_params[param_name] = base_value * (1 + variation)
+                
+                # Calculate impacts for modified parameters
+                impact = self._calculate_total_impact(modified_params)
+                outcomes.append(impact)
+            
+            # Calculate sensitivity (slope of response)
+            param_variations = [base_value * (1 + v) for v in variations]
+            
+            sensitivity_results[param_name] = {
+                'cost_sensitivity': self._calculate_sensitivity(param_variations, 
+                                                               [o['cost'] for o in outcomes]),
+                'carbon_sensitivity': self._calculate_sensitivity(param_variations,
+                                                                [o['carbon'] for o in outcomes]),
+                'time_sensitivity': self._calculate_sensitivity(param_variations,
+                                                              [o['time'] for o in outcomes]),
+                'overall_sensitivity': self._calculate_overall_sensitivity(outcomes)
+            }
+        
+        # Rank parameters by sensitivity
+        sensitivity_ranking = self._rank_parameters_by_sensitivity(sensitivity_results)
+        
+        return {
+            'sensitivity_analysis': sensitivity_results,
+            'parameter_ranking': sensitivity_ranking,
+            'top_3_most_sensitive': sensitivity_ranking[:3],
+            'recommendations': self._generate_sensitivity_recommendations(sensitivity_ranking)
+        }
+    
+    def check_parameter_compliance_limits(self, parameters, building_type, 
+                                        project_context=None):
+        """
+        Check if parameters pass current design limits and standards
+        """
+        # Define compliance limits based on building type and standards
+        compliance_limits = self._get_compliance_limits(building_type)
+        
+        compliance_results = {}
+        
+        for param_name, value in parameters.items():
+            if param_name in compliance_limits:
+                limits = compliance_limits[param_name]
+                
+                # Check against multiple standards
+                standard_checks = {}
+                
+                for standard_name, limit_values in limits.items():
+                    if 'min' in limit_values and 'max' in limit_values:
+                        passes = limit_values['min'] <= value <= limit_values['max']
+                        margin = min(value - limit_values['min'], 
+                                   limit_values['max'] - value)
+                    elif 'max' in limit_values:
+                        passes = value <= limit_values['max']
+                        margin = limit_values['max'] - value
+                    elif 'min' in limit_values:
+                        passes = value >= limit_values['min']
+                        margin = value - limit_values['min']
+                    else:
+                        passes = None
+                        margin = None
+                    
+                    standard_checks[standard_name] = {
+                        'passes': passes,
+                        'margin': margin,
+                        'limit_values': limit_values,
+                        'severity': self._assess_violation_severity(margin, passes)
+                    }
+                
+                # Overall compliance assessment
+                overall_compliance = all(check['passes'] for check in standard_checks.values() 
+                                       if check['passes'] is not None)
+                
+                compliance_results[param_name] = {
+                    'value': value,
+                    'overall_compliant': overall_compliance,
+                    'standard_checks': standard_checks,
+                    'worst_violation': self._find_worst_violation(standard_checks),
+                    'compliance_score': self._calculate_compliance_score(standard_checks)
+                }
+        
+        # Generate compliance summary
+        total_parameters = len(compliance_results)
+        compliant_parameters = sum(1 for r in compliance_results.values() 
+                                 if r['overall_compliant'])
+        
+        compliance_summary = {
+            'total_parameters_checked': total_parameters,
+            'compliant_parameters': compliant_parameters,
+            'compliance_rate': compliant_parameters / total_parameters if total_parameters > 0 else 0,
+            'critical_violations': [name for name, result in compliance_results.items()
+                                  if not result['overall_compliant'] and 
+                                     result['worst_violation']['severity'] == 'critical'],
+            'overall_assessment': self._assess_overall_compliance(compliance_results)
+        }
+        
+        return {
+            'parameter_compliance': compliance_results,
+            'compliance_summary': compliance_summary,
+            'recommendations': self._generate_compliance_recommendations(compliance_results)
+        }
+    
+    def monte_carlo_uncertainty_analysis(self, parameters, num_simulations=1000):
+        """
+        Perform Monte Carlo simulation to assess uncertainty in outcomes
+        based on parameter variations and measurement uncertainty
+        """
+        # Define parameter uncertainty distributions
+        param_distributions = {}
+        for param_name, value in parameters.items():
+            # Assume normal distribution with 5% coefficient of variation
+            std_dev = value * 0.05
+            param_distributions[param_name] = stats.norm(loc=value, scale=std_dev)
+        
+        # Run Monte Carlo simulation
+        simulation_results = []
+        
+        for i in range(num_simulations):
+            # Sample parameter values
+            sampled_params = {}
+            for param_name, distribution in param_distributions.items():
+                sampled_params[param_name] = distribution.rvs()
+            
+            # Calculate outcomes for sampled parameters
+            outcome = self._calculate_total_impact(sampled_params)
+            simulation_results.append(outcome)
+        
+        # Analyze simulation results
+        cost_values = [r['cost'] for r in simulation_results]
+        carbon_values = [r['carbon'] for r in simulation_results]
+        time_values = [r['time'] for r in simulation_results]
+        
+        uncertainty_analysis = {
+            'cost_statistics': {
+                'mean': np.mean(cost_values),
+                'std': np.std(cost_values),
+                'confidence_95': np.percentile(cost_values, [2.5, 97.5]),
+                'coefficient_of_variation': np.std(cost_values) / np.mean(cost_values)
+            },
+            'carbon_statistics': {
+                'mean': np.mean(carbon_values),
+                'std': np.std(carbon_values),
+                'confidence_95': np.percentile(carbon_values, [2.5, 97.5]),
+                'coefficient_of_variation': np.std(carbon_values) / np.mean(carbon_values)
+            },
+            'time_statistics': {
+                'mean': np.mean(time_values),
+                'std': np.std(time_values),
+                'confidence_95': np.percentile(time_values, [2.5, 97.5]),
+                'coefficient_of_variation': np.std(time_values) / np.mean(time_values)
+            },
+            'risk_assessment': self._assess_uncertainty_risk(cost_values, carbon_values, time_values)
+        }
+        
+        return uncertainty_analysis
+    
+    def generate_optimization_recommendations(self, current_parameters, 
+                                            optimization_targets):
+        """
+        Generate specific recommendations for parameter optimization
+        based on statistical analysis and target priorities
+        """
+        # Analyze current parameter performance
+        current_impacts = self._calculate_total_impact(current_parameters)
+        
+        # Identify optimization opportunities
+        opportunities = []
+        
+        for param_name, current_value in current_parameters.items():
+            # Get parameter significance
+            significance = self.calculate_parameter_significance(param_name, current_value)
+            
+            if significance and significance['significance'] in ['Significant', 'Highly Significant']:
+                # Calculate potential improvement
+                optimal_value = self._get_optimal_value(param_name)
+                improved_params = current_parameters.copy()
+                improved_params[param_name] = optimal_value
+                improved_impacts = self._calculate_total_impact(improved_params)
+                
+                # Calculate benefit
+                cost_saving = current_impacts['cost'] - improved_impacts['cost']
+                carbon_reduction = current_impacts['carbon'] - improved_impacts['carbon']
+                time_saving = current_impacts['time'] - improved_impacts['time']
+                
+                opportunities.append({
+                    'parameter': param_name,
+                    'current_value': current_value,
+                    'optimal_value': optimal_value,
+                    'improvement_required': abs(optimal_value - current_value),
+                    'benefits': {
+                        'cost_saving': cost_saving,
+                        'carbon_reduction': carbon_reduction,
+                        'time_saving': time_saving
+                    },
+                    'priority_score': self._calculate_priority_score(
+                        cost_saving, carbon_reduction, time_saving, optimization_targets
+                    ),
+                    'implementation_difficulty': self._assess_implementation_difficulty(param_name),
+                    'statistical_significance': significance['significance']
+                })
+        
+        # Sort by priority score
+        opportunities.sort(key=lambda x: x['priority_score'], reverse=True)
+        
+        return {
+            'optimization_opportunities': opportunities,
+            'top_3_recommendations': opportunities[:3],
+            'quick_wins': [opp for opp in opportunities 
+                          if opp['implementation_difficulty'] == 'Low' and opp['priority_score'] > 0.7],
+            'total_potential_savings': self._calculate_total_potential_savings(opportunities)
+        }
+
+# Example usage
+def analyze_project_statistically(parameters, building_type="office"):
+    analyzer = ParameterStatisticalAnalyzer()
+    
+    # Statistical significance analysis
+    significance_results = {}
+    for param_name, value in parameters.items():
+        significance = analyzer.calculate_parameter_significance(param_name, value)
+        if significance:
+            significance_results[param_name] = significance
+    
+    # Multi-parameter correlation analysis
+    correlation_analysis = analyzer.analyze_multi_parameter_correlation(parameters)
+    
+    # Sensitivity analysis
+    sensitivity_analysis = analyzer.perform_sensitivity_analysis(
+        parameters, ['cost', 'carbon', 'time']
+    )
+    
+    # Compliance checking
+    compliance_check = analyzer.check_parameter_compliance_limits(
+        parameters, building_type
+    )
+    
+    # Uncertainty analysis
+    uncertainty_analysis = analyzer.monte_carlo_uncertainty_analysis(parameters)
+    
+    # Optimization recommendations
+    optimization_targets = {'cost': 0.4, 'carbon': 0.4, 'time': 0.2}  # Weightings
+    optimization_recs = analyzer.generate_optimization_recommendations(
+        parameters, optimization_targets
+    )
+    
+    return {
+        'significance_analysis': significance_results,
+        'correlation_analysis': correlation_analysis,
+        'sensitivity_analysis': sensitivity_analysis,
+        'compliance_check': compliance_check,
+        'uncertainty_analysis': uncertainty_analysis,
+        'optimization_recommendations': optimization_recs
+    }</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Implementation Guide -->
+                <div class="bg-orange-50 dark:bg-orange-900/30 rounded-lg p-6">
+                    <h3 class="text-lg font-semibold text-orange-800 dark:text-orange-200 mb-4">
+                        <i data-lucide="tool" class="h-5 w-5 mr-2 inline"></i>
+                        Implementation Guide
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <h4 class="font-semibold text-orange-800 dark:text-orange-200 mb-2">Getting Started</h4>
+                            <ol class="list-decimal list-inside text-sm text-orange-700 dark:text-orange-300 space-y-1">
+                                <li>Install required dependencies (ifcopenshell, pandas, scipy)</li>
+                                <li>Set up Revit API development environment</li>
+                                <li>Configure BIM model export settings</li>
+                                <li>Establish benchmark database connections</li>
+                                <li>Test parameter extraction on sample models</li>
+                            </ol>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-orange-800 dark:text-orange-200 mb-2">Key Features</h4>
+                            <ul class="list-disc list-inside text-sm text-orange-700 dark:text-orange-300 space-y-1">
+                                <li>Automated parameter extraction from IFC/Revit</li>
+                                <li>Statistical significance testing</li>
+                                <li>Multi-parameter correlation analysis</li>
+                                <li>Monte Carlo uncertainty simulation</li>
+                                <li>Compliance checking against standards</li>
+                                <li>Optimization recommendations</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -1384,11 +3109,11 @@
                                     <i data-lucide="external-link" class="h-5 w-5 mr-2"></i>
                                     Integrated Solutions
                                 </a>
-                                <button class="bg-white/20 text-white px-6 py-3 rounded-lg font-semibold hover:bg-white/30 transition-colors duration-300">
+                                <button onclick="downloadBIMCode()" class="bg-white/20 text-white px-6 py-3 rounded-lg font-semibold hover:bg-white/30 transition-colors duration-300">
                                     <i data-lucide="download" class="h-5 w-5 mr-2 inline"></i>
-                                    SDK Download
+                                    Download Code Examples
                                 </button>
-                                <button class="bg-white/20 text-white px-6 py-3 rounded-lg font-semibold hover:bg-white/30 transition-colors duration-300">
+                                <button onclick="contactBIMSupport()" class="bg-white/20 text-white px-6 py-3 rounded-lg font-semibold hover:bg-white/30 transition-colors duration-300">
                                     <i data-lucide="mail" class="h-5 w-5 mr-2 inline"></i>
                                     Contact Support
                                 </button>
@@ -1439,29 +3164,45 @@
                 definition: 'The ratio of exterior wall perimeter to floor area. Lower values indicate more compact, efficient forms. Calculated as: Building Perimeter (m) ÷ Floor Area (m²).',
                 detailedExplanation: 'Form efficiency measures how compact your building shape is. A square building is more efficient than a long, thin building or one with many projections. Complex shapes increase the external wall area without increasing usable floor space, leading to higher costs for structure, cladding, and ongoing energy consumption.',
                 visualSketch: `
-                    <svg viewBox="0 0 400 200" class="w-full h-32 mb-4">
-                        <!-- Efficient Form -->
-                        <g transform="translate(50, 50)">
-                            <rect x="0" y="0" width="80" height="80" fill="none" stroke="#059669" stroke-width="2"/>
-                            <text x="40" y="95" text-anchor="middle" class="text-xs fill-green-600">Efficient</text>
-                            <text x="40" y="110" text-anchor="middle" class="text-xs fill-green-600">P/A = 0.20</text>
+                    <svg viewBox="0 0 400 180" class="w-full h-40 mb-4">
+                        <!-- Simple Square Form (Efficient) -->
+                        <g transform="translate(40, 30)">
+                            <rect x="0" y="0" width="80" height="80" fill="#e8f5e8" stroke="#059669" stroke-width="3"/>
+                            <text x="40" y="95" text-anchor="middle" class="text-sm font-bold fill-green-700">SQUARE</text>
+                            <text x="40" y="110" text-anchor="middle" class="text-xs fill-green-600">100m × 100m</text>
+                            <text x="40" y="125" text-anchor="middle" class="text-xs fill-green-600">P/A = 0.040</text>
+                            <text x="40" y="140" text-anchor="middle" class="text-xs font-bold fill-green-600">OPTIMAL</text>
                         </g>
                         
-                        <!-- Inefficient Form -->
-                        <g transform="translate(200, 30)">
-                            <rect x="0" y="0" width="20" height="100" fill="none" stroke="#dc2626" stroke-width="2"/>
-                            <rect x="25" y="20" width="30" height="15" fill="none" stroke="#dc2626" stroke-width="2"/>
-                            <rect x="25" y="60" width="25" height="20" fill="none" stroke="#dc2626" stroke-width="2"/>
-                            <rect x="55" y="40" width="15" height="40" fill="none" stroke="#dc2626" stroke-width="2"/>
-                            <text x="35" y="125" text-anchor="middle" class="text-xs fill-red-600">Inefficient</text>
-                            <text x="35" y="140" text-anchor="middle" class="text-xs fill-red-600">P/A = 0.45</text>
+                        <!-- Complex Shape with Projections (Inefficient) -->
+                        <g transform="translate(260, 20)">
+                            <!-- Main rectangle -->
+                            <rect x="0" y="10" width="50" height="60" fill="#fde8e8" stroke="#dc2626" stroke-width="2"/>
+                            <!-- Top projection -->
+                            <rect x="15" y="0" width="20" height="15" fill="#fde8e8" stroke="#dc2626" stroke-width="2"/>
+                            <!-- Right projection -->
+                            <rect x="50" y="25" width="25" height="20" fill="#fde8e8" stroke="#dc2626" stroke-width="2"/>
+                            <!-- Bottom projection -->
+                            <rect x="10" y="70" width="30" height="15" fill="#fde8e8" stroke="#dc2626" stroke-width="2"/>
+                            <!-- Left small projection -->
+                            <rect x="0" y="40" width="10" height="15" fill="#fde8e8" stroke="#dc2626" stroke-width="2"/>
+                            
+                            <text x="37" y="105" text-anchor="middle" class="text-sm font-bold fill-red-700">COMPLEX</text>
+                            <text x="37" y="120" text-anchor="middle" class="text-xs fill-red-600">Many projections</text>
+                            <text x="37" y="135" text-anchor="middle" class="text-xs fill-red-600">P/A = 0.165</text>
+                            <text x="37" y="150" text-anchor="middle" class="text-xs font-bold fill-red-600">INEFFICIENT</text>
                         </g>
                         
-                        <!-- Arrow -->
-                        <path d="M 150 80 L 180 80" stroke="#6b7280" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <!-- Comparison Arrow -->
+                        <g transform="translate(170, 70)">
+                            <path d="M 0 0 L 60 0" stroke="#6b7280" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            <text x="30" y="-8" text-anchor="middle" class="text-xs fill-gray-600 font-bold">4× MORE</text>
+                            <text x="30" y="15" text-anchor="middle" class="text-xs fill-gray-600">external wall</text>
+                        </g>
+                        
                         <defs>
-                            <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
-                                <polygon points="0 0, 10 3.5, 0 7" fill="#6b7280"/>
+                            <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto">
+                                <polygon points="0 0, 8 3, 0 6" fill="#6b7280"/>
                             </marker>
                         </defs>
                     </svg>
@@ -1693,43 +3434,50 @@
                 definition: 'The distance that building elements extend beyond their primary structural support.',
                 detailedExplanation: 'Cantilevers create dramatic architectural effects but have exponential structural costs. Each metre of cantilever beyond 1.5m requires significantly more structural material in supporting elements. Long cantilevers also create complex connection details and construction challenges.',
                 visualSketch: `
-                    <svg viewBox="0 0 400 200" class="w-full h-32 mb-4">
-                        <!-- No Cantilever -->
-                        <g transform="translate(50, 60)">
-                            <rect x="0" y="0" width="80" height="80" fill="none" stroke="#059669" stroke-width="2"/>
-                            <!-- Columns -->
-                            <rect x="0" y="80" width="8" height="30" fill="#059669"/>
-                            <rect x="72" y="80" width="8" height="30" fill="#059669"/>
-                            <text x="40" y="130" text-anchor="middle" class="text-xs fill-green-600">No Cantilever</text>
-                            <text x="40" y="145" text-anchor="middle" class="text-xs fill-green-600">Optimal</text>
+                    <svg viewBox="0 0 400 220" class="w-full h-32 mb-4">
+                        <!-- Cantilever Options Title -->
+                        <text x="100" y="20" text-anchor="middle" class="text-sm font-bold fill-gray-700">CANTILEVER OPTIONS</text>
+                        
+                        <!-- Base square with three different cantilever projections -->
+                        <g transform="translate(50, 40)">
+                            <!-- Base square -->
+                            <rect x="0" y="0" width="80" height="80" fill="#e8f5e8" stroke="#059669" stroke-width="3"/>
+                            <!-- Three beams showing different performance levels -->
+                            <!-- Optimal beam (short/none) -->
+                            <rect x="80" y="20" width="25" height="8" fill="#059669" stroke="#059669" stroke-width="1"/>
+                            <text x="92" y="35" text-anchor="middle" class="text-xs fill-green-600">1.5m</text>
+                            <text x="92" y="45" text-anchor="middle" class="text-xs fill-green-600">OPTIMAL</text>
+                            
+                            <!-- Acceptable beam (medium) -->
+                            <rect x="80" y="36" width="40" height="8" fill="#d97706" stroke="#d97706" stroke-width="1"/>
+                            <text x="100" y="51" text-anchor="middle" class="text-xs fill-yellow-600">2.5m</text>
+                            <text x="100" y="61" text-anchor="middle" class="text-xs fill-yellow-600">ACCEPTABLE</text>
+                            
+                            <!-- Risk beam (long) -->
+                            <rect x="80" y="52" width="60" height="8" fill="#dc2626" stroke="#dc2626" stroke-width="1"/>
+                            <text x="110" y="67" text-anchor="middle" class="text-xs fill-red-600">3.5m</text>
+                            <text x="110" y="77" text-anchor="middle" class="text-xs fill-red-600">RISK</text>
                         </g>
                         
-                        <!-- Short Cantilever -->
-                        <g transform="translate(170, 50)">
-                            <rect x="0" y="0" width="80" height="80" fill="none" stroke="#d97706" stroke-width="2"/>
-                            <rect x="80" y="20" width="20" height="40" fill="none" stroke="#d97706" stroke-width="2"/>
-                            <!-- Columns -->
-                            <rect x="0" y="80" width="8" height="30" fill="#d97706"/>
-                            <rect x="72" y="80" width="8" height="30" fill="#d97706"/>
-                            <!-- Cantilever dimension -->
-                            <path d="M 80 5 L 100 5" stroke="#d97706" stroke-width="1"/>
-                            <text x="90" y="15" text-anchor="middle" class="text-xs fill-yellow-600">2m</text>
-                            <text x="50" y="135" text-anchor="middle" class="text-xs fill-yellow-600">Acceptable</text>
-                            <text x="50" y="150" text-anchor="middle" class="text-xs fill-yellow-600">+20% Material</text>
-                        </g>
+                        <!-- Material Impact Title with more spacing -->
+                        <text x="300" y="20" text-anchor="middle" class="text-sm font-bold fill-gray-700">MATERIAL IMPACT</text>
                         
-                        <!-- Long Cantilever -->
-                        <g transform="translate(280, 40)">
-                            <rect x="0" y="0" width="60" height="60" fill="none" stroke="#dc2626" stroke-width="2"/>
-                            <rect x="60" y="15" width="40" height="30" fill="none" stroke="#dc2626" stroke-width="2"/>
-                            <!-- Heavy columns -->
-                            <rect x="0" y="60" width="12" height="40" fill="#dc2626"/>
-                            <rect x="48" y="60" width="12" height="40" fill="#dc2626"/>
-                            <!-- Cantilever dimension -->
-                            <path d="M 60 5 L 100 5" stroke="#dc2626" stroke-width="1"/>
-                            <text x="80" y="15" text-anchor="middle" class="text-xs fill-red-600">4m</text>
-                            <text x="40" y="120" text-anchor="middle" class="text-xs fill-red-600">Risk</text>
-                            <text x="40" y="135" text-anchor="middle" class="text-xs fill-red-600">+60% Material</text>
+                        <!-- Performance impact chart -->
+                        <g transform="translate(220, 50)">
+                            <!-- Impact bars -->
+                            <rect x="20" y="20" width="20" height="20" fill="#059669"/>
+                            <text x="5" y="35" class="text-xs fill-green-600">1.0×</text>
+                            <text x="45" y="35" class="text-xs fill-green-600">Baseline</text>
+                            
+                            <rect x="20" y="45" width="35" height="20" fill="#d97706"/>
+                            <text x="5" y="60" class="text-xs fill-yellow-600">1.4×</text>
+                            <text x="60" y="60" class="text-xs fill-yellow-600">40% More</text>
+                            
+                            <rect x="20" y="70" width="60" height="20" fill="#dc2626"/>
+                            <text x="5" y="85" class="text-xs fill-red-600">2.0×</text>
+                            <text x="85" y="85" class="text-xs fill-red-600">100% More</text>
+                            
+                            <text x="80" y="105" text-anchor="middle" class="text-xs fill-gray-600">Structural Material</text>
                         </g>
                     </svg>
                 `,
@@ -1757,37 +3505,65 @@
                 definition: 'The number of levels where structural loads are transferred between misaligned vertical elements.',
                 detailedExplanation: 'Transfer structures are among the most expensive and carbon-intensive building elements. They occur when columns cannot align vertically due to program changes, requiring massive horizontal beams to transfer loads. Each transfer level typically uses 2-3 times more structural material than standard floors.',
                 visualSketch: `
-                    <svg viewBox="0 0 400 200" class="w-full h-32 mb-4">
-                        <!-- No Transfer - Aligned Columns -->
-                        <g transform="translate(50, 30)">
-                            <rect x="0" y="0" width="80" height="25" fill="none" stroke="#059669" stroke-width="2"/>
-                            <rect x="0" y="35" width="80" height="25" fill="none" stroke="#059669" stroke-width="2"/>
-                            <rect x="0" y="70" width="80" height="25" fill="none" stroke="#059669" stroke-width="2"/>
-                            <!-- Aligned columns -->
-                            <rect x="15" y="0" width="3" height="95" fill="#059669"/>
-                            <rect x="45" y="0" width="3" height="95" fill="#059669"/>
-                            <rect x="75" y="0" width="3" height="95" fill="#059669"/>
-                            <text x="40" y="115" text-anchor="middle" class="text-xs fill-green-600">No Transfer</text>
-                            <text x="40" y="130" text-anchor="middle" class="text-xs fill-green-600">Optimal</text>
+                    <svg viewBox="0 0 400 190" class="w-full h-32 mb-4">
+                        <!-- Title -->
+                        <text x="200" y="15" text-anchor="middle" class="text-sm font-bold fill-gray-700">COLUMN ALIGNMENT COMPARISON</text>
+                        
+                        <!-- Good: Straight Columns -->
+                        <g transform="translate(60, 30)">
+                            <!-- Simple building outline -->
+                            <rect x="0" y="0" width="80" height="120" fill="none" stroke="#059669" stroke-width="3"/>
+                            
+                            <!-- Floor lines -->
+                            <line x1="0" y1="30" x2="80" y2="30" stroke="#059669" stroke-width="1"/>
+                            <line x1="0" y1="60" x2="80" y2="60" stroke="#059669" stroke-width="1"/>
+                            <line x1="0" y1="90" x2="80" y2="90" stroke="#059669" stroke-width="1"/>
+                            
+                            <!-- Straight columns (good) -->
+                            <line x1="20" y1="0" x2="20" y2="120" stroke="#059669" stroke-width="3"/>
+                            <line x1="40" y1="0" x2="40" y2="120" stroke="#059669" stroke-width="3"/>
+                            <line x1="60" y1="0" x2="60" y2="120" stroke="#059669" stroke-width="3"/>
                         </g>
                         
-                        <!-- Transfer Structure -->
-                        <g transform="translate(200, 20)">
-                            <rect x="0" y="0" width="80" height="30" fill="none" stroke="#dc2626" stroke-width="2"/>
-                            <rect x="20" y="40" width="60" height="30" fill="none" stroke="#dc2626" stroke-width="2"/>
-                            <rect x="10" y="80" width="70" height="30" fill="none" stroke="#dc2626" stroke-width="2"/>
-                            <!-- Misaligned columns -->
-                            <rect x="15" y="0" width="3" height="30" fill="#dc2626"/>
-                            <rect x="75" y="0" width="3" height="30" fill="#dc2626"/>
-                            <!-- Transfer beam (thick) -->
-                            <rect x="0" y="30" width="100" height="10" fill="#dc2626" opacity="0.6"/>
-                            <!-- New column positions -->
-                            <rect x="25" y="40" width="3" height="70" fill="#dc2626"/>
-                            <rect x="55" y="40" width="3" height="70" fill="#dc2626"/>
-                            <rect x="75" y="40" width="3" height="70" fill="#dc2626"/>
-                            <text x="50" y="130" text-anchor="middle" class="text-xs fill-red-600">Transfer Required</text>
-                            <text x="50" y="145" text-anchor="middle" class="text-xs fill-red-600">+200% Material</text>
+                        <!-- Labels for good case with gap -->
+                        <text x="100" y="170" text-anchor="middle" class="text-xs fill-green-600 font-bold">✓ GOOD</text>
+                        <text x="100" y="180" text-anchor="middle" class="text-xs fill-green-600">Columns stack vertically</text>
+                        
+                        <!-- Problem: Offset Columns -->
+                        <g transform="translate(240, 30)">
+                            <!-- Building outline -->
+                            <rect x="0" y="0" width="80" height="120" fill="none" stroke="#dc2626" stroke-width="3"/>
+                            
+                            <!-- Floor lines -->
+                            <line x1="0" y1="30" x2="80" y2="30" stroke="#dc2626" stroke-width="1"/>
+                            <line x1="0" y1="60" x2="80" y2="60" stroke="#dc2626" stroke-width="1"/>
+                            <line x1="0" y1="90" x2="80" y2="90" stroke="#dc2626" stroke-width="1"/>
+                            
+                            <!-- Upper columns (offset) -->
+                            <line x1="15" y1="0" x2="15" y2="60" stroke="#dc2626" stroke-width="3"/>
+                            <line x1="65" y1="0" x2="65" y2="60" stroke="#dc2626" stroke-width="3"/>
+                            
+                            <!-- THICK TRANSFER BEAM -->
+                            <rect x="0" y="55" width="80" height="10" fill="#dc2626" opacity="0.8"/>
+                            
+                            <!-- Lower columns (different positions) -->
+                            <line x1="25" y1="65" x2="25" y2="120" stroke="#dc2626" stroke-width="3"/>
+                            <line x1="55" y1="65" x2="55" y2="120" stroke="#dc2626" stroke-width="3"/>
+                            
+                            <!-- Show the offset with arrows -->
+                            <path d="M 15 70 L 25 70" stroke="#dc2626" stroke-width="2" marker-end="url(#redarrow)"/>
+                            <path d="M 65 70 L 55 70" stroke="#dc2626" stroke-width="2" marker-end="url(#redarrow)"/>
                         </g>
+                        
+                        <!-- Labels for problem case with gap -->
+                        <text x="280" y="170" text-anchor="middle" class="text-xs fill-red-600 font-bold">✗ PROBLEM</text>
+                        <text x="280" y="180" text-anchor="middle" class="text-xs fill-red-600">Columns don't align = transfer needed</text>
+                        
+                        <defs>
+                            <marker id="redarrow" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto">
+                                <polygon points="0 0, 8 3, 0 6" fill="#dc2626"/>
+                            </marker>
+                        </defs>
                     </svg>
                 `,
                 quickRule: 'Align vertical structure wherever possible',
@@ -2353,13 +4129,27 @@
                                                     >
                                                         <i data-lucide="info" class="h-3 w-3"></i>
                                                     </button>
-                                                    <div id="info-simple-${param.id}" class="info-popup hidden absolute z-10 right-0 top-6 w-80 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg shadow-lg p-4">
+                                                    <div id="info-simple-${param.id}" class="info-popup hidden absolute z-20 right-0 top-6 w-96 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg shadow-lg p-4 max-h-96 overflow-y-auto">
                                                         <h4 class="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-3">${param.parameter}</h4>
+                                                        
+                                                        ${param.visualSketch ? `
+                                                            <div class="mb-4">
+                                                                <div class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Visual Guide:</div>
+                                                                ${param.visualSketch}
+                                                            </div>
+                                                        ` : ''}
                                                         
                                                         <div class="mb-3">
                                                             <div class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Definition:</div>
                                                             <p class="text-xs text-gray-600 dark:text-gray-400">${param.definition}</p>
                                                         </div>
+                                                        
+                                                        ${param.detailedExplanation ? `
+                                                            <div class="mb-3">
+                                                                <div class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Detailed Explanation:</div>
+                                                                <p class="text-xs text-gray-600 dark:text-gray-400">${param.detailedExplanation}</p>
+                                                            </div>
+                                                        ` : ''}
                                                         
                                                         <div class="mb-3">
                                                             <div class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Quick Rule:</div>
@@ -3753,6 +5543,830 @@
             }
         });
 
+        // BIM Code tab functions
+        function showCodeTab(tabName) {
+            // Hide all code content
+            document.querySelectorAll('.code-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+            
+            // Show selected content
+            document.getElementById(tabName + 'Code').classList.remove('hidden');
+            
+            // Update tab buttons
+            document.querySelectorAll('.code-tab').forEach(tab => {
+                tab.className = 'code-tab flex-1 px-3 py-2 rounded-md text-sm font-medium transition-colors text-gray-600 dark:text-gray-300';
+            });
+            
+            document.getElementById(tabName + 'Tab').className = 'code-tab flex-1 px-3 py-2 rounded-md text-sm font-medium transition-colors bg-white dark:bg-gray-500 text-gray-900 dark:text-gray-100';
+        }
+
+        function downloadBIMCode() {
+            // Create a ZIP-like structure with all code examples
+            const codeExamples = {
+                'ifc_extraction.py': document.querySelector('#ifcCode pre code').textContent,
+                'revit_api_extraction.cs': document.querySelector('#revitCode pre code').textContent,
+                'statistical_analysis.py': document.querySelector('#statisticsCode pre code').textContent,
+                'README.md': `# BIM Integration Code Examples
+
+This package contains code examples for integrating the Practical Design Efficiency Tool with BIM workflows.
+
+## Files Included:
+
+1. **ifc_extraction.py** - Python code for extracting parameters from IFC models using ifcopenshell
+2. **revit_api_extraction.cs** - C# code for Revit API parameter extraction
+3. **statistical_analysis.py** - Python code for statistical analysis and significance testing
+
+## Requirements:
+
+### For IFC Extraction:
+- Python 3.7+
+- ifcopenshell
+- numpy
+- pandas
+- scipy
+
+### For Revit API:
+- Autodesk Revit 2020+
+- Visual Studio with .NET Framework 4.8
+- Revit API SDK
+
+### For Statistical Analysis:
+- Python 3.7+
+- numpy
+- pandas
+- scipy
+- scikit-learn
+- matplotlib
+- seaborn
+
+## Installation:
+
+\`\`\`bash
+pip install ifcopenshell numpy pandas scipy scikit-learn matplotlib seaborn
+\`\`\`
+
+## Usage:
+
+See individual files for detailed usage instructions and examples.
+
+## Support:
+
+For questions and support, contact Lendlease Integrated Solutions team.
+`
+            };
+            
+            // Create and download individual files
+            Object.entries(codeExamples).forEach(([filename, content]) => {
+                const blob = new Blob([content], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                a.click();
+                URL.revokeObjectURL(url);
+            });
+            
+            showNotification('BIM integration code examples downloaded successfully!', 'success');
+        }
+
+        function contactBIMSupport() {
+            // Create a mailto link with pre-filled content
+            const subject = 'BIM Integration Support Request - Practical Design Efficiency Tool';
+            const body = `Hello Lendlease Integrated Solutions Team,
+
+I am interested in implementing BIM integration for the Practical Design Efficiency Tool in my workflow.
+
+Project Details:
+- Project Name: ${projectData.name || 'Not specified'}
+- Building Type: ${projectData.type || 'Not specified'}
+- BIM Software: [Please specify - Revit/ArchiCAD/Bentley/Other]
+- Model Format: [IFC/Native format]
+
+Specific Requirements:
+- [ ] Automated parameter extraction
+- [ ] Statistical impact analysis
+- [ ] Compliance checking
+- [ ] Custom parameter definitions
+- [ ] Integration with existing workflows
+
+Additional Information:
+[Please provide any additional details about your requirements]
+
+Thank you for your assistance.
+
+Best regards,
+[Your Name]`;
+
+            const mailtoLink = `mailto:integratedsolutions@lendlease.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.open(mailtoLink);
+        }
+
+        // Comprehensive Design Guide functions
+        function showComprehensiveGuide() {
+            document.getElementById('comprehensiveGuideModal').classList.remove('hidden');
+            showGuideSection('overview');
+        }
+
+        function showStatisticalMethodology() {
+            document.getElementById('statisticalMethodologyModal').classList.remove('hidden');
+        }
+
+        function closeComprehensiveGuide() {
+            document.getElementById('comprehensiveGuideModal').classList.add('hidden');
+        }
+
+        function closeStatisticalMethodology() {
+            document.getElementById('statisticalMethodologyModal').classList.add('hidden');
+        }
+
+        function showGuideSection(sectionName) {
+            // Hide all guide sections
+            document.querySelectorAll('.guide-section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionName + 'Section').classList.remove('hidden');
+            
+            // Update navigation buttons
+            document.querySelectorAll('.guide-nav-btn').forEach(btn => {
+                btn.className = 'guide-nav-btn flex-1 px-3 py-2 rounded-md text-sm font-medium transition-colors text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600';
+            });
+            
+            const activeBtn = document.getElementById(sectionName + 'NavBtn');
+            if (activeBtn) {
+                activeBtn.className = 'guide-nav-btn flex-1 px-3 py-2 rounded-md text-sm font-medium transition-colors bg-primary text-white';
+            }
+            
+            // Render section content
+            renderGuideSection(sectionName);
+            initializeIcons();
+        }
+
+        function renderGuideSection(sectionName) {
+            const container = document.getElementById(sectionName + 'Section');
+            
+            switch(sectionName) {
+                case 'overview':
+                    container.innerHTML = `
+                        <div class="space-y-6">
+                            <div class="bg-indigo-50 dark:bg-indigo-900/30 rounded-lg p-6">
+                                <h3 class="text-xl font-bold text-indigo-800 dark:text-indigo-200 mb-4">
+                                    <i data-lucide="book-open" class="h-6 w-6 mr-2 inline"></i>
+                                    Comprehensive Design Efficiency Guide
+                                </h3>
+                                <p class="text-indigo-700 dark:text-indigo-300 mb-4">
+                                    This guide provides detailed information about all 10 efficiency parameters, including visual explanations, 
+                                    statistical analysis methodology, impact estimation techniques, and compliance checking procedures.
+                                </p>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="bg-white dark:bg-gray-700 rounded-lg p-4">
+                                        <h4 class="font-semibold text-gray-800 dark:text-gray-100 mb-2">What's Included:</h4>
+                                        <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                                            <li>• Visual sketches for all parameters</li>
+                                            <li>• Statistical significance analysis</li>
+                                            <li>• Impact estimation formulas</li>
+                                            <li>• Compliance limit checking</li>
+                                            <li>• Remediation strategies</li>
+                                        </ul>
+                                    </div>
+                                    <div class="bg-white dark:bg-gray-700 rounded-lg p-4">
+                                        <h4 class="font-semibold text-gray-800 dark:text-gray-100 mb-2">Target Audience:</h4>
+                                        <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                                            <li>• Architects and designers</li>
+                                            <li>• Structural engineers</li>
+                                            <li>• MEP consultants</li>
+                                            <li>• Project managers</li>
+                                            <li>• Sustainability consultants</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Parameter Categories</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                    ${[...new Set(parameters.map(p => p.category))].map(category => {
+                                        const categoryParams = parameters.filter(p => p.category === category);
+                                        const highImpactCount = categoryParams.filter(p => 
+                                            p.impactScore.carbon === 'High' || p.impactScore.cost === 'High'
+                                        ).length;
+                                        
+                                        return `
+                                            <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 border border-gray-200 dark:border-gray-600">
+                                                <h4 class="font-semibold text-gray-800 dark:text-gray-100 mb-2">${category}</h4>
+                                                <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">${categoryParams.length} parameters</p>
+                                                <div class="flex items-center gap-2">
+                                                    <span class="text-xs px-2 py-1 rounded-full ${highImpactCount > 0 ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300' : 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300'}">
+                                                        ${highImpactCount} High Impact
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        `;
+                                    }).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'parameters':
+                    container.innerHTML = `
+                        <div class="space-y-8">
+                            <h3 class="text-xl font-bold text-gray-800 dark:text-gray-100">
+                                <i data-lucide="settings" class="h-6 w-6 mr-2 inline"></i>
+                                Parameter Reference Guide
+                            </h3>
+                            
+                            ${parameters.map(param => `
+                                <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg p-6">
+                                    <div class="flex items-start gap-4 mb-4">
+                                        <div class="flex-shrink-0">
+                                            <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                                                <i data-lucide="${getParameterIcon(param.category)}" class="h-6 w-6 text-primary"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex-1">
+                                            <h4 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-1">${param.parameter}</h4>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">${param.category} • ${param.metric}</p>
+                                            <p class="text-gray-700 dark:text-gray-300">${param.definition}</p>
+                                        </div>
+                                        <div class="flex gap-1">
+                                            ${createImpactIndicator(param.impactScore.cost, 'cost')}
+                                            ${createImpactIndicator(param.impactScore.carbon, 'carbon')}
+                                            ${createImpactIndicator(param.impactScore.time, 'time')}
+                                        </div>
+                                    </div>
+                                    
+                                    ${param.visualSketch ? `
+                                        <div class="mb-4">
+                                            <h5 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Visual Guide:</h5>
+                                            <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+                                                ${param.visualSketch}
+                                            </div>
+                                        </div>
+                                    ` : ''}
+                                    
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                        <div>
+                                            <h5 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Performance Ranges:</h5>
+                                            <div class="space-y-2">
+                                                <div class="flex items-center justify-between p-2 bg-green-50 dark:bg-green-900/30 rounded text-sm">
+                                                    <span class="text-green-700 dark:text-green-300 font-medium">Optimal</span>
+                                                    <span class="text-green-800 dark:text-green-200">${param.optimal}</span>
+                                                </div>
+                                                <div class="flex items-center justify-between p-2 bg-yellow-50 dark:bg-yellow-900/30 rounded text-sm">
+                                                    <span class="text-yellow-700 dark:text-yellow-300 font-medium">Acceptable</span>
+                                                    <span class="text-yellow-800 dark:text-yellow-200">${param.acceptable}</span>
+                                                </div>
+                                                <div class="flex items-center justify-between p-2 bg-red-50 dark:bg-red-900/30 rounded text-sm">
+                                                    <span class="text-red-700 dark:text-red-300 font-medium">Risk</span>
+                                                    <span class="text-red-800 dark:text-red-200">${param.risk}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div>
+                                            <h5 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Key Benefits:</h5>
+                                            <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                                                ${param.benefits.map(benefit => `<li>• ${benefit}</li>`).join('')}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="bg-blue-50 dark:bg-blue-900/30 rounded-lg p-4 mb-4">
+                                        <h5 class="text-sm font-semibold text-blue-800 dark:text-blue-200 mb-2">Technical Note:</h5>
+                                        <p class="text-sm text-blue-700 dark:text-blue-300">${param.technicalNote}</p>
+                                    </div>
+                                    
+                                    <div>
+                                        <h5 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Remediation Strategies:</h5>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                                            ${param.remediation.map(remedy => `
+                                                <div class="flex items-start gap-2 p-2 bg-gray-50 dark:bg-gray-700 rounded">
+                                                    <i data-lucide="check-circle" class="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0"></i>
+                                                    <span class="text-sm text-gray-700 dark:text-gray-300">${remedy}</span>
+                                                </div>
+                                            `).join('')}
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                    break;
+                    
+                case 'analysis':
+                    container.innerHTML = `
+                        <div class="space-y-6">
+                            <h3 class="text-xl font-bold text-gray-800 dark:text-gray-100">
+                                <i data-lucide="bar-chart-3" class="h-6 w-6 mr-2 inline"></i>
+                                Statistical Analysis Methodology
+                            </h3>
+                            
+                            <div class="bg-orange-50 dark:bg-orange-900/30 border border-orange-200 dark:border-orange-700 rounded-lg p-6">
+                                <h4 class="text-lg font-semibold text-orange-800 dark:text-orange-200 mb-4">Analysis Framework Overview</h4>
+                                <p class="text-orange-700 dark:text-orange-300 mb-4">
+                                    The tool uses a comprehensive statistical framework to assess parameter significance, 
+                                    estimate impacts, and determine compliance with industry standards.
+                                </p>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div class="bg-white dark:bg-gray-700 rounded p-4">
+                                        <h5 class="font-semibold text-gray-800 dark:text-gray-100 mb-2">1. Significance Testing</h5>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">Statistical significance using industry benchmarks and project-specific context</p>
+                                    </div>
+                                    <div class="bg-white dark:bg-gray-700 rounded p-4">
+                                        <h5 class="font-semibold text-gray-800 dark:text-gray-100 mb-2">2. Impact Estimation</h5>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">Quantitative assessment of cost, carbon, and schedule impacts</p>
+                                    </div>
+                                    <div class="bg-white dark:bg-gray-700 rounded p-4">
+                                        <h5 class="font-semibold text-gray-800 dark:text-gray-100 mb-2">3. Compliance Checking</h5>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">Verification against building codes and sustainability standards</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg p-6">
+                                    <h4 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Statistical Significance Calculation</h4>
+                                    
+                                    <div class="space-y-4">
+                                        <div>
+                                            <h5 class="font-medium text-gray-700 dark:text-gray-300 mb-2">Z-Score Formula:</h5>
+                                            <div class="bg-gray-100 dark:bg-gray-700 rounded p-3 font-mono text-sm">
+                                                z = (observed_value - benchmark_mean) / benchmark_std
+                                            </div>
+                                        </div>
+                                        
+                                        <div>
+                                            <h5 class="font-medium text-gray-700 dark:text-gray-300 mb-2">P-Value Calculation:</h5>
+                                            <div class="bg-gray-100 dark:bg-gray-700 rounded p-3 font-mono text-sm">
+                                                p_value = 2 * (1 - norm.cdf(abs(z_score)))
+                                            </div>
+                                        </div>
+                                        
+                                        <div>
+                                            <h5 class="font-medium text-gray-700 dark:text-gray-300 mb-2">Significance Levels:</h5>
+                                            <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                                                <li>• p < 0.01: Highly Significant</li>
+                                                <li>• p < 0.05: Significant</li>
+                                                <li>• p < 0.10: Marginally Significant</li>
+                                                <li>• p ≥ 0.10: Not Significant</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg p-6">
+                                    <h4 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Impact Assessment Models</h4>
+                                    
+                                    <div class="space-y-4">
+                                        <div>
+                                            <h5 class="font-medium text-gray-700 dark:text-gray-300 mb-2">Form Efficiency Impact:</h5>
+                                            <div class="bg-gray-100 dark:bg-gray-700 rounded p-3 text-sm">
+                                                <div class="font-mono mb-2">energy_multiplier = 1 + (form_eff - 0.25) * 0.8</div>
+                                                <div class="font-mono">cost_multiplier = 1 + (form_eff - 0.25) * 0.6</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div>
+                                            <h5 class="font-medium text-gray-700 dark:text-gray-300 mb-2">Structural Grid Impact:</h5>
+                                            <div class="bg-gray-100 dark:bg-gray-700 rounded p-3 text-sm">
+                                                <div class="font-mono mb-2">beam_depth_factor = span > 8m ? 1 + ((span-8)/8)^1.5 : 1</div>
+                                                <div class="font-mono">material_multiplier = beam_depth_factor * 1.2</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div>
+                                            <h5 class="font-medium text-gray-700 dark:text-gray-300 mb-2">Cantilever Impact:</h5>
+                                            <div class="bg-gray-100 dark:bg-gray-700 rounded p-3 text-sm">
+                                                <div class="font-mono">material_increase = 40-60% per metre of cantilever</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-purple-50 dark:bg-purple-900/30 border border-purple-200 dark:border-purple-700 rounded-lg p-6">
+                                <h4 class="text-lg font-semibold text-purple-800 dark:text-purple-200 mb-4">Monte Carlo Uncertainty Analysis</h4>
+                                <p class="text-purple-700 dark:text-purple-300 mb-4">
+                                    The tool uses Monte Carlo simulation to account for parameter uncertainty and measurement error, 
+                                    providing confidence intervals for impact predictions.
+                                </p>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <h5 class="font-medium text-purple-800 dark:text-purple-200 mb-2">Simulation Process:</h5>
+                                        <ol class="text-sm text-purple-700 dark:text-purple-300 space-y-1">
+                                            <li>1. Define parameter uncertainty distributions</li>
+                                            <li>2. Sample parameter values (1000 iterations)</li>
+                                            <li>3. Calculate outcomes for each sample</li>
+                                            <li>4. Analyze result distributions</li>
+                                            <li>5. Calculate confidence intervals</li>
+                                        </ol>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-medium text-purple-800 dark:text-purple-200 mb-2">Output Statistics:</h5>
+                                        <ul class="text-sm text-purple-700 dark:text-purple-300 space-y-1">
+                                            <li>• Mean predicted impact</li>
+                                            <li>• Standard deviation</li>
+                                            <li>• 95% confidence intervals</li>
+                                            <li>• Coefficient of variation</li>
+                                            <li>• Risk assessment levels</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'compliance':
+                    container.innerHTML = `
+                        <div class="space-y-6">
+                            <h3 class="text-xl font-bold text-gray-800 dark:text-gray-100">
+                                <i data-lucide="shield-check" class="h-6 w-6 mr-2 inline"></i>
+                                Compliance Framework & Limit Checking
+                            </h3>
+                            
+                            <div class="bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-700 rounded-lg p-6">
+                                <h4 class="text-lg font-semibold text-green-800 dark:text-green-200 mb-4">Standards & Benchmarks</h4>
+                                <p class="text-green-700 dark:text-green-300 mb-4">
+                                    The tool automatically verifies parameter values against multiple standards and performance benchmarks, 
+                                    providing compliance status and identifying potential issues.
+                                </p>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div class="bg-white dark:bg-gray-700 rounded p-4">
+                                        <h5 class="font-semibold text-gray-800 dark:text-gray-100 mb-2">Building Codes</h5>
+                                        <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                                            <li>• National Construction Code (NCC)</li>
+                                            <li>• Australian Standards (AS)</li>
+                                            <li>• International Building Code (IBC)</li>
+                                            <li>• Local planning requirements</li>
+                                        </ul>
+                                    </div>
+                                    <div class="bg-white dark:bg-gray-700 rounded p-4">
+                                        <h5 class="font-semibold text-gray-800 dark:text-gray-100 mb-2">Sustainability Standards</h5>
+                                        <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                                            <li>• Green Star benchmarks</li>
+                                            <li>• NABERS requirements</li>
+                                            <li>• LEED performance criteria</li>
+                                            <li>• Net Zero Carbon targets</li>
+                                        </ul>
+                                    </div>
+                                    <div class="bg-white dark:bg-gray-700 rounded p-4">
+                                        <h5 class="font-semibold text-gray-800 dark:text-gray-100 mb-2">Industry Benchmarks</h5>
+                                        <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                                            <li>• Structural efficiency norms</li>
+                                            <li>• MEP system performance</li>
+                                            <li>• Planning efficiency ratios</li>
+                                            <li>• Construction best practices</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg p-6">
+                                    <h4 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Compliance Checking Process</h4>
+                                    
+                                    <div class="space-y-4">
+                                        <div class="flex items-start gap-3">
+                                            <div class="w-8 h-8 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center flex-shrink-0">
+                                                <span class="text-blue-600 dark:text-blue-400 font-semibold text-sm">1</span>
+                                            </div>
+                                            <div>
+                                                <h5 class="font-medium text-gray-800 dark:text-gray-100">Parameter Classification</h5>
+                                                <p class="text-sm text-gray-600 dark:text-gray-400">Each parameter is classified by building type and applicable standards</p>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="flex items-start gap-3">
+                                            <div class="w-8 h-8 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center flex-shrink-0">
+                                                <span class="text-blue-600 dark:text-blue-400 font-semibold text-sm">2</span>
+                                            </div>
+                                            <div>
+                                                <h5 class="font-medium text-gray-800 dark:text-gray-100">Limit Verification</h5>
+                                                <p class="text-sm text-gray-600 dark:text-gray-400">Values are checked against minimum/maximum limits and acceptable ranges</p>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="flex items-start gap-3">
+                                            <div class="w-8 h-8 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center flex-shrink-0">
+                                                <span class="text-blue-600 dark:text-blue-400 font-semibold text-sm">3</span>
+                                            </div>
+                                            <div>
+                                                <h5 class="font-medium text-gray-800 dark:text-gray-100">Risk Assessment</h5>
+                                                <p class="text-sm text-gray-600 dark:text-gray-400">Non-compliant values are assessed for severity and potential impact</p>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="flex items-start gap-3">
+                                            <div class="w-8 h-8 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center flex-shrink-0">
+                                                <span class="text-blue-600 dark:text-blue-400 font-semibold text-sm">4</span>
+                                            </div>
+                                            <div>
+                                                <h5 class="font-medium text-gray-800 dark:text-gray-100">Recommendations</h5>
+                                                <p class="text-sm text-gray-600 dark:text-gray-400">Specific actions are suggested to achieve compliance</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg p-6">
+                                    <h4 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Example Compliance Limits</h4>
+                                    
+                                    <div class="space-y-4">
+                                        <div>
+                                            <h5 class="font-medium text-gray-700 dark:text-gray-300 mb-2">Floor-to-Floor Height (Office)</h5>
+                                            <div class="space-y-2">
+                                                <div class="flex justify-between p-2 bg-red-50 dark:bg-red-900/30 rounded text-sm">
+                                                    <span class="text-red-700 dark:text-red-300">Code Minimum</span>
+                                                    <span class="text-red-800 dark:text-red-200">≥ 2.4m</span>
+                                                </div>
+                                                <div class="flex justify-between p-2 bg-green-50 dark:bg-green-900/30 rounded text-sm">
+                                                    <span class="text-green-700 dark:text-green-300">Optimal Range</span>
+                                                    <span class="text-green-800 dark:text-green-200">3.6 - 3.9m</span>
+                                                </div>
+                                                <div class="flex justify-between p-2 bg-yellow-50 dark:bg-yellow-900/30 rounded text-sm">
+                                                    <span class="text-yellow-700 dark:text-yellow-300">Efficiency Limit</span>
+                                                    <span class="text-yellow-800 dark:text-yellow-200">≤ 4.2m</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div>
+                                            <h5 class="font-medium text-gray-700 dark:text-gray-300 mb-2">Form Efficiency</h5>
+                                            <div class="space-y-2">
+                                                <div class="flex justify-between p-2 bg-green-50 dark:bg-green-900/30 rounded text-sm">
+                                                    <span class="text-green-700 dark:text-green-300">Green Star Target</span>
+                                                    <span class="text-green-800 dark:text-green-200">≤ 0.30</span>
+                                                </div>
+                                                <div class="flex justify-between p-2 bg-blue-50 dark:bg-blue-900/30 rounded text-sm">
+                                                    <span class="text-blue-700 dark:text-blue-300">Optimal</span>
+                                                    <span class="text-blue-800 dark:text-blue-200">≤ 0.25</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div>
+                                            <h5 class="font-medium text-gray-700 dark:text-gray-300 mb-2">Structural Grid</h5>
+                                            <div class="space-y-2">
+                                                <div class="flex justify-between p-2 bg-green-50 dark:bg-green-900/30 rounded text-sm">
+                                                    <span class="text-green-700 dark:text-green-300">Efficient Range</span>
+                                                    <span class="text-green-800 dark:text-green-200">7.5 - 8.5m</span>
+                                                </div>
+                                                <div class="flex justify-between p-2 bg-yellow-50 dark:bg-yellow-900/30 rounded text-sm">
+                                                    <span class="text-yellow-700 dark:text-yellow-300">Review Above</span>
+                                                    <span class="text-yellow-800 dark:text-yellow-200">9.0m</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-700 rounded-lg p-6">
+                                <h4 class="text-lg font-semibold text-red-800 dark:text-red-200 mb-4">
+                                    <i data-lucide="alert-triangle" class="h-5 w-5 mr-2 inline"></i>
+                                    Compliance Violations & Actions
+                                </h4>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div>
+                                        <h5 class="font-medium text-red-800 dark:text-red-200 mb-2">Critical Violations</h5>
+                                        <ul class="text-sm text-red-700 dark:text-red-300 space-y-1">
+                                            <li>• Code non-compliance</li>
+                                            <li>• Structural safety issues</li>
+                                            <li>• Extreme parameter values</li>
+                                        </ul>
+                                        <div class="mt-2 p-2 bg-red-100 dark:bg-red-800/30 rounded text-xs text-red-700 dark:text-red-300">
+                                            <strong>Action:</strong> Immediate design revision required
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <h5 class="font-medium text-yellow-800 dark:text-yellow-200 mb-2">Performance Issues</h5>
+                                        <ul class="text-sm text-yellow-700 dark:text-yellow-300 space-y-1">
+                                            <li>• Efficiency targets missed</li>
+                                            <li>• Sustainability benchmarks</li>
+                                            <li>• Best practice deviations</li>
+                                        </ul>
+                                        <div class="mt-2 p-2 bg-yellow-100 dark:bg-yellow-800/30 rounded text-xs text-yellow-700 dark:text-yellow-300">
+                                            <strong>Action:</strong> Design optimisation recommended
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <h5 class="font-medium text-green-800 dark:text-green-200 mb-2">Minor Deviations</h5>
+                                        <ul class="text-sm text-green-700 dark:text-green-300 space-y-1">
+                                            <li>• Industry norm variations</li>
+                                            <li>• Project-specific constraints</li>
+                                            <li>• Acceptable trade-offs</li>
+                                        </ul>
+                                        <div class="mt-2 p-2 bg-green-100 dark:bg-green-800/30 rounded text-xs text-green-700 dark:text-green-300">
+                                            <strong>Action:</strong> Document justification
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'implementation':
+                    container.innerHTML = `
+                        <div class="space-y-6">
+                            <h3 class="text-xl font-bold text-gray-800 dark:text-gray-100">
+                                <i data-lucide="cog" class="h-6 w-6 mr-2 inline"></i>
+                                Implementation Guidelines
+                            </h3>
+                            
+                            <div class="bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-700 rounded-lg p-6">
+                                <h4 class="text-lg font-semibold text-blue-800 dark:text-blue-200 mb-4">Project Integration Workflow</h4>
+                                <p class="text-blue-700 dark:text-blue-300 mb-4">
+                                    Integrate design efficiency analysis into your project workflow for maximum benefit. 
+                                    Early application provides the greatest opportunities for optimization.
+                                </p>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                                    <div class="bg-white dark:bg-gray-700 rounded p-4 text-center">
+                                        <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-2">
+                                            <span class="text-white font-semibold text-sm">1</span>
+                                        </div>
+                                        <h5 class="font-semibold text-gray-800 dark:text-gray-100 mb-1">Concept Design</h5>
+                                        <p class="text-xs text-gray-600 dark:text-gray-400">Initial massing and form analysis</p>
+                                    </div>
+                                    <div class="bg-white dark:bg-gray-700 rounded p-4 text-center">
+                                        <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-2">
+                                            <span class="text-white font-semibold text-sm">2</span>
+                                        </div>
+                                        <h5 class="font-semibold text-gray-800 dark:text-gray-100 mb-1">Schematic Design</h5>
+                                        <p class="text-xs text-gray-600 dark:text-gray-400">Detailed parameter optimization</p>
+                                    </div>
+                                    <div class="bg-white dark:bg-gray-700 rounded p-4 text-center">
+                                        <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-2">
+                                            <span class="text-white font-semibold text-sm">3</span>
+                                        </div>
+                                        <h5 class="font-semibold text-gray-800 dark:text-gray-100 mb-1">Design Development</h5>
+                                        <p class="text-xs text-gray-600 dark:text-gray-400">Final compliance verification</p>
+                                    </div>
+                                    <div class="bg-white dark:bg-gray-700 rounded p-4 text-center">
+                                        <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-2">
+                                            <span class="text-white font-semibold text-sm">4</span>
+                                        </div>
+                                        <h5 class="font-semibold text-gray-800 dark:text-gray-100 mb-1">Construction</h5>
+                                        <p class="text-xs text-gray-600 dark:text-gray-400">Monitor implementation</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg p-6">
+                                    <h4 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Best Practices for Teams</h4>
+                                    
+                                    <div class="space-y-4">
+                                        <div>
+                                            <h5 class="font-medium text-gray-700 dark:text-gray-300 mb-2">Design Team Coordination:</h5>
+                                            <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                                                <li>• Share analysis results with all consultants</li>
+                                                <li>• Establish parameter targets early in the project</li>
+                                                <li>• Regular review meetings to track progress</li>
+                                                <li>• Document design decisions and trade-offs</li>
+                                            </ul>
+                                        </div>
+                                        
+                                        <div>
+                                            <h5 class="font-medium text-gray-700 dark:text-gray-300 mb-2">Iterative Design Process:</h5>
+                                            <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                                                <li>• Test multiple design options</li>
+                                                <li>• Compare efficiency scores between alternatives</li>
+                                                <li>• Focus on high-impact parameters first</li>
+                                                <li>• Validate assumptions with detailed analysis</li>
+                                            </ul>
+                                        </div>
+                                        
+                                        <div>
+                                            <h5 class="font-medium text-gray-700 dark:text-gray-300 mb-2">Documentation:</h5>
+                                            <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                                                <li>• Export reports for project records</li>
+                                                <li>• Include analysis in sustainability reports</li>
+                                                <li>• Track performance through construction</li>
+                                                <li>• Conduct post-occupancy validation</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg p-6">
+                                    <h4 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Common Implementation Challenges</h4>
+                                    
+                                    <div class="space-y-4">
+                                        <div class="border-l-4 border-yellow-400 pl-4">
+                                            <h5 class="font-medium text-yellow-800 dark:text-yellow-200 mb-1">Challenge: Late Parameter Changes</h5>
+                                            <p class="text-sm text-yellow-700 dark:text-yellow-300 mb-2">Parameters changed after design development</p>
+                                            <p class="text-xs text-gray-600 dark:text-gray-400"><strong>Solution:</strong> Regular analysis updates and stakeholder communication</p>
+                                        </div>
+                                        
+                                        <div class="border-l-4 border-red-400 pl-4">
+                                            <h5 class="font-medium text-red-800 dark:text-red-200 mb-1">Challenge: Conflicting Requirements</h5>
+                                            <p class="text-sm text-red-700 dark:text-red-300 mb-2">Efficiency vs. program requirements conflict</p>
+                                            <p class="text-xs text-gray-600 dark:text-gray-400"><strong>Solution:</strong> Early stakeholder alignment and trade-off analysis</p>
+                                        </div>
+                                        
+                                        <div class="border-l-4 border-blue-400 pl-4">
+                                            <h5 class="font-medium text-blue-800 dark:text-blue-200 mb-1">Challenge: Data Availability</h5>
+                                            <p class="text-sm text-blue-700 dark:text-blue-300 mb-2">Insufficient data for complete analysis</p>
+                                            <p class="text-xs text-gray-600 dark:text-gray-400"><strong>Solution:</strong> Phased analysis approach with assumption documentation</p>
+                                        </div>
+                                        
+                                        <div class="border-l-4 border-green-400 pl-4">
+                                            <h5 class="font-medium text-green-800 dark:text-green-200 mb-1">Challenge: Team Buy-in</h5>
+                                            <p class="text-sm text-green-700 dark:text-green-300 mb-2">Resistance to changing established practices</p>
+                                            <p class="text-xs text-gray-600 dark:text-gray-400"><strong>Solution:</strong> Demonstrate value through pilot projects and training</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
+                                <h4 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Action Checklist</h4>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <h5 class="font-medium text-gray-700 dark:text-gray-300 mb-3">Project Start (Week 1-2):</h5>
+                                        <div class="space-y-2">
+                                            <label class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                                                <input type="checkbox" class="mr-2 rounded">
+                                                Establish efficiency targets with client
+                                            </label>
+                                            <label class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                                                <input type="checkbox" class="mr-2 rounded">
+                                                Brief design team on methodology
+                                            </label>
+                                            <label class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                                                <input type="checkbox" class="mr-2 rounded">
+                                                Set up analysis schedule
+                                            </label>
+                                            <label class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                                                <input type="checkbox" class="mr-2 rounded">
+                                                Identify project-specific constraints
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <h5 class="font-medium text-gray-700 dark:text-gray-300 mb-3">Concept Phase (Week 3-4):</h5>
+                                        <div class="space-y-2">
+                                            <label class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                                                <input type="checkbox" class="mr-2 rounded">
+                                                Complete initial efficiency analysis
+                                            </label>
+                                            <label class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                                                <input type="checkbox" class="mr-2 rounded">
+                                                Compare multiple massing options
+                                            </label>
+                                            <label class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                                                <input type="checkbox" class="mr-2 rounded">
+                                                Identify key optimization opportunities
+                                            </label>
+                                            <label class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                                                <input type="checkbox" class="mr-2 rounded">
+                                                Present findings to stakeholders
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-6 p-4 bg-primary/10 rounded">
+                                    <p class="text-sm text-primary font-medium">
+                                        <i data-lucide="lightbulb" class="h-4 w-4 mr-1 inline"></i>
+                                        Pro Tip: Early analysis saves time and money. Most efficiency gains come from decisions made in the first 20% of design development.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+            }
+        }
+
+        function getParameterIcon(category) {
+            const iconMap = {
+                'Building Form': 'building-2',
+                'Structure': 'columns',
+                'Vertical Design': 'move-vertical',
+                'Special Conditions': 'triangle-alert',
+                'Envelope': 'square',
+                'Planning': 'layout-grid',
+                'MEP': 'zap'
+            };
+            return iconMap[category] || 'settings';
+        }
+
         // Global functions for onclick handlers
         window.showPage = showPage;
         window.showParameterDetail = showParameterDetail;
@@ -3791,6 +6405,17 @@
         window.closeFileUploadModal = closeFileUploadModal;
         window.removeFile = removeFile;
         window.processUploadedFiles = processUploadedFiles;
+        window.quickStart = quickStart;
+        window.handleQuickStart = handleQuickStart;
+        window.scrollToFeatures = scrollToFeatures;
+        window.showCodeTab = showCodeTab;
+        window.downloadBIMCode = downloadBIMCode;
+        window.contactBIMSupport = contactBIMSupport;
+        window.showComprehensiveGuide = showComprehensiveGuide;
+        window.showStatisticalMethodology = showStatisticalMethodology;
+        window.closeComprehensiveGuide = closeComprehensiveGuide;
+        window.closeStatisticalMethodology = closeStatisticalMethodology;
+        window.showGuideSection = showGuideSection;
 
         // Sustainability-focused helper functions
         function calculateSustainabilityStats() {
