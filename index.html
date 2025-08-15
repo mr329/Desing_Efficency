@@ -3159,6 +3159,7 @@ def analyze_project_statistically(parameters, building_type="office"):
             {
                 id: 'form-efficiency',
                 category: 'Building Form',
+                discipline: 'Architecture',
                 parameter: 'Form Efficiency',
                 metric: 'P/A Ratio',
                 definition: 'The ratio of exterior wall perimeter to floor area. Lower values indicate more compact, efficient forms. Calculated as: Building Perimeter (m) ÷ Floor Area (m²).',
@@ -4072,12 +4073,11 @@ def analyze_project_statistically(parameters, building_type="office"):
             
             const categoryGroups = {
                 'High Impact - Priority Actions': highImpactParams,
-                'Medium Impact - Important': mediumImpactParams,
-                'Low Impact - Fine-tuning': lowImpactParams
+                'Medium Impact - Important': mediumImpactParams
             };
             
             container.innerHTML = `
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     ${Object.entries(categoryGroups).map(([categoryName, params]) => `
                         <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-600 p-4">
                             <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4 pb-2 border-b border-gray-200 dark:border-gray-600">
@@ -4092,7 +4092,10 @@ def analyze_project_statistically(parameters, building_type="office"):
                                     return `
                                         <div id="param-container-${param.id}" class="space-y-2">
                                             <div class="flex items-center gap-2">
-                                                <h4 class="text-sm font-medium text-gray-800 dark:text-gray-100 flex-1">${param.parameter}</h4>
+                                                <div class="flex-1">
+                                        <h4 class="text-sm font-medium text-gray-800 dark:text-gray-100">${param.parameter}</h4>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">${param.discipline ? param.discipline + ' • ' : ''}${param.category}</p>
+                                    </div>
                                                 ${isMinimized ? `
                                                     <div class="flex items-center gap-1 px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-xs">
                                                         <i data-lucide="eye-off" class="h-3 w-3"></i>
